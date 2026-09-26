@@ -62,37 +62,27 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  name: 'Anvil Quest Wiki',
-  shortName: 'AQ Wiki',
-  description:
-    'Complete Anvil Quest wiki with boss guides, tier lists, codes, item locations, and beginner tips. Every guide carries a last-verified date.',
-  domain: 'anvil.wiki',
-  tagline: 'Your forge for everything Anvil Quest',
-  legalNotice:
-    'Anvil Quest Wiki is a fan-made community site. Not affiliated with or endorsed by the game developer.',
-  // 👉 APPLY TEMPLATE: set a real address if you run no social channels —
-  // the contact page renders it as a mailto link.
+  name: 'Aniimo Wiki',
+  shortName: 'Aniimo Wiki',
+  description: 'Aniimo 中文 Wiki，提供新手攻略、Aniimo 图鉴、属性克制、兑换码、排行榜、地图和任务指南。',
+  domain: 'aniimo-wiki.pages.dev',
+  tagline: 'Aniimo 中文攻略站：探索、抓捕与培养所有 Aniimo',
+  legalNotice: 'Aniimo Wiki 是玩家制作的非官方社区网站，与 Pawprint Studio 及 Aniimo 官方无隶属关系。',
+  // Set a real address if you run no social channels — the contact page
+  // renders it as a mailto link.
   contactEmail: '',
   social: {
-    official: 'https://example.com/anvil-quest',
-    discord: 'https://discord.gg/example',
-    youtube: 'https://youtube.com/@example',
-    twitter: 'https://twitter.com/example',
-    reddit: 'https://reddit.com/r/anvilquest',
+    official: 'https://aniimo.com',
   },
-  // 👉 APPLY TEMPLATE: point these at the game's real canonical pages.
-  sameAs: [
-    'https://example.com/anvil-quest',
-    'https://en.wikipedia.org/wiki/Anvil_Quest',
-  ],
   game: {
-    name: 'Anvil Quest',
-    platform: 'Roblox',
-    developer: 'Forge Studios',
-    genre: 'Fantasy RPG',
-    releaseDate: '2026-01-15',
+    name: 'Aniimo',
+    platform: 'PC / Mobile / PS5 / Xbox',
+    developer: 'Pawprint Studio',
+    genre: '开放世界抓宠 RPG',
+    releaseDate: '2026-09-15',
   },
-  // hero.webp is 1200×630 (the recommended OG share aspect ratio).
+  // og:image dims of the SHIPPED hero.webp — if you replace public/images/hero.webp,
+  // update these in src/config/site.ts to match (wrong dims mis-crop share cards).
   ogImageWidth: 1200,
   ogImageHeight: 630,
 };

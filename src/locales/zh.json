@@ -8,24 +8,24 @@
     "legalNotice": "Aniimo Wiki 是玩家制作的非官方社区网站，与 Pawprint Studio 及 Aniimo 官方无隶属关系。"
   },
   "nav": {
-    "home": "Home",
-    "toggleTheme": "Toggle theme",
-    "menu": "Menu",
-    "close": "Close",
-    "search": "Search",
-    "language": "Language",
-    "guides": "Guides",
-    "characters": "Characters",
-    "items": "Items",
-    "codes": "Codes",
-    "tier-list": "Tier List",
-    "maps": "Maps",
-    "quests": "Quests"
+    "home": "首页",
+    "toggleTheme": "切换主题",
+    "menu": "菜单",
+    "close": "关闭",
+    "search": "搜索",
+    "language": "语言",
+    "guides": "攻略",
+    "characters": "Aniimo 图鉴",
+    "items": "物品",
+    "codes": "兑换码",
+    "tier-list": "强度榜",
+    "maps": "地图",
+    "quests": "任务"
   },
   "search": {
-    "placeholder": "Search the wiki...",
-    "noResults": "No matches found",
-    "loadError": "Search failed to load — refresh the page and try again."
+    "placeholder": "搜索 Aniimo Wiki...",
+    "noResults": "没有找到相关内容",
+    "loadError": "搜索加载失败，请刷新页面重试。"
   },
   "shared": {
     "lastUpdated": "Last updated",
@@ -127,157 +127,157 @@
   },
   "overview": {
     "guides": {
-      "overviewTitle": "All Guides",
-      "overviewDescription": "Guides content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 攻略",
+      "overviewDescription": "查看 Aniimo 新手入门、探索、战斗和成长攻略。"
     },
     "characters": {
-      "overviewTitle": "All Characters",
-      "overviewDescription": "Characters content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 图鉴",
+      "overviewDescription": "整理 Aniimo 图鉴、能力、培养方向和实战信息。"
     },
     "items": {
-      "overviewTitle": "All Items",
-      "overviewDescription": "Items content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 物品",
+      "overviewDescription": "查找 Aniimo 中的资源、装备、材料和使用方法。"
     },
     "codes": {
-      "overviewTitle": "All Codes",
-      "overviewDescription": "Codes content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 兑换码",
+      "overviewDescription": "集中整理 Aniimo 官方兑换码，并标注有效期和奖励。"
     },
     "tier-list": {
-      "overviewTitle": "All Tier List",
-      "overviewDescription": "Tier List content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 强度榜",
+      "overviewDescription": "根据版本、用途和培养成本整理 Aniimo 强度榜。"
     },
     "maps": {
-      "overviewTitle": "All Maps",
-      "overviewDescription": "Maps content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 地图",
+      "overviewDescription": "查找区域、资源、任务和重要地点的位置说明。"
     },
     "quests": {
-      "overviewTitle": "All Quests",
-      "overviewDescription": "Quests content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Aniimo 任务",
+      "overviewDescription": "查看 Aniimo 主线、支线和活动任务的完成方法。"
     }
   },
   "home": {
     "meta": {
-      "title": "Aniimo Wiki — Guides, Bosses & Progression",
+      "title": "Aniimo Wiki — 中文攻略、图鉴与兑换码",
       "description": "Aniimo 中文 Wiki，提供新手攻略、Aniimo 图鉴、属性克制、兑换码、排行榜、地图和任务指南。"
     },
     "updates": {
-      "title": "Recent updates"
+      "title": "最近更新"
     },
     "popular": {
-      "badge": "Popular",
-      "title": "Most read",
+      "badge": "热门内容",
+      "title": "大家正在看",
       "quickLinks": [
         {
-          "label": "Guides",
+          "label": "攻略",
           "href": "/guides"
         },
         {
-          "label": "Characters",
+          "label": "图鉴",
           "href": "/characters"
         },
         {
-          "label": "Items",
+          "label": "物品",
           "href": "/items"
         }
       ]
     },
     "closingCta": {
-      "title": "Start your Aniimo journey",
-      "description": "Bookmark this wiki and check back after every game update.",
-      "primary": "Browse all",
-      "secondary": "Join the community"
+      "title": "开始你的 Aniimo 冒险",
+      "description": "收藏本 Wiki，在每次游戏更新后回来查看最新内容。",
+      "primary": "浏览全部内容",
+      "secondary": "加入社区"
     },
     "hero": {
-      "badge": "Aniimo",
+      "badge": "Aniimo 中文攻略站",
       "title": "Aniimo Wiki",
-      "description": "Complete Aniimo guides — bosses, items, and progression.",
-      "ctaPrimary": "Start reading",
-      "ctaSecondary": "Browse all"
+      "description": "探索、抓捕和培养 Aniimo 所需的攻略、图鉴、地图与兑换码。",
+      "ctaPrimary": "开始阅读",
+      "ctaSecondary": "浏览全部"
     },
     "start": {
-      "badge": "Quick start",
-      "title": "New here?",
+      "badge": "快速开始",
+      "title": "第一次来？",
       "cards": [
         {
           "number": "1",
-          "title": "Guides",
-          "description": "Browse guides",
+          "title": "攻略",
+          "description": "查看新手攻略",
           "icon": "lucide:book-open",
           "href": "/guides"
         },
         {
           "number": "2",
-          "title": "Characters",
-          "description": "Browse characters",
+          "title": "Aniimo 图鉴",
+          "description": "查看图鉴内容",
           "icon": "lucide:book-open",
           "href": "/characters"
         },
         {
           "number": "3",
-          "title": "Items",
-          "description": "Browse items",
+          "title": "物品",
+          "description": "查找资源物品",
           "icon": "lucide:book-open",
           "href": "/items"
         },
         {
           "number": "4",
-          "title": "Codes",
-          "description": "Browse codes",
+          "title": "兑换码",
+          "description": "查看可用兑换码",
           "icon": "lucide:book-open",
           "href": "/codes"
         }
       ]
     },
     "explore": {
-      "title": "Explore",
-      "description": "Content modules",
+      "title": "探索 Aniimo",
+      "description": "按主题查找实用内容",
       "modules": [
         {
           "order": 1,
-          "name": "Getting started",
-          "description": "Step-by-step progression",
+          "name": "Aniimo 新手路线",
+          "description": "按步骤了解游戏流程",
           "href": "/guides",
           "displayType": "steps",
           "highlights": [
             {
-              "label": "Step 1",
-              "detail": "Finish the tutorial",
-              "badge": "5 min"
+              "label": "第 1 步",
+              "detail": "完成新手引导",
+              "badge": "5 分钟"
             },
             {
-              "label": "Step 2",
-              "detail": "Claim starter codes",
-              "badge": "1 min"
+              "label": "第 2 步",
+              "detail": "领取官方兑换码",
+              "badge": "1 分钟"
             },
             {
-              "label": "Step 3",
-              "detail": "First boss run",
-              "badge": "15 min"
+              "label": "第 3 步",
+              "detail": "准备第一次挑战",
+              "badge": "15 分钟"
             }
           ]
         }
       ]
     },
     "faq": {
-      "title": "FAQ",
-      "description": "Common questions",
+      "title": "常见问题",
+      "description": "新玩家经常遇到的问题",
       "items": []
     }
   },
   "footer": {
-    "playGame": "Play Aniimo",
+    "playGame": "开始玩 Aniimo",
     "officialDiscord": "Official Discord",
     "officialYoutube": "Official YouTube",
     "officialTwitter": "Official Twitter",
     "officialReddit": "Official Reddit",
-    "about": "About",
-    "faq": "FAQ",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "copyright": "Copyright",
-    "contact": "Contact",
-    "copyrightText": "© 2026 Aniimo Wiki. All rights reserved.",
-    "community": "Community",
-    "legal": "Legal"
+    "about": "关于本站",
+    "faq": "常见问题",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "copyright": "版权声明",
+    "contact": "联系我们",
+    "copyrightText": "© 2026 Aniimo Wiki。保留所有权利。",
+    "community": "社区",
+    "legal": "法律信息"
   }
 }
