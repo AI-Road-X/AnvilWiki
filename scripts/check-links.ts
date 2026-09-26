@@ -70,8 +70,18 @@ for (const file of htmlFiles) {
     if (href.startsWith('//')) continue;
     checked++;
     const clean = href.split('#')[0].split('?')[0];
+    // Browsers percent-encode non-ASCII path segments in hrefs, while the
+    // static output directory keeps the original Unicode filenames.
+    // Compare both in the same decoded form so Chinese (and other Unicode)
+    // tag routes are not reported as broken.
+    let lookupPath = clean;
+    try {
+      lookupPath = decodeURIComponent(clean);
+    } catch {
+      // Keep the raw path so a malformed escape is still reported below.
+    }
     if (clean === '' || clean === '/') continue;
-    if (!knownPaths.has(clean.replace(/\/$/, ''))) {
+    if (!knownPaths.has(lookupPath.replace(/\/$/, ''))) {
       const list = broken.get(href) ?? [];
       if (list.length < 3) list.push(pagePath);
       broken.set(href, list);

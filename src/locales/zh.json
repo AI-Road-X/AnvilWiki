@@ -192,7 +192,8 @@
       "title": "Aniimo Wiki",
       "description": "探索、抓捕和培养 Aniimo 所需的攻略、图鉴、地图与兑换码。",
       "ctaPrimary": "开始阅读",
-      "ctaSecondary": "浏览全部"
+      "ctaSecondary": "浏览全部",
+      "videoId": ""
     },
     "start": {
       "badge": "快速开始",

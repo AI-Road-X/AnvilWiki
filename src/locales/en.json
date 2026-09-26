@@ -192,7 +192,8 @@
       "title": "Aniimo Wiki",
       "description": "Complete Aniimo guides — bosses, items, and progression.",
       "ctaPrimary": "Start reading",
-      "ctaSecondary": "Browse all"
+      "ctaSecondary": "Browse all",
+      "videoId": ""
     },
     "start": {
       "badge": "Quick start",
