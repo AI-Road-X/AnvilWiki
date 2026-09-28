@@ -189,13 +189,21 @@ const year = new Date().getFullYear();
       {/* h2, not h1 — LegalPage already renders the page H1 (single-H1 rule). */}
       <h2>Contact {site.name}</h2>
       <p>
-        {site.name} is a fan-made wiki. Reach us or contribute through any of the channels below.
+        {site.name} is an independent, fan-made wiki and is not affiliated with the game developer.
+        For corrections, outdated information, or site feedback, please use the project issue tracker
+        linked below. For copyright or takedown requests, use the dedicated Copyright page.
       </p>
-      <h2>Community</h2>
+      <h2>Feedback and project links</h2>
       <ul>
+        <li>
+          <strong>Report a problem or suggest an edit:</strong>{' '}
+          <a href="https://github.com/AI-Road-X/AnvilWiki/issues" target="_blank" rel="noopener noreferrer">
+            Aniimo Wiki issue tracker
+          </a>
+        </li>
         {site.social.official && (
           <li>
-            <strong>Official game website:</strong>{' '}
+            <strong>Official game information (not a wiki support channel):</strong>{' '}
             <a href={site.social.official} target="_blank" rel="noopener noreferrer">
               {site.social.official}
             </a>
@@ -233,8 +241,9 @@ const year = new Date().getFullYear();
       </ul>
       <h2>Contributing</h2>
       <p>
-        Found a typo or outdated info? Want to add a guide? This wiki is open source — submit changes
-        via pull requests or through any channel listed above.
+        This wiki is open source. You can report an issue or propose a change through the project
+        repository. Please do not include private account details or other sensitive information in
+        public reports.
       </p>
       <h2>Reporting Issues</h2>
       <p>
