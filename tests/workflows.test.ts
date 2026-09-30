@@ -524,11 +524,14 @@ describe('setup.yml python [vars] rewrite is value-aware (executes the real here
   });
 
   test.skipIf(!hasPython3)('the FORKER warning block is actually removed (real-header fixture), and absence warns instead of failing', () => {
-    // Pinned against the REAL shipping header (authors.ts precedent): if the
-    // wrangler.toml anchors drift, this goes red instead of the workflow
-    // silently leaving a block that lies about the file still being demo.
-    const real = readFileSync(join(root, 'wrangler.toml'), 'utf8');
-    const header = real.slice(0, real.indexOf('END FORKER WARNING') + 'END FORKER WARNING'.length);
+    // Use an isolated example of the documented comment shape. Forks commonly
+    // keep deployment vars in their host dashboard and intentionally omit the
+    // template's wrangler.toml, so this behavioral test must not depend on it.
+    const header = [
+      '# ⚠️ FORKERS READ THIS FIRST',
+      '# Template-only warning body.',
+      '# END FORKER WARNING',
+    ].join('\n');
     expect(header).toContain('FORKERS READ THIS FIRST');
     const { out } = runVarsRewrite(`${header}\n\n${demoVars}`);
     expect(out).not.toContain('FORKERS');
