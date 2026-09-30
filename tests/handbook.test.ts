@@ -31,7 +31,10 @@ const HANDBOOK_DIR = path.resolve(ROOT, 'docs/handbook');
 function listChapters(locale: string): string[] {
   const dir = path.join(HANDBOOK_DIR, locale);
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).filter((f) => f.endsWith('.md')).sort();
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .sort();
 }
 
 function readFrontmatter(locale: string, file: string): Record<string, string> {
@@ -81,8 +84,10 @@ describe('handbook: en/zh parity (hard requirement)', () => {
       for (const file of listChapters(locale)) {
         const fm = readFrontmatter(locale, file);
         const key = `${fm.manual}:${fm.order}`;
-        expect(seen.has(key), `${locale}/${file}: duplicate order ${key} (also ${seen.get(key)})`)
-          .toBe(false);
+        expect(
+          seen.has(key),
+          `${locale}/${file}: duplicate order ${key} (also ${seen.get(key)})`,
+        ).toBe(false);
         seen.set(key, file);
       }
     }
@@ -110,9 +115,9 @@ describe('shortTitle: nav label derivation', () => {
   });
 
   it('frontmatter override wins when non-empty', () => {
-    expect(
-      shortTitle('让 AI 替你运营:GSC 数据接入、metrics 与 MCP', 'AI 运营与 GSC 接入'),
-    ).toBe('AI 运营与 GSC 接入');
+    expect(shortTitle('让 AI 替你运营:GSC 数据接入、metrics 与 MCP', 'AI 运营与 GSC 接入')).toBe(
+      'AI 运营与 GSC 接入',
+    );
     expect(shortTitle('Run Ops with AI: GSC setup, metrics & MCP', 'AI ops & GSC setup')).toBe(
       'AI ops & GSC setup',
     );
@@ -128,46 +133,51 @@ describe('handbook search contract (Pagefind)', () => {
   const src = (rel: string) => fs.readFileSync(path.resolve(ROOT, rel), 'utf8');
 
   it.skipIf(!fs.existsSync(path.resolve(ROOT, 'src/components/landing/HandbookChapter.astro')))(
-    'HandbookChapter opts chapters into the search index', () => {
-    // Pagefind's rule: once ANY page on the site marks a data-pagefind-body
-    // (ArticlePage does), unmarked pages are excluded from the index
-    // entirely. Losing this attribute would silently drop all 41 lessons ×
-    // 2 locales out of site search while every gate stays green.
-    expect(src('src/components/landing/HandbookChapter.astro')).toContain('data-pagefind-body');
+    'HandbookChapter opts chapters into the search index',
+    () => {
+      // Pagefind's rule: once ANY page on the site marks a data-pagefind-body
+      // (ArticlePage does), unmarked pages are excluded from the index
+      // entirely. Losing this attribute would silently drop all 41 lessons ×
+      // 2 locales out of site search while every gate stays green.
+      expect(src('src/components/landing/HandbookChapter.astro')).toContain('data-pagefind-body');
     },
   );
 
   it.skipIf(!fs.existsSync(path.resolve(ROOT, 'src/components/landing/CommunityHighlights.astro')))(
-    'landing content pages opt into the search index (community digest, comparison, landing home)', () => {
-    // 2026-09-13 全站搜索批:搜索入口从 docs 页扩到所有 landing 页,内容侧
-    // 同步进索引——社群精华页是用户点名的核心诉求(搜群聊精华要能命中)。
-    // These are page-level bodies; the floating WeChat QR widget stays
-    // unmarked so its card copy never becomes a result.
-    expect(src('src/components/landing/CommunityHighlights.astro')).toContain('data-pagefind-body');
-    expect(src('src/components/landing/ComparisonPage.astro')).toContain('data-pagefind-body');
-    for (const page of ['src/pages/landing.astro', 'src/pages/zh/landing.astro']) {
-      const html = src(page);
-      expect(html, `${page} marks its sections for Pagefind`).toContain('data-pagefind-body');
-      // QR float must sit outside the marked wrapper (never indexed).
-      expect(html.indexOf('data-pagefind-body')).toBeLessThan(html.indexOf('<Community'));
-    }
+    'landing content pages opt into the search index (community digest, comparison, landing home)',
+    () => {
+      // 2026-09-13 全站搜索批:搜索入口从 docs 页扩到所有 landing 页,内容侧
+      // 同步进索引——社群精华页是用户点名的核心诉求(搜群聊精华要能命中)。
+      // These are page-level bodies; the floating WeChat QR widget stays
+      // unmarked so its card copy never becomes a result.
+      expect(src('src/components/landing/CommunityHighlights.astro')).toContain(
+        'data-pagefind-body',
+      );
+      expect(src('src/components/landing/ComparisonPage.astro')).toContain('data-pagefind-body');
+      for (const page of ['src/pages/landing.astro', 'src/pages/zh/landing.astro']) {
+        const html = src(page);
+        expect(html, `${page} marks its sections for Pagefind`).toContain('data-pagefind-body');
+        // QR float must sit outside the marked wrapper (never indexed).
+        expect(html.indexOf('data-pagefind-body')).toBeLessThan(html.indexOf('<Community'));
+      }
     },
   );
 
   it.skipIf(!fs.existsSync(path.resolve(ROOT, 'src/components/landing/LandingLayout.astro')))(
-    'LandingLayout ships the search button by default (whole site is searchable)', () => {
-    const layout = src('src/components/landing/LandingLayout.astro');
-    expect(layout).toContain('search = true');
-    // Mobile menu search entry reuses the same dialog as the header trigger.
-    expect(layout).toContain('data-open-search');
-    // 2026-09-13 移动端无反应修复:SearchButton 直接绑定 [data-open-search]
-    // (不再经由布局脚本的 .click() 代理),inline 脚本保持 ES2018 语法可被
-    // 老内核(微信 X5/旧 WKWebView)解析——?. 与 ?? 在不可转译的 inline 脚本
-    // 里是整段 SyntaxError,搜索全盘失效。锚在 SearchButton 侧,防回退。
-    const searchButton = src('src/components/header/SearchButton.astro');
-    const inlineScript = searchButton.match(/<script is:inline>([\s\S]*?)<\/script>/)?.[1] ?? '';
-    expect(inlineScript).toContain("querySelectorAll('[data-open-search]')");
-    expect(inlineScript).not.toMatch(/\?\?|\?\./);
+    'LandingLayout ships the search button by default (whole site is searchable)',
+    () => {
+      const layout = src('src/components/landing/LandingLayout.astro');
+      expect(layout).toContain('search = true');
+      // Mobile menu search entry reuses the same dialog as the header trigger.
+      expect(layout).toContain('data-open-search');
+      // 2026-09-13 移动端无反应修复:SearchButton 直接绑定 [data-open-search]
+      // (不再经由布局脚本的 .click() 代理),inline 脚本保持 ES2018 语法可被
+      // 老内核(微信 X5/旧 WKWebView)解析——?. 与 ?? 在不可转译的 inline 脚本
+      // 里是整段 SyntaxError,搜索全盘失效。锚在 SearchButton 侧,防回退。
+      const searchButton = src('src/components/header/SearchButton.astro');
+      const inlineScript = searchButton.match(/<script is:inline>([\s\S]*?)<\/script>/)?.[1] ?? '';
+      expect(inlineScript).toContain("querySelectorAll('[data-open-search]')");
+      expect(inlineScript).not.toMatch(/\?\?|\?\./);
     },
   );
 
@@ -275,7 +285,10 @@ describe('lib/handbook pure functions', () => {
   ];
 
   it('parseHandbookId strips .md and rejects junk', () => {
-    expect(parseHandbookId('en/pick-your-game.md')).toEqual({ locale: 'en', slug: 'pick-your-game' });
+    expect(parseHandbookId('en/pick-your-game.md')).toEqual({
+      locale: 'en',
+      slug: 'pick-your-game',
+    });
     expect(parseHandbookId('zh/launch')).toEqual({ locale: 'zh', slug: 'launch' });
     expect(parseHandbookId('fr/launch')).toBeNull();
     expect(parseHandbookId('noseparator')).toBeNull();
@@ -284,7 +297,14 @@ describe('lib/handbook pure functions', () => {
 
   it('sortChapters: learn before dev, order ascending', () => {
     const sorted = sortChapters(list).map((c) => c.id);
-    expect(sorted).toEqual(['en/pick', 'en/pick2', 'en/deploy', 'zh/deploy', 'en/arch', 'en/customize']);
+    expect(sorted).toEqual([
+      'en/pick',
+      'en/pick2',
+      'en/deploy',
+      'zh/deploy',
+      'en/arch',
+      'en/customize',
+    ]);
   });
 
   it('chaptersForLocale filters one locale', () => {

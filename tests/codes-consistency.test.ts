@@ -88,7 +88,9 @@ function activeCodes(fm: string): string[] {
 }
 
 function highlightLabels(locale: string): string[] {
-  const json = JSON.parse(readFileSync(join(ROOT, 'src/locales', `${locale}.json`), 'utf8')) as LocaleJson;
+  const json = JSON.parse(
+    readFileSync(join(ROOT, 'src/locales', `${locale}.json`), 'utf8'),
+  ) as LocaleJson;
   const labels: string[] = [];
   for (const m of json.home?.explore?.modules ?? []) {
     if (m?.displayType !== 'badge-list') continue;
@@ -129,7 +131,9 @@ describe('codes page ↔ home highlights consistency', () => {
         // Sentence absent → nothing to reconcile (refresh-audit's degraded
         // fallback); but a marker that fails to parse is a defect.
         const marker = locale === 'en' ? 'full test history for this pass' : '今回の検証日';
-        expect(raw.includes(marker), `test-pass marker present but unparseable in ${locale}`).toBe(false);
+        expect(raw.includes(marker), `test-pass marker present but unparseable in ${locale}`).toBe(
+          false,
+        );
         return;
       }
       expect(lastModified, 'a dated verification note requires lastModified').toBeTruthy();
