@@ -38,12 +38,9 @@ describe('CHANGELOG release contract', () => {
     }
   });
 
-  test('PROJECT_VERSION stays in sync with package.json (version 五处 release checklist, now gated)', () => {
+  test('package version matches the latest released changelog section', () => {
     const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')) as { version: string };
-    const shared = readFileSync(join(root, 'src/config/landing-shared.ts'), 'utf8');
-    const projectVersion = shared.match(/PROJECT_VERSION = '([^']+)'/)?.[1];
-    expect(projectVersion, "src/config/landing-shared.ts must keep PROJECT_VERSION = '<package.json version>'").toBe(
-      pkg.version,
-    );
+    const latest = changelog.match(/^## \[(\d+\.\d+\.\d+)\]/m)?.[1];
+    expect(latest, 'the changelog must include a latest release').toBe(pkg.version);
   });
 });

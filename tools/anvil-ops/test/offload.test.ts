@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { canOffload, OFFLOAD_TIMEOUT_MS, WatchdogTimeout, watchdogTimeoutFix, withWatchdog } from '../src/mcp/offload.js';
 import { submitLockPath } from '../src/core/gitops.js';
-import { loadSiteConfig } from '../src/core/site.js';
 
 describe('offload watchdog', () => {
   it('passes the task result through when it wins the race', async () => {
@@ -44,7 +43,10 @@ describe('watchdog timeout self-rescue guidance', () => {
     expect(fix).toMatch(/lock/i);
     // The path in the message must be THE lock path acquireSubmitLock
     // created for this site — a stale hint would point at a non-lock file.
-    expect(fix).toContain(submitLockPath(loadSiteConfig(cwd).root));
+    // Fork sites may intentionally keep deployment configuration outside the
+    // repo (or omit wrangler.toml entirely); offload.ts then uses cwd as the
+    // documented lock-path fallback.
+    expect(fix).toContain(submitLockPath(cwd));
   });
 
   it('audit guidance stays lock-free (audit never takes the submit lock)', () => {

@@ -11,8 +11,8 @@ describe('parseEntryId', () => {
   });
 
   it('strips the .mdx extension the glob loader includes in the id', () => {
-    expect(parseEntryId('ja/bosses/emberfang.mdx')).toEqual({
-      locale: 'ja',
+    expect(parseEntryId('zh/bosses/emberfang.mdx')).toEqual({
+      locale: 'zh',
       category: 'bosses',
       slug: 'emberfang',
     });

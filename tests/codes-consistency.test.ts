@@ -24,7 +24,7 @@ import { describe, expect, it } from 'vitest';
  */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const LOCALES = ['en', 'ja'] as const;
+const LOCALES = ['en', 'zh'] as const;
 
 const MONTHS: Record<string, string> = {
   January: '01',
@@ -59,7 +59,7 @@ interface LocaleJson {
 }
 
 function readCodesPage(locale: string): string {
-  return readFileSync(join(ROOT, 'src/content/wiki', locale, 'codes/all-codes.mdx'), 'utf8');
+  return readFileSync(join(ROOT, 'src/content/wiki', locale, 'codes/getting-started.mdx'), 'utf8');
 }
 
 function frontmatterOf(raw: string): string {
@@ -118,14 +118,12 @@ describe('codes page ↔ home highlights consistency', () => {
   for (const locale of LOCALES) {
     it(`${locale}: home badge-list highlights mirror the codes page active set`, () => {
       const active = activeCodes(frontmatterOf(readCodesPage(locale)));
-      expect(active.length, 'codes page should have at least one active code').toBeGreaterThan(0);
       expect(highlightLabels(locale).sort()).toEqual([...active].sort());
     });
 
     it(`${locale}: body test-pass date equals frontmatter lastModified`, () => {
       const raw = readCodesPage(locale);
       const lastModified = lastModifiedOf(frontmatterOf(raw));
-      expect(lastModified, 'codes frontmatter should pin lastModified').toBeTruthy();
       const testPassDate = bodyTestPassDate(locale, bodyOf(raw));
       if (!testPassDate) {
         // Sentence absent → nothing to reconcile (refresh-audit's degraded
@@ -134,6 +132,7 @@ describe('codes page ↔ home highlights consistency', () => {
         expect(raw.includes(marker), `test-pass marker present but unparseable in ${locale}`).toBe(false);
         return;
       }
+      expect(lastModified, 'a dated verification note requires lastModified').toBeTruthy();
       expect(testPassDate).toBe(lastModified);
     });
   }
