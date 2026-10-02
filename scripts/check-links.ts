@@ -25,6 +25,7 @@ import { walkFiles } from './lib/walk';
 
 const ROOT = process.cwd();
 const DIST = path.resolve(ROOT, 'dist');
+const FUNCTIONS = path.resolve(ROOT, 'functions');
 
 if (!fs.existsSync(DIST)) {
   console.error('❌ dist/ not found — run `pnpm build` first.');
@@ -47,6 +48,23 @@ for (const file of htmlFiles) {
     .replace(/index\.html$/, '')
     .replace(/\.html$/, '');
   knownPaths.add('/' + rel.replace(/\/$/, ''));
+}
+
+// Public files such as /auth.md and /ai/index.ilang are valid link targets
+// even though they are not HTML pages. Keep checking that the built file exists.
+for (const file of walkFiles(DIST)) {
+  if (file.endsWith('.html')) continue;
+  const rel = path.relative(DIST, file).replace(/\\/g, '/');
+  knownPaths.add('/' + rel);
+}
+
+// Cloudflare Pages Functions are deployed alongside dist/ and cannot appear
+// in the static build. Include only concrete route files, not library or
+// parameterized catch-all handlers.
+for (const file of walkFiles(FUNCTIONS, { exts: ['.js', '.ts'] })) {
+  const rel = path.relative(FUNCTIONS, file).replace(/\\/g, '/');
+  if (rel.split('/').some((part) => part.startsWith('_') || part.includes('['))) continue;
+  knownPaths.add('/' + rel.replace(/\.(js|ts)$/, '').replace(/\/index$/, ''));
 }
 
 const HREF_RE = /href="(\/[^"]*)"/g;
