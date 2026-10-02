@@ -1,0 +1,30 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Aniimo Wiki",
+    "identifier": "did:web:aniimo-guides.com"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:aniimo-guides.com:server:public-lookup",
+      "displayName": "Aniimo Wiki public lookup MCP server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://aniimo-guides.com/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "Find the official Aniimo type information for Sparki",
+        "Search public Aniimo quest and item guides",
+        "Read an Aniimo Wiki guide and cite its source"
+      ]
+    },
+    {
+      "identifier": "urn:air:aniimo-guides.com:skill:wiki-lookup",
+      "displayName": "Aniimo Wiki lookup instructions",
+      "type": "text/markdown",
+      "url": "https://aniimo-guides.com/ai/skills/aniimo-lookup/SKILL.md",
+      "representativeQueries": [
+        "How can an agent search Aniimo Wiki pages?",
+        "How should an answer cite Aniimo guide pages?"
+      ]
+    }
+  ]
+}

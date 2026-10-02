@@ -20,6 +20,34 @@
   Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
+# Homepage machine-discovery links. These target working API documentation,
+# service documentation, and the standards-based catalog created for this site.
+/
+  Link: </.well-known/api-catalog>; rel="api-catalog", </openapi.json>; rel="service-desc", </ai/>; rel="service-doc"
+
+# Public machine-readable discovery documents; the resources contain no private data.
+/.well-known/ai-catalog.json
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+/.well-known/agent-skills/index.json
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+/.well-known/mcp/server-card.json
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+# Authentication declarations are construction-only and should not be indexed.
+/auth.md
+  X-Robots-Tag: noindex, nofollow
+
+/.well-known/oauth-authorization-server
+  X-Robots-Tag: noindex, nofollow
+
+/.well-known/oauth-protected-resource
+  X-Robots-Tag: noindex, nofollow
+
 # Hashed build assets (CSS/JS/fonts) never change — cache immutably for a year.
 # Returning visitors get instant repeat loads (helps LCP on revisit).
 /_astro/*

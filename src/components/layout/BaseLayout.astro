@@ -292,6 +292,65 @@ const privacyLabel = consent?.privacyLabel ?? footerStrings.privacyPolicy ?? 'Pr
     {jsonLd.map((d) => <JsonLd data={d} />)}
 
     {/* No-FOUC theme init — runs before first paint. */}
+    {/* Optional WebMCP tools: feature-detected; browsers without the API are unaffected. */}
+    <script is:inline>
+      (() => {
+        let modelContext = document.modelContext;
+        if (!modelContext) modelContext = navigator.modelContext;
+        if (!modelContext || !modelContext.registerTool) return;
+        const controller = new AbortController();
+        const language = document.documentElement.lang.toLowerCase();
+        const searchTitle = language.startsWith('zh') ? '搜索 Aniimo Wiki' : 'Search Aniimo Wiki';
+        const readTitle = language.startsWith('zh') ? '读取 Wiki 页面' : 'Read a Wiki page';
+        const register = async () => {
+          try {
+            await modelContext.registerTool({
+              name: 'search_aniimo_wiki',
+              title: searchTitle,
+              description: 'Search published public Aniimo Wiki guides; use canonical source links and update dates.',
+              inputSchema: {
+                type: 'object',
+                properties: {
+                  query: { type: 'string', minLength: 1, maxLength: 200 },
+                  category: { type: 'string' },
+                  limit: { type: 'integer', minimum: 1, maximum: 10 },
+                },
+                required: ['query'],
+                additionalProperties: false,
+              },
+              execute: async ({ query, category, limit }) => {
+                const params = new URLSearchParams({ q: query, limit: String(limit === undefined ? 5 : limit) });
+                if (category) params.set('category', category);
+                const response = await fetch(`/api/agent/search?${params}`);
+                return await response.text();
+              },
+            }, { signal: controller.signal });
+            await modelContext.registerTool({
+              name: 'read_aniimo_page',
+              title: readTitle,
+              description: 'Read one published public Aniimo Wiki guide using a path, ID, or URL returned by search.',
+              inputSchema: {
+                type: 'object',
+                properties: { path: { type: 'string', maxLength: 500 } },
+                required: ['path'],
+                additionalProperties: false,
+              },
+              execute: async ({ path }) => {
+                const params = new URLSearchParams({ path });
+                const response = await fetch(`/api/agent/read?${params}`);
+                return await response.text();
+              },
+            }, { signal: controller.signal });
+          } catch (error) {
+            // Unsupported/denied browser contexts continue to use normal site navigation.
+          }
+        };
+        void register();
+        window.addEventListener('pagehide', () => controller.abort(), { once: true });
+      })();
+    </script>
+
+    {/* No-FOUC theme init — runs before first paint. */}
     <script is:inline>
       (() => {
         let stored = null;
