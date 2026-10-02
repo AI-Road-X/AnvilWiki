@@ -13,7 +13,7 @@ Site: `https://aniimo-guides.com/`
 
 ## Next decision
 
-Do not submit the site for AdSense review based on the old export or raw Cloudflare request totals. Obtain current daily human-visitor evidence for seven consecutive days and a fresh Search Console export. Then run the project's full 22-item AdSense pre-application audit, including a qualitative review of representative Chinese and English articles, live legal pages, robots rules and links. Submit only after any blockers are fixed and the owner's traffic gate is met.
+Do not submit the site for AdSense review based on the old export or raw Cloudflare request totals. The full 22-item pre-application audit was completed on 2026-10-03 in `docs/agent-readiness/2026-10-03-adsense-preflight.md`. It found content-intent and internal-link gaps, plus unresolved originality, image-rights and current-traffic checks. Improve these areas and obtain current daily human-visitor evidence for seven consecutive days and a fresh Search Console export. Re-run the audit before submitting, after the owner's traffic gate is met.
 
 The agent-readiness scanner's remaining `authMd` failure is unrelated to AdSense eligibility. The wiki's public read-only API does not require account registration; do not create a pretend registration service for a scanner score.
 
