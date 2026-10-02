@@ -1,6 +1,6 @@
 # Aniimo Wiki AdSense pre-application review — 2026-10-03 (JST)
 
-Site: `https://aniimo-guides.com/`  
+Site: `https://aniimo-guides.com/`
 Result: **Not ready to submit under the owner's course rule.** This is an internal readiness review, not a prediction of Google's approval. The owner's gate is seven consecutive days averaging at least 100 real IP visitors per day; the available data does not establish that. The project handbook's 15–20 article guideline is separate from Google's published policies.
 
 The live site reflects commit `862125f`: its About page now describes the published content accurately. The latest owner-supplied Search Console ZIP is dated 2026-10-01 but contains only 2026-09-26 and 2026-09-27, with 8 impressions and 0 clicks. Historical Cloudflare request and unique-visitor screenshots do not identify verified human visitors for seven full days.
