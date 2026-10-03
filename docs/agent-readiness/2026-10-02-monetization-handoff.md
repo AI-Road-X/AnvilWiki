@@ -13,6 +13,8 @@ Site: `https://aniimo-guides.com/`
 
 ## Next decision
 
+2026-10-03 update: The owner's newer Search Console export (`https___aniimo-guides.com_-Performance-on-Search-2026-10-03.zip`) still ends on 2026-09-29. Its daily chart totals 569 impressions and 7 clicks through that date (0/0 on Sep 26, 0/8 on Sep 27, 2/211 on Sep 28, 5/350 on Sep 29). The English character directory had 152 impressions and 3 clicks; the English Chasing The Clouds article had 16 impressions and 2 clicks. These are search metrics, not a seven-day unique-human-visitor series. After reviewing a third-party redemption guide against the official launch notice, both Chasing The Clouds pages were updated to attribute the quest-specific mailbox claim and link to relevant code/reward guidance.
+
 Do not submit the site for AdSense review based on the old export or raw Cloudflare request totals. The full 22-item pre-application audit was completed on 2026-10-03 in `docs/agent-readiness/2026-10-03-adsense-preflight.md`. It found content-intent and internal-link gaps, plus unresolved originality, image-rights and current-traffic checks. Improve these areas and obtain current daily human-visitor evidence for seven consecutive days and a fresh Search Console export. Re-run the audit before submitting, after the owner's traffic gate is met.
 
 The agent-readiness scanner's remaining `authMd` failure is unrelated to AdSense eligibility. The wiki's public read-only API does not require account registration; do not create a pretend registration service for a scanner score.
