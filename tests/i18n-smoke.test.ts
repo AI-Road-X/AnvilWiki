@@ -58,3 +58,15 @@ describe('i18n: no hardcoded locale arrays', () => {
     expect(list).toContain('en');
   });
 });
+
+describe('published locale copy', () => {
+  it('does not expose category template instructions or Chinese copy on the English homepage', () => {
+    const en = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/locales/en.json'), 'utf8'));
+    for (const [category, copy] of Object.entries(en.overview) as Array<
+      [string, { overviewDescription: string }]
+    >) {
+      expect(copy.overviewDescription, category).not.toMatch(/replace this overview text|locale JSON/i);
+    }
+    expect(en.home.meta.description).not.toMatch(/[\u3400-\u9fff]/);
+  });
+});

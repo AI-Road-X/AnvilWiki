@@ -132,7 +132,7 @@
     },
     "characters": {
       "overviewTitle": "Aniimo 图鉴",
-      "overviewDescription": "整理 Aniimo 图鉴、能力、培养方向和实战信息。"
+      "overviewDescription": "按名称查找 Aniimo 图鉴，核对角色属性、定位、技能与不同形态，并查看官方资料来源；这里不是实测强度排名。"
     },
     "items": {
       "overviewTitle": "Aniimo 物品",
@@ -140,11 +140,11 @@
     },
     "codes": {
       "overviewTitle": "Aniimo 兑换码",
-      "overviewDescription": "集中整理 Aniimo 官方兑换码，并标注有效期和奖励。"
+      "overviewDescription": "了解 Aniimo 兑换码的官方来源、核验方法与兑换步骤；尚未核实的代码不会被标为有效。"
     },
     "tier-list": {
       "overviewTitle": "Aniimo 强度榜",
-      "overviewDescription": "根据版本、用途和培养成本整理 Aniimo 强度榜。"
+      "overviewDescription": "学习按版本、用途、证据和培养成本判断 Aniimo 排名；没有可比实测数据时不编造角色梯队。"
     },
     "maps": {
       "overviewTitle": "Aniimo 地图",
@@ -158,7 +158,7 @@
   "home": {
     "meta": {
       "title": "Aniimo Wiki — 中文攻略、图鉴与兑换码",
-      "description": "Aniimo 中文 Wiki，提供新手攻略、Aniimo 图鉴、属性克制、兑换码、排行榜、地图和任务指南。"
+      "description": "Aniimo 中文 Wiki：查看有来源的角色图鉴、新手与任务指南、物品资料，以及兑换码和强度榜的核验方法。"
     },
     "updates": {
       "title": "最近更新"

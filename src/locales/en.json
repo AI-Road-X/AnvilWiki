@@ -128,37 +128,37 @@
   "overview": {
     "guides": {
       "overviewTitle": "All Guides",
-      "overviewDescription": "Guides content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Start with practical Aniimo guides on launch rewards, platforms, exploration, and early progression. Check dates and official sources before acting on time-limited information."
     },
     "characters": {
       "overviewTitle": "All Characters",
-      "overviewDescription": "Characters content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Browse Aniimo character entries by name. Compare documented elements, roles, abilities, and forms, with links to official sources; these entries are not a tested tier ranking."
     },
     "items": {
       "overviewTitle": "All Items",
-      "overviewDescription": "Items content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Find Aniimo item and catch-tool guides, including documented uses and source notes. Confirm availability and costs in the current game version."
     },
     "codes": {
       "overviewTitle": "All Codes",
-      "overviewDescription": "Codes content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Learn where to verify Aniimo redemption codes and how to redeem them safely. We do not list an active code until its official source and status can be checked."
     },
     "tier-list": {
-      "overviewTitle": "All Tier List",
-      "overviewDescription": "Tier List content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewTitle": "Tier List Guide",
+      "overviewDescription": "Learn how to judge Aniimo rankings by role, game version, evidence, and investment cost. No character tiers are assigned without comparable verified results."
     },
     "maps": {
       "overviewTitle": "All Maps",
-      "overviewDescription": "Maps content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Explore Aniimo region-name references and map research notes. Use the in-game map to confirm current locations and route details."
     },
     "quests": {
       "overviewTitle": "All Quests",
-      "overviewDescription": "Quests content for Aniimo. Replace this overview text in the locale JSON — it feeds the category page title and description."
+      "overviewDescription": "Read Aniimo quest notes with source links and clear distinctions between official information and community-reported steps."
     }
   },
   "home": {
     "meta": {
-      "title": "Aniimo Wiki — Guides, Bosses & Progression",
-      "description": "Aniimo 中文 Wiki，提供新手攻略、Aniimo 图鉴、属性克制、兑换码、排行榜、地图和任务指南。"
+      "title": "Aniimo Wiki — Guides, Characters & Quests",
+      "description": "Independent Aniimo guides and character entries with source links, quest notes, item references, and careful code and ranking verification."
     },
     "updates": {
       "title": "Recent updates"
