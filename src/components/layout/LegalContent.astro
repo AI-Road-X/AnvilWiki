@@ -4,6 +4,7 @@
  * Renders different content based on the `page` prop. English only (per PRD).
  */
 import { site } from '~/config/site';
+import { getUi } from '~/i18n/ui';
 
 interface Props {
   page: 'about' | 'privacy-policy' | 'terms-of-service' | 'copyright' | 'contact';
@@ -11,6 +12,7 @@ interface Props {
 const { page } = Astro.props;
 const game = site.game.name;
 const year = new Date().getFullYear();
+const englishNotice = getUi('en').site.legalNotice;
 ---
 
 {
@@ -156,22 +158,21 @@ const year = new Date().getFullYear();
       </p>
       <h2>Game Assets</h2>
       <p>
-        {game}, including its name, logo, characters, artwork, and other related assets, is the
-        property of {site.game.developer}. All {game} content is used on this wiki under fair use
-        for the purpose of providing informational guides to players. {site.name} claims no
-        ownership of any {game} intellectual property.
+        {game} names, characters, artwork, and other game assets belong to their respective rights
+        holders. {site.name} does not claim ownership of those assets. If you believe a specific use
+        should be removed or credited differently, please tell us which page and material is involved.
       </p>
       <h2>DMCA / Takedown</h2>
       <p>
-        If you believe any content on this site infringes your copyright, please contact us via our{' '}
-        <a href={site.social.discord} target="_blank" rel="noopener noreferrer">
-          Discord server
+        For copyright or takedown requests, use the{' '}
+        <a href="https://github.com/AI-Road-X/AnvilWiki/issues" target="_blank" rel="noopener noreferrer">
+          project issue tracker
         </a>{' '}
-        with a detailed description of the allegedly infringing material. We will review and respond
-        to valid requests promptly.
+        and identify the relevant URL and material. Issues are public, so do not post private account
+        details or other sensitive information. We will review reports and respond as appropriate.
       </p>
       <h2>Fan-Made Notice</h2>
-      <p>{site.legalNotice}</p>
+      <p>{englishNotice}</p>
     </>
   )
 }

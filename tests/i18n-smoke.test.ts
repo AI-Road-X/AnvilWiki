@@ -69,4 +69,15 @@ describe('published locale copy', () => {
     }
     expect(en.home.meta.description).not.toMatch(/[\u3400-\u9fff]/);
   });
+
+  it('uses localized footer text and a configured copyright contact path', () => {
+    const footer = fs.readFileSync(path.join(ROOT, 'src/components/footer/SiteFooter.astro'), 'utf8');
+    const legal = fs.readFileSync(path.join(ROOT, 'src/components/layout/LegalContent.astro'), 'utf8');
+    expect(footer).toContain('ui.site.tagline');
+    expect(footer).toContain('ui.site.legalNotice');
+    const copyrightPage = legal.split("page === 'copyright'")[1]?.split("page === 'contact'")[0];
+    expect(copyrightPage).toBeTruthy();
+    expect(copyrightPage).not.toContain('href={site.social.discord}');
+    expect(legal).toContain('https://github.com/AI-Road-X/AnvilWiki/issues');
+  });
 });

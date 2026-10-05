@@ -9,6 +9,8 @@ The original 2026-10-03 review used a limited owner-supplied Search Console ZIP 
 
 The connected Search Console property `https://aniimo-guides.com/` reports 18 web-search clicks and 1,470 impressions for 2026-09-19 through 2026-10-02 (the settled-data indicator extends to 2026-10-03). These are **search metrics, not unique visitors or human IPs**. The leading page is `/characters/` with 7 clicks and 381 impressions; its most-clicked query is `aniimo human characters` (5 clicks). The category copy is being clarified to say that the entries cover Aniimo creatures, not a complete human-NPC list. Search Console can now be queried directly; do not request another ZIP unless that connection stops working. Cloudflare's seven-day daily human-visitor series remains unverified because the authenticated dashboard could not be read in this review. Do not submit AdSense yet under the owner's course gate.
 
+The copyright page previously pointed takedown requests to an unconfigured Discord URL. It now points to the existing project issue tracker, warns that issues are public, and avoids asserting that every game-asset use automatically qualifies as fair use. Asset-by-asset rights review is still pending (AD-19).
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
