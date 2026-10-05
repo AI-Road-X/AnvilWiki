@@ -11,6 +11,8 @@ The connected Search Console property `https://aniimo-guides.com/` reports 18 we
 
 The copyright page previously pointed takedown requests to an unconfigured Discord URL. It now points to the existing project issue tracker, warns that issues are public, and avoids asserting that every game-asset use automatically qualifies as fair use. Asset-by-asset rights review is still pending (AD-19).
 
+Five representative URLs (English home, English creature index, English quest, English guides index, Chinese creature index) returned `PASS / Submitted and indexed` from Google's URL Inspection API on 2026-10-06. Both submitted sitemaps report zero parse errors and warnings. The sitemap report's current `indexed: 0` count is inconsistent with those direct URL inspections and live search impressions, so it must not be read as proof that no pages are indexed. A live audit of the same five pages found all five indexable, with no critical or high issues. Its two medium `Organization logo missing` flags need context: the site does publish a 512×512 PNG at the logo URL already present in its Organization JSON-LD; the scanner also sees other `Organization` nodes without logos. Google treats Organization `logo` as recommended, not required. Do not generate a replacement asset just to satisfy this scanner.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -56,3 +58,4 @@ Keep the AdSense site in setup state. Before submission, resolve AD-05 and revie
 - Google AdSense Program policies: https://support.google.com/adsense/answer/48182
 - Google Publisher Policies: https://support.google.com/adsense/answer/10502938
 - Google Search Central helpful-content guidance: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- Google Organization structured-data guidance: https://developers.google.com/search/docs/appearance/structured-data/organization
