@@ -66,7 +66,7 @@ export const site: SiteConfig = {
   shortName: 'Aniimo Wiki',
   description: 'Aniimo 中文 Wiki，整理附来源的 Aniimo 图鉴、新手指南、任务、地图与道具资料。',
   domain: 'aniimo-guides.com',
-  tagline: 'Aniimo 中文攻略站：探索、抓捕与培养所有 Aniimo',
+  tagline: 'Aniimo 中文攻略站：有来源的图鉴与指南',
   legalNotice: 'Aniimo Wiki 是玩家制作的非官方社区网站，与 Pawprint Studio 及 Aniimo 官方无隶属关系。',
   // Set a real address if you run no social channels — the contact page
   // renders it as a mailto link.

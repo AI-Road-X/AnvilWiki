@@ -111,12 +111,10 @@ function trendingLabel(link: QuickLink): string {
         {
           hero.ctaPrimary && (
             <a
-              href={site.social.official}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={listPath('guides', locale)}
               class="btn-primary"
             >
-              <Icon name="lucide:play" class="mr-2 h-4 w-4" />
+              <Icon name="lucide:book-open" class="mr-2 h-4 w-4" />
               {hero.ctaPrimary}
             </a>
           )
@@ -237,9 +235,7 @@ function trendingLabel(link: QuickLink): string {
           <p class="mx-auto mt-2 max-w-xl text-muted-foreground">{closingCta.description}</p>
           <div class="mt-6 flex justify-center gap-3">
             <a
-              href={site.social.official}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={listPath('guides', locale)}
               class="btn-primary"
             >
               {closingCta.primary}

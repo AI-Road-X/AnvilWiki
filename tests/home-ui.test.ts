@@ -15,6 +15,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, test } from 'vitest';
 import en from '~/locales/en.json';
+import zh from '~/locales/zh.json';
 import { getHomeFaq } from '~/i18n/ui';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -25,6 +26,27 @@ const faqPages = [
 ].map((rel) => ({ rel, src: readFileSync(join(root, rel), 'utf8') }));
 
 const homeJson = en.home as unknown as Record<string, unknown>;
+
+describe('Aniimo homepage editorial checks', () => {
+  test('primary homepage calls to action lead to on-site guides', () => {
+    expect(homePage.match(/href=\{listPath\('guides', locale\)\}/g)).toHaveLength(2);
+    expect(homePage).not.toContain('href={site.social.official}');
+  });
+
+  test('neither locale promises unverified starter codes or invented completion times', () => {
+    for (const locale of [en, zh]) {
+      const copy = JSON.stringify(locale.home);
+      expect(copy).not.toMatch(/claim starter codes|领取官方兑换码|first boss run|第一次首领战|"badge":"[0-9]+ (?:min|分钟)"/i);
+    }
+  });
+
+  test('published code FAQ does not claim a fixed code-release schedule', () => {
+    for (const locale of [en, zh]) {
+      const answers = locale.shared.codesFaq.map((item) => item.answer).join(' ');
+      expect(answers).not.toMatch(/usually monthly|typically arrive with each major game update|定期复测|每次大更新/);
+    }
+  });
+});
 
 /** Walk a dotted path ("start.cards") through the en.json home object. */
 function lookup(path: string): unknown {

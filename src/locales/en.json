@@ -3,9 +3,9 @@
   "site": {
     "name": "Aniimo Wiki",
     "shortName": "Aniimo Wiki",
-    "description": "Aniimo 中文 Wiki，提供新手攻略、Aniimo 图鉴、属性克制、兑换码、排行榜、地图和任务指南。",
-    "tagline": "Aniimo 中文攻略站：探索、抓捕与培养所有 Aniimo",
-    "legalNotice": "Aniimo Wiki 是玩家制作的非官方社区网站，与 Pawprint Studio 及 Aniimo 官方无隶属关系。"
+    "description": "Independent Aniimo character entries, beginner guides, quest notes, and item references with source links.",
+    "tagline": "Independent Aniimo guides and source-linked character entries",
+    "legalNotice": "Aniimo Wiki is an unofficial fan-made site and is not affiliated with Pawprint Studio or the official Aniimo team."
   },
   "nav": {
     "home": "Home",
@@ -31,7 +31,7 @@
     "lastUpdated": "Last updated",
     "publishedOn": "Published",
     "noArticles": "No articles yet. Check back soon!",
-    "defaultListDescription": "Browse every {title} article — walkthroughs, tips, tier lists and up-to-date reference tables, all in one place.",
+    "defaultListDescription": "Browse {title} articles and check each page's sources and update date before relying on game details.",
     "relatedArticles": "Related Articles",
     "onThisPage": "On this page",
     "browseAll": "Browse all",
@@ -63,19 +63,19 @@
     "codesFaq": [
       {
         "question": "How do I redeem codes?",
-        "answer": "Open the game, click the settings gear in the top-right, paste your code into the Redeem Code field, and confirm. Codes are case-sensitive."
+        "answer": "Follow the current in-game redemption instructions or an official Aniimo notice. Enter the code exactly as published and check the mailbox or notice for reward conditions."
       },
       {
         "question": "Why do codes stop working?",
-        "answer": "Codes expire on a schedule set by the developer (usually monthly or tied to update milestones), and some are one-per-account. This page is re-tested regularly."
+        "answer": "A code may expire or have region, platform, or account restrictions. Check the original official notice; we do not assume a fixed expiry schedule."
       },
       {
         "question": "How often are new codes released?",
-        "answer": "New codes typically arrive with each major game update. Bookmark this page and check back after every patch."
+        "answer": "No fixed release schedule has been verified. Check official Aniimo announcements; this site lists a code only after its source and status can be checked."
       },
       {
         "question": "Do codes expire?",
-        "answer": "Yes — most codes have an expiry date, shown next to each code. Expired codes move to the expired table below."
+        "answer": "Some codes have expiry dates or eligibility conditions. Use the official announcement for the specific code rather than assuming all codes follow the same rule."
       }
     ],
     "possiblyOutdated": "This guide was last checked on",
@@ -183,16 +183,16 @@
     },
     "closingCta": {
       "title": "Start your Aniimo journey",
-      "description": "Bookmark this wiki and check back after every game update.",
-      "primary": "Browse all",
+      "description": "Explore independent guides and source-linked references before choosing your next in-game goal.",
+      "primary": "Read guides",
       "secondary": "Join the community"
     },
     "hero": {
       "badge": "Aniimo",
       "title": "Aniimo Wiki",
-      "description": "Complete Aniimo guides — bosses, items, and progression.",
-      "ctaPrimary": "Start reading",
-      "ctaSecondary": "Browse all",
+      "description": "Independent character entries, beginner guides, item references, and quest notes with source links.",
+      "ctaPrimary": "Read guides",
+      "ctaSecondary": "Browse characters",
       "videoId": ""
     },
     "start": {
@@ -223,7 +223,7 @@
         {
           "number": "4",
           "title": "Codes",
-          "description": "Browse codes",
+          "description": "Check code sources and redemption steps",
           "icon": "lucide:book-open",
           "href": "/codes"
         }
@@ -236,24 +236,21 @@
         {
           "order": 1,
           "name": "Getting started",
-          "description": "Step-by-step progression",
+          "description": "Find verified starting points",
           "href": "/guides",
           "displayType": "steps",
           "highlights": [
             {
               "label": "Step 1",
-              "detail": "Finish the tutorial",
-              "badge": "5 min"
+              "detail": "Read the beginner guide"
             },
             {
               "label": "Step 2",
-              "detail": "Claim starter codes",
-              "badge": "1 min"
+              "detail": "Compare character roles"
             },
             {
               "label": "Step 3",
-              "detail": "First boss run",
-              "badge": "15 min"
+              "detail": "Check official rewards and notices"
             }
           ]
         }
