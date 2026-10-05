@@ -3,13 +3,17 @@
 Site: `https://aniimo-guides.com/`
 Result: **Not ready to submit under the owner's course rule.** This is an internal readiness review, not a prediction of Google's approval. The owner's gate is seven consecutive days averaging at least 100 real IP visitors per day; the available data does not establish that. The project handbook's 15–20 article guideline is separate from Google's published policies.
 
-The live site reflects commit `862125f`: its About page now describes the published content accurately. The latest owner-supplied Search Console ZIP is dated 2026-10-01 but contains only 2026-09-26 and 2026-09-27, with 8 impressions and 0 clicks. Historical Cloudflare request and unique-visitor screenshots do not identify verified human visitors for seven full days.
+The original 2026-10-03 review used a limited owner-supplied Search Console ZIP and historical Cloudflare screenshots. See the dated update below for newer direct Search Console data. Neither source establishes seven full days of verified human visitors.
+
+## Update — 2026-10-06 (JST)
+
+The connected Search Console property `https://aniimo-guides.com/` reports 18 web-search clicks and 1,470 impressions for 2026-09-19 through 2026-10-02 (the settled-data indicator extends to 2026-10-03). These are **search metrics, not unique visitors or human IPs**. The leading page is `/characters/` with 7 clicks and 381 impressions; its most-clicked query is `aniimo human characters` (5 clicks). The category copy is being clarified to say that the entries cover Aniimo creatures, not a complete human-NPC list. Search Console can now be queried directly; do not request another ZIP unless that connection stops working. Cloudflare's seven-day daily human-visitor series remains unverified because the authenticated dashboard could not be read in this review. Do not submit AdSense yet under the owner's course gate.
 
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
 2. **Firsthand value (AD-04, unknown):** sampled character pages attribute official data and add some explanatory context. A wider editorial review is needed to determine whether the 89 character profiles per language offer enough independent help beyond the official compendium. Article count alone is insufficient.
-3. **Traffic and ranking (AD-20, unknown):** request a current seven-day daily human-visitor series and a fresh Search Console export. Keep requests, visitors, search impressions and search clicks as separate measures.
+3. **Traffic and ranking (AD-20, unknown):** obtain a current seven-day daily human-visitor series from Cloudflare Web Analytics or another suitable visitor source. Search Console is connected directly; no fresh export is needed. Keep requests, visitors, search impressions and search clicks as separate measures.
 4. **Internal links (AD-16, medium):** `pnpm check-content` passed but warned that many article bodies contain fewer than three internal links. Improve links where they genuinely help the next reader task; do not add unrelated links just to clear warnings.
 
 ## Complete 22-item check
@@ -35,7 +39,7 @@ The live site reflects commit `862125f`: its About page now describes the publis
 | AD-17 Privacy disclosure | Pass | Live privacy page returns 200 and contains the advertising-partner disclosure. |
 | AD-18 Child-directed audience | Unknown | The site's intended audience and applicable AdSense child-directed settings have not been determined. |
 | AD-19 Image rights | Unknown | Image and game-asset usage rights have not been documented or audited. |
-| AD-20 Ranking and traffic | Unknown | The supplied Search Console data is too old and short for current ranking or the owner's seven-day visitor gate. |
+| AD-20 Ranking and traffic | Unknown | Direct Search Console data is available (18 clicks, 1,470 impressions through the latest complete reporting window), but it cannot establish the owner's seven-day real-visitor gate. |
 | AD-21 Prior rejection | N/A | No AdSense rejection notice has been supplied; do not assume a rejection occurred. |
 | AD-22 Existing ad/affiliate density | Pass | Sampled live pages showed no AdSense code; `src/config/affiliates.ts` has an empty suggestion list. |
 

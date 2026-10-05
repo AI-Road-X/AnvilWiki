@@ -132,7 +132,7 @@
     },
     "characters": {
       "overviewTitle": "Aniimo 图鉴",
-      "overviewDescription": "按名称查找 Aniimo 图鉴，核对角色属性、定位、技能与不同形态，并查看官方资料来源；这里不是实测强度排名。"
+      "overviewDescription": "按名称查找 Aniimo 生物图鉴，并核对有来源的资料；这里不是人类 NPC 完整名单，也不是实测强度排名。"
     },
     "items": {
       "overviewTitle": "Aniimo 物品",
