@@ -13,6 +13,8 @@ The copyright page previously pointed takedown requests to an unconfigured Disco
 
 Five representative URLs (English home, English creature index, English quest, English guides index, Chinese creature index) returned `PASS / Submitted and indexed` from Google's URL Inspection API on 2026-10-06. Both submitted sitemaps report zero parse errors and warnings. The sitemap report's current `indexed: 0` count is inconsistent with those direct URL inspections and live search impressions, so it must not be read as proof that no pages are indexed. A live audit of the same five pages found all five indexable, with no critical or high issues. Its two medium `Organization logo missing` flags need context: the site does publish a 512×512 PNG at the logo URL already present in its Organization JSON-LD; the scanner also sees other `Organization` nodes without logos. Google treats Organization `logo` as recommended, not required. Do not generate a replacement asset just to satisfy this scanner.
 
+A new bilingual, source-linked October event guide now answers a time-sensitive reader task without inventing redeem codes or rankings. It states the October 6 check date, Aniimo-Apac time zone, eligibility, deadlines, and limits of the official September 23 notice. It improves guide depth but does not clear AD-05's separate code/ranking intent gaps. The completed local build now has 512 pages and 42,801 resolving internal links.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -26,14 +28,14 @@ Five representative URLs (English home, English creature index, English quest, E
 | --- | --- | --- |
 | AD-01 Custom domain | Pass | Production uses `aniimo-guides.com`, not a `pages.dev` hostname. |
 | AD-02 Ownership and operator | Pass | Google verification meta is present. Live About and Contact return 200; About was corrected in commit `862125f`, and Contact links the project's issue tracker. |
-| AD-03 Article count | Pass | 105 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
+| AD-03 Article count | Pass | 106 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
 | AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles. They are readable and some cite official sources, but 89 character profiles per language need a broader independent-value review. |
 | AD-05 Content depth and search intent | Fail | The code section has no verified codes; the tier-list section has no actual rankings. Several non-character guides are brief. Add only sourced, useful answers. |
 | AD-06 Freshness | Pass | `pnpm refresh-audit` scanned 210 articles and found nothing stale. There is no active code list to age-check. |
 | AD-07 Language quality | Pass | Sampled Sparki and ranking-method pages in Chinese and English; prose is readable. This is not a full translation audit. |
-| AD-08 Category structure | Pass | All seven Chinese wiki categories have articles: characters 89, codes 2, guides 4, items 3, maps 3, quests 2, tier-list 2. Breadth is uneven. |
-| AD-09 Broken links | Pass | After rebuilding, `pnpm check-links` passed on 42,135 links across 506 built pages. |
-| AD-10 Build health | Pass | `pnpm build` completed 506 pages; `pnpm lint` passed. |
+| AD-08 Category structure | Pass | All seven Chinese wiki categories have articles: characters 89, codes 2, guides 5, items 3, maps 3, quests 2, tier-list 2. Breadth is uneven. |
+| AD-09 Broken links | Pass | After rebuilding, `pnpm check-links` passed on 42,801 links across 512 built pages. |
+| AD-10 Build health | Pass | `pnpm build` completed 512 pages; `pnpm check` and 301 tests passed. |
 | AD-11 Sitemap reachability | Pass | Live scanner found a valid sitemap index; representative live article/category URLs returned 200. |
 | AD-12 Public access | Pass | Representative homepage, category and article URLs returned 200 without login. |
 | AD-13 Crawler rules | Pass | Live `robots.txt` allows `User-agent: *`; it does not block Googlebot, AdsBot-Google or Mediapartners-Google. |
