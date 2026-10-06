@@ -9,6 +9,8 @@ The original 2026-10-03 review used a limited owner-supplied Search Console ZIP 
 
 The connected Search Console property `https://aniimo-guides.com/` reports 18 web-search clicks and 1,470 impressions for 2026-09-19 through 2026-10-02 (the settled-data indicator extends to 2026-10-03). These are **search metrics, not unique visitors or human IPs**. The leading page is `/characters/` with 7 clicks and 381 impressions; its most-clicked query is `aniimo human characters` (5 clicks). The category copy is being clarified to say that the entries cover Aniimo creatures, not a complete human-NPC list. Search Console can now be queried directly; do not request another ZIP unless that connection stops working. Cloudflare's seven-day daily human-visitor series remains unverified because the authenticated dashboard could not be read in this review. Do not submit AdSense yet under the owner's course gate.
 
+A fresh Search Console query on October 6 reports **27 web-search clicks and 1,783 impressions for the seven-day window ending October 3** (the latest settled day). This supersedes the earlier numbers for current monitoring, but it is still not a visitor or IP count. No AdSense submission decision can be made from these search metrics alone.
+
 The copyright page previously pointed takedown requests to an unconfigured Discord URL. It now points to the existing project issue tracker, warns that issues are public, and avoids asserting that every game-asset use automatically qualifies as fair use. Image provenance was then audited separately below (AD-19).
 
 A source-tree media inventory on October 6 found no embedded game artwork in the 212 current MDX articles and identified the public brand images as generated project assets. See `docs/agent-readiness/2026-10-06-media-inventory.md`. AD-19 is passed for **current article imagery only**; any future screenshot, character art, or video embed needs a new provenance check.
@@ -16,6 +18,8 @@ A source-tree media inventory on October 6 found no embedded game artwork in the
 Five representative URLs (English home, English creature index, English quest, English guides index, Chinese creature index) returned `PASS / Submitted and indexed` from Google's URL Inspection API on 2026-10-06. Both submitted sitemaps report zero parse errors and warnings. The sitemap report's current `indexed: 0` count is inconsistent with those direct URL inspections and live search impressions, so it must not be read as proof that no pages are indexed. A live audit of the same five pages found all five indexable, with no critical or high issues. Its two medium `Organization logo missing` flags need context: the site does publish a 512×512 PNG at the logo URL already present in its Organization JSON-LD; the scanner also sees other `Organization` nodes without logos. Google treats Organization `logo` as recommended, not required. Do not generate a replacement asset just to satisfy this scanner.
 
 A new bilingual, source-linked October event guide now answers a time-sensitive reader task without inventing redeem codes or rankings. It states the October 6 check date, Aniimo-Apac time zone, eligibility, deadlines, and limits of the official September 23 notice. It improves guide depth but does not clear AD-05's separate code/ranking intent gaps. The completed local build now has 512 pages and 42,801 resolving internal links.
+
+The English and Chinese Blazen and Bolty entries have also been corrected against the official compendium. Blazen's Basic Form is Electric (the prior Dark/Electric claim incorrectly inferred a second element from the Dark Claw skill name). Both entries now describe the 6-second Power Sustain trade-off, including the inability to gain UP while Overcharged, and identify which official form the skill data came from. This improves two sampled profiles but does not establish that all 89 profiles per language provide sufficient independent value.
 
 ## Priority findings
 
@@ -31,7 +35,7 @@ A new bilingual, source-linked October event guide now answers a time-sensitive 
 | AD-01 Custom domain | Pass | Production uses `aniimo-guides.com`, not a `pages.dev` hostname. |
 | AD-02 Ownership and operator | Pass | Google verification meta is present. Live About and Contact return 200; About was corrected in commit `862125f`, and Contact links the project's issue tracker. |
 | AD-03 Article count | Pass | 106 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
-| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles. They are readable and some cite official sources, but 89 character profiles per language need a broader independent-value review. |
+| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen and Bolty now add source-checked trait limitations and reader interpretation. A broader review of 89 character profiles per language is still needed. |
 | AD-05 Content depth and search intent | Fail | The code section has no verified codes; the tier-list section has no actual rankings. Several non-character guides are brief. Add only sourced, useful answers. |
 | AD-06 Freshness | Pass | `pnpm refresh-audit` scanned 210 articles and found nothing stale. There is no active code list to age-check. |
 | AD-07 Language quality | Pass | Sampled Sparki and ranking-method pages in Chinese and English; prose is readable. This is not a full translation audit. |
@@ -47,7 +51,7 @@ A new bilingual, source-linked October event guide now answers a time-sensitive 
 | AD-17 Privacy disclosure | Pass | Live privacy page returns 200 and contains the advertising-partner disclosure. |
 | AD-18 Child-directed audience | Unknown | The site's intended audience and applicable AdSense child-directed settings have not been determined. |
 | AD-19 Image rights | Pass (current imagery only) | The 2026-10-06 inventory found no article screenshots or third-party character art; published icons and hero are generated project assets. Re-audit before adding media. |
-| AD-20 Ranking and traffic | Unknown | Direct Search Console data is available (18 clicks, 1,470 impressions through the latest complete reporting window), but it cannot establish the owner's seven-day real-visitor gate. |
+| AD-20 Ranking and traffic | Unknown | Direct Search Console data is available (27 clicks, 1,783 impressions in the seven-day window ending October 3), but it cannot establish the owner's seven-day real-visitor gate. |
 | AD-21 Prior rejection | N/A | No AdSense rejection notice has been supplied; do not assume a rejection occurred. |
 | AD-22 Existing ad/affiliate density | Pass | Sampled live pages showed no AdSense code; `src/config/affiliates.ts` has an empty suggestion list. |
 
