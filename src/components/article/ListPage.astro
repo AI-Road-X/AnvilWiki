@@ -40,6 +40,20 @@ const description =
   (String(shared.defaultListDescription ?? '').replace('{title}', title) || title);
 
 const entries = await getEntriesByCategory(category, locale);
+// The official compendium numbers are already recorded in article titles.
+// Build the lookup from published entries, so no separate hand-maintained
+// mapping can point to a missing or differently translated article.
+const numberedEntries =
+  category === 'characters'
+    ? entries
+        .map((entry) => {
+          const number = /\bNo\.\s*(\d{3})\b/i.exec(entry.data.title)?.[1];
+          const slug = parseEntryId(entry.id)?.slug;
+          return number && slug ? { number, title: entry.data.title, slug } : null;
+        })
+        .filter((item): item is { number: string; title: string; slug: string } => item !== null)
+        .sort((a, b) => Number(a.number) - Number(b.number))
+    : [];
 
 const jsonLd = [
   // Empty ItemList (itemListElement: []) is invalid structured data — only
@@ -90,6 +104,32 @@ const jsonLd = [
       </div>
       <p class="mt-2 max-w-2xl text-muted-foreground">{description}</p>
     </header>
+
+    {
+      numberedEntries.length > 0 && (
+        <details class="rounded-lg border bg-card p-5">
+          <summary class="cursor-pointer font-semibold">
+            {ui.overview.characters.numberIndexTitle}
+          </summary>
+          <p class="mt-2 text-sm text-muted-foreground">
+            {ui.overview.characters.numberIndexDescription}
+          </p>
+          <ul class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {numberedEntries.map(({ number, title: entryTitle, slug }) => (
+              <li>
+                <a
+                  href={detailPath(category, slug, locale)}
+                  class="flex items-baseline gap-2 rounded-md border px-3 py-2 text-sm hover:border-nav hover:text-nav"
+                >
+                  <span class="shrink-0 font-semibold">No.{number}</span>
+                  <span class="min-w-0 truncate">{entryTitle}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )
+    }
 
     {
       entries.length === 0 ? (

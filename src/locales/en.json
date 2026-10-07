@@ -132,7 +132,9 @@
     },
     "characters": {
       "overviewTitle": "Aniimo Creature Compendium",
-      "overviewDescription": "Browse Aniimo creature entries by name, with documented traits and source links. This is not a complete list of human NPCs or a tested tier ranking."
+      "overviewDescription": "Browse Aniimo creature entries by name or official compendium number, with documented traits and source links. This is not a complete list of human NPCs or a tested tier ranking.",
+      "numberIndexTitle": "Find an Aniimo by official number",
+      "numberIndexDescription": "Open this list to jump to a published creature entry, such as No.079. These are Aniimo creatures, not human NPCs; missing numbers are not filled with guesses."
     },
     "items": {
       "overviewTitle": "All Items",

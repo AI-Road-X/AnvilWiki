@@ -132,7 +132,9 @@
     },
     "characters": {
       "overviewTitle": "Aniimo 图鉴",
-      "overviewDescription": "按名称查找 Aniimo 生物图鉴，并核对有来源的资料；这里不是人类 NPC 完整名单，也不是实测强度排名。"
+      "overviewDescription": "按名称或官方图鉴编号查找 Aniimo 生物资料，并核对来源；这里不是人类 NPC 完整名单，也不是实测强度排名。",
+      "numberIndexTitle": "按官方编号查找 Aniimo",
+      "numberIndexDescription": "展开后可跳转到已发布的生物条目，例如 No.079。这里只列 Aniimo 生物，不把人类 NPC 混入，也不猜测缺失的编号。"
     },
     "items": {
       "overviewTitle": "Aniimo 物品",

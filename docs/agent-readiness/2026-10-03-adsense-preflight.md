@@ -21,6 +21,12 @@ A new bilingual, source-linked October event guide now answers a time-sensitive 
 
 The English and Chinese Blazen and Bolty entries have also been corrected against the official compendium. Blazen's Basic Form is Electric (the prior Dark/Electric claim incorrectly inferred a second element from the Dark Claw skill name). Both entries now describe the 6-second Power Sustain trade-off, including the inability to gain UP while Overcharged, and identify which official form the skill data came from. This improves two sampled profiles but does not establish that all 89 profiles per language provide sufficient independent value.
 
+## Update — 2026-10-07 (JST)
+
+The connected Search Console reports **27 web-search clicks and 2,090 impressions** in the seven-day window ending October 4, its latest settled day. The owner's screenshot of a wider, three-month date setting shows 27 clicks and 2,098 impressions; those windows differ, so the counts should not be merged. The `/characters/` page has 10 clicks and 519 impressions in the owner screenshot. Its `aniimo human characters` query accounts for 6 clicks and 44 impressions, but the page is a creature compendium, not a verified human-NPC roster. Its title and description now explicitly state that distinction rather than inventing people.
+
+Another visible query is `aniimo 079`. The existing Luminelle article is No.079; the Chinese and English creature list pages now offer a number-sorted, expandable index generated from published article titles, with direct links to numbered entries. Missing numbers are not invented. This addresses a real navigation task, but does not resolve the separate quality and traffic gates. Search clicks and impressions still cannot establish seven consecutive days of real human IP visitors, so AdSense remains in setup state.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -51,7 +57,7 @@ The English and Chinese Blazen and Bolty entries have also been corrected agains
 | AD-17 Privacy disclosure | Pass | Live privacy page returns 200 and contains the advertising-partner disclosure. |
 | AD-18 Child-directed audience | Unknown | The site's intended audience and applicable AdSense child-directed settings have not been determined. |
 | AD-19 Image rights | Pass (current imagery only) | The 2026-10-06 inventory found no article screenshots or third-party character art; published icons and hero are generated project assets. Re-audit before adding media. |
-| AD-20 Ranking and traffic | Unknown | Direct Search Console data is available (27 clicks, 1,783 impressions in the seven-day window ending October 3), but it cannot establish the owner's seven-day real-visitor gate. |
+| AD-20 Ranking and traffic | Unknown | Direct Search Console data is available (27 clicks, 2,090 impressions in the seven-day window ending October 4), but it cannot establish the owner's seven-day real-visitor gate. |
 | AD-21 Prior rejection | N/A | No AdSense rejection notice has been supplied; do not assume a rejection occurred. |
 | AD-22 Existing ad/affiliate density | Pass | Sampled live pages showed no AdSense code; `src/config/affiliates.ts` has an empty suggestion list. |
 
