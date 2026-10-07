@@ -29,6 +29,8 @@ Another visible query is `aniimo 079`. The existing Luminelle article is No.079;
 
 The first pass of the number lookup was corrected to include the official compendium's five-digit numbers as well as three-digit numbers. The No.079 destination page was also expanded in both languages from an identity-only stub to a source-checked Basic/Rainstorm Form comparison and conditional healing/buff explanation. Its Water Rush skill appears on both official form pages; a Water-targeted skill is not evidence that Basic Form itself has a Water element. This is a targeted quality improvement, not a claim that the other profiles have all been audited.
 
+The Cornet No.009 profile was audited next. Its previous Wind/Water label, reef description, and two listed habitats were specific to Beach Form but were presented as general Cornet information. Both language versions now separate the official Basic, Beach, Prismana, and Highland form elements and habitats, explain the flying trade-off, and clarify that the skill list displayed by the official site is not proof of a single equipable loadout. The Erlath No.081 profile was checked against its official Basic Form entry without needing a correction. AD-04 remains unknown for the unaudited profiles.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -43,7 +45,7 @@ The first pass of the number lookup was corrected to include the official compen
 | AD-01 Custom domain | Pass | Production uses `aniimo-guides.com`, not a `pages.dev` hostname. |
 | AD-02 Ownership and operator | Pass | Google verification meta is present. Live About and Contact return 200; About was corrected in commit `862125f`, and Contact links the project's issue tracker. |
 | AD-03 Article count | Pass | 106 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
-| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen, Bolty, and Luminelle now add source-checked form/trait limitations and reader interpretation. A broader review of 89 character profiles per language is still needed. |
+| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen, Bolty, Luminelle and Cornet now add source-checked form/trait limitations and reader interpretation; Erlath was source-checked. A broader review of 89 character profiles per language is still needed. |
 | AD-05 Content depth and search intent | Fail | The code section has no verified codes; the tier-list section has no actual rankings. Several non-character guides are brief. Add only sourced, useful answers. |
 | AD-06 Freshness | Pass | `pnpm refresh-audit` scanned 210 articles and found nothing stale. There is no active code list to age-check. |
 | AD-07 Language quality | Pass | Sampled Sparki and ranking-method pages in Chinese and English; prose is readable. This is not a full translation audit. |
