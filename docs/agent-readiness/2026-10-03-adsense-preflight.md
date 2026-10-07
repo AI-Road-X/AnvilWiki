@@ -27,6 +27,8 @@ The connected Search Console reports **27 web-search clicks and 2,090 impression
 
 Another visible query is `aniimo 079`. The existing Luminelle article is No.079; the Chinese and English creature list pages now offer a number-sorted, expandable index generated from published article titles, with direct links to numbered entries. Missing numbers are not invented. This addresses a real navigation task, but does not resolve the separate quality and traffic gates. Search clicks and impressions still cannot establish seven consecutive days of real human IP visitors, so AdSense remains in setup state.
 
+The first pass of the number lookup was corrected to include the official compendium's five-digit numbers as well as three-digit numbers. The No.079 destination page was also expanded in both languages from an identity-only stub to a source-checked Basic/Rainstorm Form comparison and conditional healing/buff explanation. Its Water Rush skill appears on both official form pages; a Water-targeted skill is not evidence that Basic Form itself has a Water element. This is a targeted quality improvement, not a claim that the other profiles have all been audited.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -41,7 +43,7 @@ Another visible query is `aniimo 079`. The existing Luminelle article is No.079;
 | AD-01 Custom domain | Pass | Production uses `aniimo-guides.com`, not a `pages.dev` hostname. |
 | AD-02 Ownership and operator | Pass | Google verification meta is present. Live About and Contact return 200; About was corrected in commit `862125f`, and Contact links the project's issue tracker. |
 | AD-03 Article count | Pass | 106 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
-| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen and Bolty now add source-checked trait limitations and reader interpretation. A broader review of 89 character profiles per language is still needed. |
+| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen, Bolty, and Luminelle now add source-checked form/trait limitations and reader interpretation. A broader review of 89 character profiles per language is still needed. |
 | AD-05 Content depth and search intent | Fail | The code section has no verified codes; the tier-list section has no actual rankings. Several non-character guides are brief. Add only sourced, useful answers. |
 | AD-06 Freshness | Pass | `pnpm refresh-audit` scanned 210 articles and found nothing stale. There is no active code list to age-check. |
 | AD-07 Language quality | Pass | Sampled Sparki and ranking-method pages in Chinese and English; prose is readable. This is not a full translation audit. |
