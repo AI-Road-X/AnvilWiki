@@ -47,7 +47,7 @@ const numberedEntries =
   category === 'characters'
     ? entries
         .map((entry) => {
-          const number = /\bNo\.\s*(\d{3})\b/i.exec(entry.data.title)?.[1];
+          const number = /\bNo\.\s*(\d{3,})\b/i.exec(entry.data.title)?.[1];
           const slug = parseEntryId(entry.id)?.slug;
           return number && slug ? { number, title: entry.data.title, slug } : null;
         })
