@@ -31,6 +31,14 @@ The first pass of the number lookup was corrected to include the official compen
 
 The Cornet No.009 profile was audited next. Its previous Wind/Water label, reef description, and two listed habitats were specific to Beach Form but were presented as general Cornet information. Both language versions now separate the official Basic, Beach, Prismana, and Highland form elements and habitats, explain the flying trade-off, and clarify that the skill list displayed by the official site is not proof of a single equipable loadout. The Erlath No.081 profile was checked against its official Basic Form entry without needing a correction. AD-04 remains unknown for the unaudited profiles.
 
+## Update — 2026-10-08 (JST)
+
+The bilingual Fahloo No.080 article was rechecked against the now-accessible official English Basic Form entry. The former English skill name was an unverified translation from the French page; it is corrected to the official **Here Comes the Bubble**, including its 15-second duration. A source-linked comparison with Erlath No.081 now distinguishes Fahloo's reduction of enemy EP recovery from Erlath's separate skill that restores teammates' EP. This improves one more profile, but does not clear AD-04 for the rest of the catalog or establish the owner's seven-day genuine-visitor gate.
+
+## Update — 2026-10-10 (JST)
+
+The connected Search Console's latest settled 28-day report runs through October 6: 13 clicks and 577 impressions for `/characters/`, 4 clicks and 58 impressions for `/characters/luminelle/`, and 4 clicks and 75 impressions for `/quests/chasing-the-clouds/`. The map region names article received 92 impressions and 1 click, average position 6.43. Its query rows include `aniimo blitzwood` (14 impressions, average position 4.57) and `aniimo mistwoods` (8 impressions, average position 5.38), both with zero clicks. The article now pairs those region names with sourced form-specific habitat examples and clearly explains that habitat does not reveal exact spawn locations. Search data still does not satisfy or measure the course's seven-day daily-IP threshold.
+
 ## Priority findings
 
 1. **Content intent (AD-05, high):** the code section explicitly says there are no verified active codes, and the tier-list section explains how to read rankings without publishing an actual ranking. These pages are honest but do not fully answer visitors looking for active codes or a tier list. Obtain verifiable game evidence before publishing those answers; do not invent codes or placements.
@@ -45,7 +53,7 @@ The Cornet No.009 profile was audited next. Its previous Wind/Water label, reef 
 | AD-01 Custom domain | Pass | Production uses `aniimo-guides.com`, not a `pages.dev` hostname. |
 | AD-02 Ownership and operator | Pass | Google verification meta is present. Live About and Contact return 200; About was corrected in commit `862125f`, and Contact links the project's issue tracker. |
 | AD-03 Article count | Pass | 106 MDX articles in each of `zh` and `en`; no `draft: true` MDX detected. This is only a count. |
-| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen, Bolty, Luminelle and Cornet now add source-checked form/trait limitations and reader interpretation; Erlath was source-checked. A broader review of 89 character profiles per language is still needed. |
+| AD-04 Originality | Unknown | Sampled Sparki, platform, item, quest and tier-list articles; Blazen, Bolty, Luminelle, Cornet and Fahloo now add source-checked form/trait limitations and reader interpretation; Erlath was source-checked. A broader review of 89 character profiles per language is still needed. |
 | AD-05 Content depth and search intent | Fail | The code section has no verified codes; the tier-list section has no actual rankings. Several non-character guides are brief. Add only sourced, useful answers. |
 | AD-06 Freshness | Pass | `pnpm refresh-audit` scanned 210 articles and found nothing stale. There is no active code list to age-check. |
 | AD-07 Language quality | Pass | Sampled Sparki and ranking-method pages in Chinese and English; prose is readable. This is not a full translation audit. |
