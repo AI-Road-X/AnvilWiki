@@ -22,6 +22,7 @@ import LocaleLayout from '~/components/layout/LocaleLayout.astro';
 import VideoSection from '~/components/home/VideoSection.astro';
 import QuickStart from '~/components/home/QuickStart.astro';
 import ExploreModules from '~/components/home/ExploreModules.astro';
+import WikiOrientation from '~/components/home/WikiOrientation.astro';
 import { site } from '~/config/site';
 import { NAVIGATION_CONFIG } from '~/config/navigation';
 import { type Locale } from '~/i18n/routing';
@@ -63,6 +64,7 @@ const updates: HomeUi['updates'] = home.updates;
 const start: HomeUi['start'] = home.start;
 const popular: HomeUi['popular'] = home.popular;
 const explore: HomeUi['explore'] = home.explore;
+const wikiGuide: HomeUi['wikiGuide'] = home.wikiGuide;
 const closingCta: HomeUi['closingCta'] = home.closingCta;
 
 // QuickLink may be a string or { label, href } — normalize for the sidebar list.
@@ -225,6 +227,8 @@ function trendingLabel(link: QuickLink): string {
       </section>
     )
   }
+
+  <WikiOrientation locale={locale} content={wikiGuide} />
 
   {/* ─────────────────────────────── Final CTA ────────────────────────── */}
   {

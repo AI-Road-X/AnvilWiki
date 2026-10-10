@@ -159,8 +159,8 @@
   },
   "home": {
     "meta": {
-      "title": "Aniimo Wiki — Guides, Characters & Quests",
-      "description": "Independent Aniimo guides and character entries with source links, quest notes, item references, and careful code and ranking verification."
+      "title": "Aniimo Wiki: Game Guides, Characters & Maps",
+      "description": "Find independent Aniimo game guides, character and item references, map notes, quest help, and code status—with sources and update context."
     },
     "updates": {
       "title": "Recent updates"
@@ -191,8 +191,8 @@
     },
     "hero": {
       "badge": "Aniimo",
-      "title": "Aniimo Wiki",
-      "description": "Independent character entries, beginner guides, item references, and quest notes with source links.",
+      "title": "Aniimo Wiki & Game Guides",
+      "description": "Find character and item references, beginner walkthroughs, regional map notes, quest help, and code updates. Each guide distinguishes sourced facts from community reports.",
       "ctaPrimary": "Read guides",
       "ctaSecondary": "Browse characters",
       "videoId": ""
@@ -257,6 +257,50 @@
           ]
         }
       ]
+    },
+    "wikiGuide": {
+      "title": "How to use this Aniimo wiki",
+      "intro": "This independent fan-made guide is organized around the questions players ask while exploring Aniimo: which creature or form they found, what a listed ability actually does, where a named region fits into the world, and what to check when a quest or reward does not behave as expected. Use the links below to move from a broad question to a focused reference. This site is not the official Aniimo wiki, and it does not replace the current in-game journal, menus, or announcements.",
+      "topics": [
+        {
+          "title": "Find an Aniimo and compare its forms",
+          "body": "The character compendium is the best starting point when you know a creature's name, number, type, role, or form. Individual entries collect the details that are actually available in cited sources, such as listed attributes, habitats, mobility, traits, and skills. A creature may have more than one form, so check the form named on the page before comparing an ability or habitat. A reference entry is not automatically a competitive ranking: where the evidence does not support a conclusion about the strongest team, spawn rate, exact location, or best build, we leave that claim open instead of presenting a guess as fact.",
+          "linkLabel": "Browse the character compendium",
+          "href": "/characters"
+        },
+        {
+          "title": "Choose a guide for your next task",
+          "body": "Use the guide library for explanations that connect several parts of the game, and the quest library when you need help following a particular objective. Before acting on a time-sensitive event, code, or reward, check its date and the linked announcement: availability can change after an update. Walkthroughs should help you identify the next check, not promise that every account, platform, or game version will show an identical result. If your screen differs, trust the current game client and official instructions first, then use the troubleshooting notes to narrow down the difference.",
+          "linkLabel": "Browse guides and quest notes",
+          "href": "/guides"
+        },
+        {
+          "title": "Use maps as regional references, not spawn guarantees",
+          "body": "Map pages explain official region names and organize location research so you can recognize a place mentioned by a quest or character entry. A named habitat or region does not by itself prove an exact spawn coordinate, route, time window, capture rate, or guaranteed encounter. Those details can depend on the live game and may change. Confirm directions and current conditions in Aniimo itself; use the map notes as a navigation aid and follow the source links when a location claim matters.",
+          "linkLabel": "Explore map references",
+          "href": "/maps"
+        },
+        {
+          "title": "Check what items do before spending them",
+          "body": "The item library groups currencies, capture tools, and other named objects so you can find their documented purpose. Read the item description and any stated limitations before using a scarce resource. A listed item effect is different from advice about the most efficient strategy; we only make that recommendation when there is evidence to support it. Where an item page is still a basic reference, its coverage is intentionally limited rather than padded with unsupported drop sources or mechanics.",
+          "linkLabel": "Browse item references",
+          "href": "/items"
+        },
+        {
+          "title": "Treat codes and rankings as time-sensitive",
+          "body": "Promotional codes can expire, have redemption limits, or be restricted by account or region. Check the code page's verification notes and the linked official source before spending time entering a code; a third-party list alone is not proof that a code still works. Tier lists need similar caution: different forms, roles, teams, and player goals can change what counts as useful. Our ranking pages explain the comparison basis and its limits rather than implying that an unofficial tier is an official game rating.",
+          "linkLabel": "Check code status and sources",
+          "href": "/codes"
+        },
+        {
+          "title": "How we handle sources and corrections",
+          "body": "Official game pages and announcements are preferred for names, descriptions, and published mechanics. When an official source does not cover a practical detail, a community report can be included only with that status made clear; it should not be confused with a confirmed rule. We avoid inventing exact coordinates, reward eligibility, drop rates, skill values, or current code status. If you spot a mismatch, compare the page's cited source and update date with your current game version, then use the site's contact or issue link to send the page URL and the specific detail that needs review. That makes a correction easier to verify and keeps the reference useful to other players.",
+          "linkLabel": "Read the latest updates",
+          "href": "/recent"
+        }
+      ],
+      "noteTitle": "Independent reference, not an official source",
+      "note": "Aniimo Wiki is a community-made reference and is not affiliated with the game's publisher or developers. Game details may change between updates. Official announcements and the live game take precedence when information conflicts. A page's updated date tells you when we last revised that page; it is not a promise that every mechanic was re-tested in the live client that day. For details that may change quickly, check official announcements and in-game text again. When a page has only a partial source trail, treat it as a starting point and follow the linked source rather than relying on a copied summary."
     },
     "faq": {
       "title": "FAQ",

@@ -77,6 +77,14 @@ The connected Search Console's latest settled 28-day report runs through October
 
 Keep the AdSense site in setup state. Before submission, resolve AD-05 and review AD-04; verify the owner's seven-day real-visitor gate with current dated evidence. Recheck AD-19 if any new media is added. Complete the visual and child-audience checks where applicable. Re-run this review after content changes. Do not use artificial traffic or ask anyone to click ads.
 
+## Update — 2026-10-10 (JST): homepage SEO and ads.txt preflight
+
+The owner shared a third-party homepage audit reporting a 75/100 score, 366 words, a 6.28% `aniimo` density, and an image warning. The report is internally inconsistent about the H1: its checklist says a single H1 is present, while a later raw-HTML note marks `<h1>` absent. The site template already renders one server-side H1; the new build confirms exactly one. The audit's 1,200-word target is a vendor heuristic, not a Google ranking or AdSense minimum. The English homepage now has a useful editorial orientation section (and bilingual counterpart) that directs players to character, quest, map, item, code and update references, explains sourcing limits, and avoids invented game claims. It is not being expanded with repetitive filler merely to hit a fixed threshold. Title and description now describe the actual independent guide library; the H1 was clarified to “Aniimo Wiki & Game Guides.”
+
+The owner also supplied an AdSense preflight that labels the absent Google ads.txt seller line a Blocker and says ad-request data is incomplete. The checked `public/ads.txt` contains comments and an inactive template only; it contains no fabricated publisher ID. Google's current official [ads.txt guide](https://support.google.com/adsense/answer/12171612?hl=en) calls ads.txt highly recommended, not mandatory, and says to add the actual publisher ID from the AdSense account. Its [eligibility guidance](https://support.google.com/adsense/answer/9724/eligibility-requirements-for-adsense?hl=en-uk) requires original, high-quality content and an audience, but does not define this audit's fixed 1,200-word homepage threshold. Keep the user's explicit course gate: do not request AdSense review until seven consecutive full days average at least 100 genuine IP visitors/day. Ad requests are not an appropriate pre-approval substitute for that evidence.
+
+Build verification after this homepage change: `pnpm check` passed with 0 errors, warnings, or hints; `pnpm check-content` passed but retained existing low-internal-link-count warnings on many article pages; `astro build` built 513 pages. Built English homepage HTML contains one H1, one canonical link, 53 anchors, the revised metadata, and 1,127 words using a local visible-text counter (word-count methods differ from the external audit). No image was added just to clear an informational image suggestion; use relevant, rights-cleared game artwork only if it improves the page for readers.
+
 ## Sources
 
 - Project checklist: `.agent/skills/anvil-adsense-audit/SKILL.md`
@@ -85,3 +93,5 @@ Keep the AdSense site in setup state. Before submission, resolve AD-05 and revie
 - Google Publisher Policies: https://support.google.com/adsense/answer/10502938
 - Google Search Central helpful-content guidance: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
 - Google Organization structured-data guidance: https://developers.google.com/search/docs/appearance/structured-data/organization
+- Google AdSense ads.txt guide: https://support.google.com/adsense/answer/12171612?hl=en
+- Google AdSense eligibility requirements: https://support.google.com/adsense/answer/9724/eligibility-requirements-for-adsense?hl=en-uk
