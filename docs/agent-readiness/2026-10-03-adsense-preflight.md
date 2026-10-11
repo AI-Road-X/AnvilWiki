@@ -85,6 +85,8 @@ The owner also supplied an AdSense preflight that labels the absent Google ads.t
 
 Build verification after this homepage change: `pnpm check` passed with 0 errors, warnings, or hints; `pnpm check-content` passed but retained existing low-internal-link-count warnings on many article pages; `astro build` built 513 pages. Built English homepage HTML contains one H1, one canonical link, 53 anchors, the revised metadata, and 1,127 words using a local visible-text counter (word-count methods differ from the external audit). No image was added just to clear an informational image suggestion; use relevant, rights-cleared game artwork only if it improves the page for readers.
 
+The higher-intent query page `/quests/chasing-the-clouds/` was next revised after the connected Search Console showed 4 clicks and 75 impressions for its 28-day window ending 2026-10-07 (average position about 3.81; query rows can be incomplete because of privacy thresholds). It now answers the mailbox-unlock question first, separates “mail unavailable,” “code rejected,” “accepted but message missing,” and “message unclaimed,” and links to related redeem/status/reward pages. PC Gamer's 2026-09-24 guide supports the reported quest unlock and its wait → fast-travel after five minutes → restart sequence; this remains third-party, launch-period guidance. The official launch announcement only confirms event rewards can be delivered by in-game mail. The revised page explicitly says where official documentation stops, and directs users to current in-game text if behavior differs. No code's live status was inferred from this query or added.
+
 ## Sources
 
 - Project checklist: `.agent/skills/anvil-adsense-audit/SKILL.md`
