@@ -238,6 +238,9 @@ const privacyLabel = consent?.privacyLabel ?? footerStrings.privacyPolicy ?? 'Pr
     {/* Google Search Console verification (optional) */}
     {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
 
+    {/* Bing Webmaster Tools site verification */}
+    <meta name="msvalidate.01" content="30CFE61FA3A61D440D3F9927A5869D8C" />
+
     {/*
       Analytics / AdSense are injected DYNAMICALLY (consent-gated).
       BaseLayout only defines the loader; CookieConsent.astro calls it after

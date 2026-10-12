@@ -89,6 +89,14 @@ The higher-intent query page `/quests/chasing-the-clouds/` was next revised afte
 
 The English and Chinese redemption instructions now link code-redemption intent to mailbox troubleshooting and separately link event-delivered rewards, clarifying two different reward paths. Final verification after these article edits: `pnpm check` reported 0 errors/warnings/hints; `pnpm check-content` passed while retaining unrelated existing character-article internal-link warnings; `astro build` generated 513 pages; `pnpm check-links` resolved all 43,033 internal links. Commit `8c28792` deployed the homepage and `e398f20` deployed the mailbox guide; the later internal-link-only commit `8404259` was pushed, and production English and Chinese mailbox pages returned 200 with the updated title and troubleshooting advice.
 
+## Update — 2026-10-12 (JST): Bing verification and reported-code freshness
+
+Bing Webmaster Tools supplied the HTML ownership token `msvalidate.01=30CFE61FA3A61D440D3F9927A5869D8C`. It is now emitted in the shared page `<head>`; after the deployment is live, verify the `https://aniimo-guides.com/` property in Bing Webmaster Tools and leave the tag in place. The screenshot showed an existing `speedrun24.com` property in the selector, so confirm the property label is `aniimo-guides.com` before pressing Verify. This record does not claim Bing verification has succeeded.
+
+The English and Chinese code overview pages now surface `aniimazingfroyo` as a **third-party reported, not in-game tested** candidate, with the US/America server restriction and three dated guide references. Pocket Tactics' October 9 report and Dexerto/Beebom listings were cross-checked on October 12. No matching official announcement or first-hand redemption result was found, so the page explicitly does not promise current validity and still has no independently verified active-code list. Do not update the site's active-code frontmatter or label this code as confirmed without direct evidence. GSC Wizard access is currently unavailable because its trial ended; do not purchase a subscription without owner authorization.
+
+The same page updates its title/description to match the reported-code and verification-status intent. Build inspection confirmed the `msvalidate.01` tag is present in generated HTML, and `pnpm check` returned 0 errors, warnings, or hints; `pnpm build` completed 513 pages. Existing `pnpm check-content` warnings are unrelated low internal-link counts on character pages and were not padded with irrelevant links.
+
 ## Sources
 
 - Project checklist: `.agent/skills/anvil-adsense-audit/SKILL.md`
