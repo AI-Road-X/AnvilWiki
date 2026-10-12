@@ -99,6 +99,10 @@ The same page updates its title/description to match the reported-code and verif
 
 The owner confirmed Bing site verification completed. A live production check on October 12 returned HTTP 200 for `/robots.txt`, `/sitemap-index.xml`, and `/sitemap-0.xml`; robots allows crawling and advertises the sitemap, and the sitemap index references the current sitemap with a same-day `lastmod`. The repository's IndexNow workflow is configured to submit the production sitemap after successful `main` CI/deployment; this notifies participating engines but is not proof of crawling or indexing. Next, monitor Bing Webmaster Tools' Site Explorer/indexing and search performance when data becomes available. Do not treat IndexNow submission, sitemap discovery, Cloudflare requests, or Google Search Console clicks as genuine human IP visitors for the owner's AdSense gate.
 
+## Update — 2026-10-13 (JST): contextual internal links
+
+Added reader-relevant next-step links across the English and Chinese launch checklist, platform rollout, currency/capture-items, and map research articles, plus the Chinese map, quest, and tier-list entry pages. Links connect actual adjacent tasks (for example, launch rewards to mailbox troubleshooting and map notes to exploration methods); no generic link padding was used. `pnpm check-content` passes. Its remaining low-link warnings are concentrated in character profiles and the Chinese character overview; those need individual relevance checks rather than indiscriminate bulk links. `pnpm check` reported 0 errors, warnings, or hints before the local process was interrupted while waiting for completion; the full build/link check is delegated to the push CI before production is considered verified.
+
 ## Sources
 
 - Project checklist: `.agent/skills/anvil-adsense-audit/SKILL.md`
