@@ -2462,12 +2462,7 @@
         }
       ],
       "resources": [],
-      "faq": [
-        {
-          "pattern": "大家都用同一个模板会被 Google 判定为低质吗",
-          "count": 2
-        }
-      ],
+      "faq": [],
       "topics": [
         {
           "title": "wiki 聚合站：省域名钱的路与主题词权重坑",
