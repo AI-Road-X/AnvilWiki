@@ -305,7 +305,8 @@ anvilwiki/
 │   ├── content/
 │   │   └── wiki/<locale>/<category>/*.mdx  # ⭐ 内容层（须在 wiki/ 子目录下，避免 legacy 自动集合）
 │   ├── pages/                    # ⭐ 代码层：路由（英文无前缀，其他语言 /<locale>/ 前缀）
-│   │   ├── index.astro           # 英文首页（inline 渲染，不 redirect —— redirect 会毁 SEO）
+│   │   ├── index.astro           # 英文首页（fork：inline 渲染不 redirect；demo：landingLinkEnabled 门控渲染 RootGateway 门面网关，英文首页在 demo.astro 的 /demo/）
+│   │   ├── demo.astro            # demo 站英文 wiki 首页 /demo/（demo 专属，fork 初始化删除）
 │   │   ├── [...slug].astro       # ⭐ 英文统一路由：slug.length=1→列表页，>1→详情页
 │   │   ├── [locale]/
 │   │   │   ├── index.astro       # 非默认语言首页
@@ -1407,7 +1408,7 @@ describe('sitemap', () => {
 
 ### 15.3 Demo 站策略
 
-- **官方 demo**：`anvil.wiki`，用虚构游戏 "Anvil Quest" 做一个完整 demo 站。
+- **官方 demo**：`anvil.wiki`，用虚构游戏 "Anvil Quest" 做一个完整 demo 站。根路径 `/` 为项目门面入口（301 跳 `/zh/landing/`，`_redirects` 根规则 + `index.astro` 内 RootGateway 影子页双保险），英文 wiki demo 首页在 `anvil.wiki/demo/`。
 - **源码**：demo 内容就在本仓库内（`src/content/wiki/`，英文在根、日文带前缀）——fork 后由 `pnpm apply-template` / setup 工作流整体替换。
 - **目的**：让用户直观看到 AnvilWiki 长什么样、性能如何。
 - **文档中心**：站内 `/landing/docs` 双手册（learn 29 课+3 附录 + dev 9 课，中英），markdown 源在 `docs/handbook/`，fork 保留。

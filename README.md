@@ -15,11 +15,11 @@
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
 [![Release](https://img.shields.io/github/v/release/PNGTRID/AnvilWiki?label=Release&color=brightgreen)](https://github.com/PNGTRID/AnvilWiki/releases)
 [![CI](https://github.com/PNGTRID/AnvilWiki/actions/workflows/ci.yml/badge.svg)](https://github.com/PNGTRID/AnvilWiki/actions/workflows/ci.yml)
-[![Live Demo](https://img.shields.io/badge/Demo-anvil.wiki-brightgreen)](https://anvil.wiki/)
+[![Live Demo](https://img.shields.io/badge/Demo-anvil.wiki-brightgreen)](https://anvil.wiki/demo/)
 [![Docs](https://img.shields.io/badge/Docs-/landing/docs-8b5cf6)](https://anvil.wiki/landing/docs)
 [![Works with](https://img.shields.io/badge/Works_with-Claude_Code_%7C_Codex_%7C_Cursor_%7C_ZCode-blueviolet)](.agent/skills/)
 
-[![Demo site homepage](public/images/showcase/demo-home.webp)](https://anvil.wiki/)
+[![Demo site homepage](public/images/showcase/demo-home.webp)](https://anvil.wiki/demo/)
 
 <p align="center">
   <a href="https://anvil.wiki/bosses/emberfang/"><img src="public/images/showcase/demo-article.webp" width="32%" alt="Boss stat card"></a>
@@ -29,12 +29,12 @@
 
 > Boss 数据卡 · 兑换码一键复制 · 武器强度榜——wiki 级呈现的其中三页,点图直达对应页面。Boss stat cards, tap-to-copy codes, tier lists — three of the wiki-grade page types; click through to the live pages.
 
-> Lighthouse 4×100 — 实测于 [anvil.wiki](https://anvil.wiki/)（2026-09-03）
+> Lighthouse 4×100 — 实测于 [anvil.wiki/demo](https://anvil.wiki/demo/)（2026-09-03）
 > 
-> [![Performance 100](https://img.shields.io/badge/Performance-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/)
-> [![Accessibility 100](https://img.shields.io/badge/Accessibility-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/)
-> [![Best Practices 100](https://img.shields.io/badge/Best_Practices-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/)
-> [![SEO 100](https://img.shields.io/badge/SEO-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/)
+> [![Performance 100](https://img.shields.io/badge/Performance-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/demo/)
+> [![Accessibility 100](https://img.shields.io/badge/Accessibility-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/demo/)
+> [![Best Practices 100](https://img.shields.io/badge/Best_Practices-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/demo/)
+> [![SEO 100](https://img.shields.io/badge/SEO-100-058627?style=flat-square&logo=lighthouse&logoColor=white)](https://anvil.wiki/demo/)
 
 ---
 
@@ -45,7 +45,7 @@
 | **零基础从零做一个赚钱的游戏站** | 📚 [学习手册](https://anvil.wiki/zh/landing/docs/learn)——每步写明「做什么/怎么做/你会看到什么」,含可复制的 AI 提示词 |
 | 看「从零到赚钱」的全部工作量 | 🗺️ [文档中心首页](https://anvil.wiki/zh/landing/docs)——10 件事全景清单,逐项点入 |
 | 深度定制 / 给模板写代码 | 🔧 [开发手册](https://anvil.wiki/zh/landing/docs/dev) |
-| 看看做出来长什么样 | 🎮 [在线 Demo](https://anvil.wiki/)——虚构游戏「Anvil Quest」的完整 wiki |
+| 看看做出来长什么样 | 🎮 [在线 Demo](https://anvil.wiki/demo/)——虚构游戏「Anvil Quest」的完整 wiki |
 | 对比 Fandom / Wiki.js / 其他方案 | ⚖️ [完整对比页](https://anvil.wiki/zh/landing/comparison)——三种物种、Fandom 用户搬家指南、自托管引擎数据表、什么时候不该选 AnvilWiki |
 | 看「游戏 wiki 页面模板」长什么样 | 🧩 [模板展示页](https://anvil.wiki/zh/landing/templates)——Boss 攻略/兑换码/强度榜/物品页/文档中心,每型挂 demo 真实页面 |
 
@@ -189,7 +189,7 @@ fork 后用 ZCode / Claude Code / Codex / Cursor 打开仓库,直接对话即可
 | **Build a money-making game site from zero** | 📚 [Learning Manual](https://anvil.wiki/landing/docs/learn) — every step a SOP with copy-paste AI prompts |
 | See the whole journey first | 🗺️ [Docs hub](https://anvil.wiki/landing/docs) — a 10-job whole-picture checklist |
 | Customize deeply / contribute code | 🔧 [Development Manual](https://anvil.wiki/landing/docs/dev) |
-| See what it looks like | 🎮 [Live demo](https://anvil.wiki/) — a complete wiki for the fictional game "Anvil Quest" |
+| See what it looks like | 🎮 [Live demo](https://anvil.wiki/demo/) — a complete wiki for the fictional game "Anvil Quest" |
 | Compare Fandom / Wiki.js / alternatives | ⚖️ [Full comparison](https://anvil.wiki/landing/comparison) |
 | See what the wiki page templates look like | 🧩 [Templates showcase](https://anvil.wiki/landing/templates) — boss guide, codes, tier list, item pages, docs center, each linked to a real demo page |
 
