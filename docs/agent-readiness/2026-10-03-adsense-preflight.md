@@ -105,6 +105,10 @@ Added reader-relevant next-step links across the English and Chinese launch chec
 
 The English and Chinese Baleetle No.056 pages were then upgraded from identity-only stubs using the official basic-form entry: attributes, habitat, Hustle stamina cost, and the Overloaded Engine trigger/40% bonus are now explained, with a warning not to infer one fixed loadout from a multi-form skill display. The live source is https://wiki.aniimo.com/item/056/basic-form. Both pages now link into the character compendium, official-type reference, and map-research method. `pnpm check-content` passes and no longer reports the Baleetle pair; remaining warnings still need page-by-page factual/context review. Commit `2f19427` passed CI and IndexNow; the Pages preview and both Baleetle URLs on the custom domain return 200 with the new content.
 
+## Update — 2026-10-14 (JST): map-query snippet alignment
+
+The latest accessible Search Console snapshot in the October 10 review covered settled data through October 6: `/maps/official-region-names/` had 92 impressions, 1 click, and average position 6.43; `aniimo blitzwood` had 14 impressions and `aniimo mistwoods` 8, both with zero clicks. A fresh GSC/Bing read on October 14 was unavailable because the connected GSC Wizard trial had ended, so these figures are historical context, not current performance. The English and Chinese map-region pages now put the exact named-region intent in the title, description, and opening heading, and remove public-facing prose about Search Console telemetry. Their content still distinguishes official region names and cited habitat examples from exact spawn coordinates; no unsupported location claim was added. Next step is to observe a settled 28-day window before judging CTR impact. This edit alone does not establish more clicks or progress toward the 100-click goal.
+
 ## Sources
 
 - Project checklist: `.agent/skills/anvil-adsense-audit/SKILL.md`
