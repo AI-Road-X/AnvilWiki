@@ -64,7 +64,7 @@ cd AnvilWiki
 
 # 2. 安装依赖并本地预览
 pnpm install
-pnpm dev            # 打开 http://localhost:4321,能看到 demo 站 = 环境通了
+pnpm dev            # 打开 http://localhost:4321/demo/,能看到示例 wiki = 环境通了
 
 # 3. 一条问答式命令,把 demo 站换成你的游戏(游戏名/主题色/域名/语言…)
 pnpm apply-template    # 中文界面加 --lang zh
@@ -206,7 +206,7 @@ cd AnvilWiki
 
 # 2. Install & preview locally
 pnpm install
-pnpm dev            # open http://localhost:4321 — seeing the demo site means your env works
+pnpm dev            # open http://localhost:4321/demo/ — seeing the demo wiki means your env works
 
 # 3. One guided Q&A command swaps the demo for your game (name/theme/domain/locales…)
 pnpm apply-template    # add --lang zh for a Chinese UI
