@@ -287,6 +287,18 @@ const privacyLabel = consent?.privacyLabel ?? footerStrings.privacyPolicy ?? 'Pr
       ></script>
     )}
 
+    {/*
+      VibeCafé product telemetry — static embed, allowlisted to this origin.
+      Always-on like the CF beacon above (no consent gate, no env var).
+    */}
+    <script
+      is:inline
+      defer
+      src="https://vibecafe.ai/telemetry/v1.js"
+      data-vc-product-id="cmvdec106000002nyeuo0o767"
+      data-vc-auth-key="vc_web_l7OmJ4CD2hLlHkHojq3-M7p0FsluYhiiRjAew-vwKG0"
+    ></script>
+
     {/* JSON-LD: Organization (global) + any page-specific */}
     <JsonLd data={orgJsonLd} />
     {jsonLd.map((d) => <JsonLd data={d} />)}
