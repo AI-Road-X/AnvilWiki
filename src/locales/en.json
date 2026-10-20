@@ -160,7 +160,7 @@
   "home": {
     "meta": {
       "title": "Aniimo Wiki: Game Guides, Characters & Maps",
-      "description": "Find independent Aniimo game guides, character and item references, map notes, quest help, and code status—with sources and update context."
+      "description": "Explore Aniimo Wiki for independent character guides, form comparisons, maps, quest help, and code status, with sources and update context."
     },
     "updates": {
       "title": "Recent updates"
@@ -192,7 +192,7 @@
     "hero": {
       "badge": "Aniimo",
       "title": "Aniimo Wiki & Game Guides",
-      "description": "Find character and item references, beginner walkthroughs, regional map notes, quest help, and code updates. Each guide distinguishes sourced facts from community reports.",
+      "description": "Compare creature forms and skills, find quest and mailbox help, and check map regions, items, and reported codes. Begin with a focused guide or browse the character compendium.",
       "ctaPrimary": "Read guides",
       "ctaSecondary": "Browse characters",
       "videoId": ""
@@ -260,7 +260,7 @@
     },
     "wikiGuide": {
       "title": "How to use this Aniimo wiki",
-      "intro": "This independent fan-made guide is organized around the questions players ask while exploring Aniimo: which creature or form they found, what a listed ability actually does, where a named region fits into the world, and what to check when a quest or reward does not behave as expected. Use the links below to move from a broad question to a focused reference. This site is not the official Aniimo wiki, and it does not replace the current in-game journal, menus, or announcements.",
+      "intro": "This unofficial Aniimo Wiki helps you compare creature forms, understand published skills, and find quest and map references. Start with the character compendium for stats and roles, the guides for specific questions, or the code section for reported redemption status. Form comparisons explain concrete differences, such as Melloblum's Grass Basic Form and holy/Grass Prismana Form, without presenting untested rankings as fact. Official announcements and the current game client take precedence when details change.",
       "topics": [
         {
           "title": "Find an Aniimo and compare its forms",

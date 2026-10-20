@@ -1,13 +1,17 @@
 ---
-title: "Melloblum 图鉴：官方编号 No.035"
-description: "整理官方 Aniimo Wiki 中 Melloblum 的属性、特性和团队辅助技能资料。"
+title: "Aniimo Melloblum 技能解析：玫瑰标记、治疗与草系辅助"
+description: "查看 Melloblum 的官方属性、Rose Mark 减耗、Healing Rose 治疗条件、净化与草系暴击辅助，并区分基础形态和 Prismana 的属性。"
 category: "characters"
 date: 2026-09-28
+lastModified: 2026-10-20
+image: "../../../../assets/covers/melloblum-forms.svg"
 tags: ["图鉴", "角色", "Melloblum", "草", "Support"]
-summary: "Melloblum 是官方编号 No.035 的草属性 Support Aniimo，擅长玫瑰标记和草属性暴击辅助。"
+summary: "Melloblum 是 No.035、Support 定位的 Aniimo。基础形态为 Grass，Prismana 另列 holy 属性。队友普攻伤害可积累降低 EP 消耗的特性层数；Healing Rose 则要等被标记目标受到三次暴击才触发附近友方治疗，两种规则不能混作每次攻击都回血。"
 ---
 
-## 基本资料
+## Melloblum 能为队伍提供什么？
+
+官方将 Melloblum 列为辅助位。公开技能涉及队友普攻、EP 减耗、暴击触发的治疗，以及草属性暴击支援。这些具体条件比单纯的 Support 标签更适合判断队伍需求，但还不能据此宣布某套配队是实测最优。
 
 | 项目 | 官方资料 |
 | --- | --- |
@@ -20,11 +24,22 @@ summary: "Melloblum 是官方编号 No.035 的草属性 Support Aniimo，擅长�
 | M.DEF / P.DEF / REGEN | 70 / 70 / 78 |
 | 形态 | Basic、Prismana |
 
-Melloblum 的栖息地为 Rosetower Woods，Homeland Ability 为 3 3。它用花瓣平息争端，并通过 Rose Mark 支援队伍。
+Rosetower Woods 是**基础形态**官方页面列示的栖息地。区域名称不等于已经核实的刷新坐标、捕捉路线、时间或概率。两种形态的属性差异可另读 [Melloblum Prismana 对比](/zh/guides/melloblum-prismana-form/)。
 
-## 特性与技能
+## 玫瑰标记如何降低 EP 消耗？
 
 - **Phantom Opening**：队友造成普通攻击伤害时获得 1 层 Rose Mark，最多 10 层；每层使 Melloblum 的 EP 消耗降低 3。
+
+| 特性层数 | 按文字规则计算的减耗量 |
+| ---: | ---: |
+| 0 | 0 |
+| 1 | 3 |
+| 5 | 15 |
+| 10 | 30 |
+
+这里仅计算“层数 × 3”。官方这段没有解释最低消耗、施法是否消耗层数，以及是否会出现返还，因此不能进一步说某招必定免费或能反向增加 EP。还要注意触发来源是队友造成**普攻伤害**，不是任意队伍动作。
+
+## 哪些技能负责治疗、净化和草系增益？
 
 | 技能 | 类型 | 消耗 | 威力 |
 | --- | --- | ---: | ---: |
@@ -35,8 +50,40 @@ Melloblum 的栖息地为 Rosetower Woods，Homeland Ability 为 3 3。它用花
 | Rose Garden | Support | 0 | 0 |
 | ATK | Magic | 0 | 6 |
 
+表中的威力不是实测最终伤害或治疗量。官方形态页展示共同技能列表，也不能直接证明一个形态能把列表中的全部技能同时装进技能槽。
+
+**Healing Rose** 会向目标施加标记，目标受到三次暴击后标记绽放，为附近友方恢复相当于 Melloblum HP 的 5%。若目标没有受到暴击，文字描述的治疗条件就没有满足；受益范围写的是附近友方，也不能理解为全地图所有队友。
+
+治疗技能的目标标记与特性的 EP 减耗层数，都使用 Rose Mark 名称，但描述的对象和触发方式不同。当前来源没有明确说明两个计数器互相替代、互相支付或共享消耗，因此本页不把它们合并成一个机制。
+
+**Sparkling Rose** 的用途是移除全队负面效果，并发出追踪目标的 Light 攻击；它列示额外 15% 暴击率。**Blasting Roses** 则为自身攻击列示额外 35% 暴击率。两段都没有写成“全队获得该暴击率”，不能把攻击附带的数值当作队伍增益。
+
+**Thorny Blessing** 在造成草属性暴击伤害时触发额外伤害，持续十五秒，每零点五秒最多触发一次。**Rose Garden** 在自身下方形成区域，提升范围内友方的草属性暴击伤害，持续三十秒。官方页面的百分比存在重复百分号，本页不会把这个排版问题直接归一成已核实数值。
+
+## 如何按队伍缺口比较这些效果？
+
+| 当前需求 | 对应公开效果 | 需要检查的条件 |
+| --- | --- | --- |
+| 降低 EP 压力 | Phantom Opening | 队友是否造成普攻伤害，以及客户端中的实际消耗规则。 |
+| 多人恢复 | Healing Rose | 被标记目标是否受到三次暴击，友方是否在治疗附近。 |
+| 清除负面状态 | Sparkling Rose | 当前形态和技能槽能否使用该技能。 |
+| 草属性暴击支援 | Thorny Blessing / Rose Garden | 队伍伤害属性、暴击和站位是否满足效果。 |
+
+这是一张需求对照表，不是声称经过实测的配队推荐。草系输出的公开信息可与 [Thornblade](/zh/characters/thornblade/)核对；[Lunara](/zh/characters/lunara/)则是另一类输出角色，其自身恢复与 Melloblum 的队伍治疗触发完全不同。定位标签相配或某项属性较高，并不自动证明组合更强。
+
+## REGEN 78 能否理解为治疗百分比？
+
+不能。REGEN 属性旁没有公开百分比或治疗公式，把 78 解释成“治疗提高 78%”或固定恢复速率都没有依据。Healing Rose 的技能文字明确给出 5%，应按那条规则理解该技能，不能将两个不同字段混用。
+
+## 这次更新确认了什么？
+
+本次于 2026 年 10 月 20 日核对官方基础与 Prismana 页面，补充身份、属性、技能触发条件和解释。减耗表明确标为算术推导；队伍对照表是对公开条件的分析，没有声称取得过第一手捕捉耗时、通关记录、最优循环或 A/B 伤害结果。
+
+投入资源前，仍应查看客户端里当前形态的技能槽和文字。寻找捕捉地点时，可结合[地图资料与位置研究](/zh/maps/getting-started/)使用区域名称；未验证的精确坐标不会被补进来。后续性能结论需要同时记录版本与测试条件。
+
 ## 官方来源
 
 - [Melloblum 官方图鉴](https://wiki.aniimo.com/item/035/basic-form)
+- [Melloblum 官方 Prismana 图鉴](https://wiki.aniimo.com/item/035/prismana-form)
 - [草属性 DPS Thornblade](/zh/characters/thornblade/)
 - [角色图鉴总览](/zh/characters/official-aniimo-types/)
