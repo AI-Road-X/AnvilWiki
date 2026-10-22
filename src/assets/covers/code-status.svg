@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#101d32"/>
+  <rect x="55" y="55" width="1090" height="565" rx="28" fill="#172b43" stroke="#35516e" stroke-width="2"/>
+  <text x="100" y="138" font-family="Arial,sans-serif" font-size="30" fill="#90d8c6">ANIIMO WIKI · REWARD CHECKLIST</text>
+  <text x="100" y="225" font-family="Arial,sans-serif" font-size="60" font-weight="700" fill="#ffffff">A reported code is not</text>
+  <text x="100" y="300" font-family="Arial,sans-serif" font-size="60" font-weight="700" fill="#ffffff">a confirmed reward.</text>
+  <path d="M330 440H450M745 440H865" stroke="#90d8c6" stroke-width="7"/>
+  <path d="M435 425L450 440L435 455M850 425L865 440L850 455" fill="none" stroke="#90d8c6" stroke-width="7"/>
+  <rect x="100" y="375" width="225" height="130" rx="18" fill="#25435d"/>
+  <rect x="465" y="375" width="275" height="130" rx="18" fill="#25435d"/>
+  <rect x="880" y="375" width="225" height="130" rx="18" fill="#25435d"/>
+  <g font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="middle">
+    <text x="212" y="432">Check source</text><text x="212" y="473">and server</text>
+    <text x="602" y="432">Use the game's</text><text x="602" y="473">own menu</text>
+    <text x="992" y="432">Read result</text><text x="992" y="473">and claim mail</text>
+  </g>
+  <text x="100" y="566" font-family="Arial,sans-serif" font-size="23" fill="#b1c6d9">Original explanatory diagram · Not an in-game screenshot or verification of any code</text>
+</svg>
