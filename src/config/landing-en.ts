@@ -450,6 +450,18 @@ pnpm install && pnpm dev`,
       href: '/landing/docs/',
     },
   },
+  author: {
+    title: 'About the author',
+    name: '袁锐钦 (Yuan Ruiqin)',
+    role: 'AnvilWiki maintainer · lead of the PNG 部落 community',
+    bio:
+      'Ruiqin spent years in design, teaching, and running a print factory — real business, real pressure. The turn to AI-assisted building follows one belief: code is the means, a shipped product is the skill, and users plus revenue close the loop. AnvilWiki distills that path — keyword sourcing, AI-assisted content, SEO, monetization — into a forkable template that goes live in about 30 minutes, with the bilingual handbook recording what actually worked.',
+    links: [
+      { label: 'ruiqin.dev — personal site', href: 'https://ruiqin.dev' },
+      { label: 'PNG 部落 — pngtrid.cn', href: 'https://pngtrid.cn' },
+      { label: 'GitHub — @PNGTRID', href: 'https://github.com/PNGTRID' },
+    ],
+  },
   search: {
     label: 'Search',
     placeholder: 'Search AnvilWiki...',

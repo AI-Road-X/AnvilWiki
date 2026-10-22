@@ -16,6 +16,7 @@ import Showcase from '~/components/landing/Showcase.astro';
 import CommunitySites from '~/components/landing/CommunitySites.astro';
 import DocsEntry from '~/components/landing/DocsEntry.astro';
 import DevGuide from '~/components/landing/DevGuide.astro';
+import AuthorCard from '~/components/landing/AuthorCard.astro';
 import FinalCta from '~/components/landing/FinalCta.astro';
 import Community from '~/components/landing/Community.astro';
 import AdsterraSlotPair from '~/components/ads/AdsterraSlotPair.astro';
@@ -52,6 +53,7 @@ const alternates = [
       <Showcase t={t} />
       <DocsEntry t={t} />
       <DevGuide t={t} />
+      <AuthorCard t={t} />
       <Fragment slot="after">
         <FinalCta t={t} />
       </Fragment>

@@ -428,6 +428,18 @@ pnpm install && pnpm dev`,
       href: '/zh/landing/docs/',
     },
   },
+  author: {
+    title: '关于作者',
+    name: '袁锐钦 (Ruiqin)',
+    role: 'PNG 部落主理人 · AnvilWiki 维护者',
+    bio:
+      '做过设计与教学,经营过白墨打印工厂,懂实体生意的经营压力;现在用 AI 编程做产品——写代码是手段,做出产品是能力,持续获得用户和收入才是闭环。AnvilWiki 是这条路径的沉淀:选词、建站、AI 内容生产、SEO、变现的完整打法,打包成 fork 后 30 分钟能上线的开源模板,配套双语手册记录真正跑通过的方法。',
+    links: [
+      { label: 'ruiqin.dev · 个人网站', href: 'https://ruiqin.dev' },
+      { label: 'PNG 部落 · pngtrid.cn', href: 'https://pngtrid.cn' },
+      { label: 'GitHub · @PNGTRID', href: 'https://github.com/PNGTRID' },
+    ],
+  },
   search: {
     label: '搜索',
     placeholder: '搜索 AnvilWiki…',
