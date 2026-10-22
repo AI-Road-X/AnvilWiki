@@ -125,6 +125,8 @@ const xDefaultHref = defaultAlt
 // Optional analytics / verification / ads (env-var gated — empty = not injected).
 const gaId = import.meta.env.PUBLIC_GA_ID as string | undefined;
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN as string | undefined;
+const vibecafeProductId = import.meta.env.PUBLIC_VIBECAFE_PRODUCT_ID as string | undefined;
+const vibecafeAuthKey = import.meta.env.PUBLIC_VIBECAFE_AUTH_KEY as string | undefined;
 const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION as string | undefined;
 const adsenseClient = import.meta.env.PUBLIC_ADSENSE_CLIENT as string | undefined;
 
@@ -288,16 +290,20 @@ const privacyLabel = consent?.privacyLabel ?? footerStrings.privacyPolicy ?? 'Pr
     )}
 
     {/*
-      VibeCafé product telemetry — static embed, allowlisted to this origin.
-      Always-on like the CF beacon above (no consent gate, no env var).
+      VibeCafé product telemetry (optional) — env-gated like the CF beacon
+      above: both PUBLIC_VIBECAFE_* values set, or nothing injected. The demo
+      site's own ids live in wrangler.toml [vars]; forks stay clean unless
+      they opt in.
     */}
-    <script
-      is:inline
-      defer
-      src="https://vibecafe.ai/telemetry/v1.js"
-      data-vc-product-id="cmvdec106000002nyeuo0o767"
-      data-vc-auth-key="vc_web_l7OmJ4CD2hLlHkHojq3-M7p0FsluYhiiRjAew-vwKG0"
-    ></script>
+    {vibecafeProductId && vibecafeAuthKey && (
+      <script
+        is:inline
+        defer
+        src="https://vibecafe.ai/telemetry/v1.js"
+        data-vc-product-id={vibecafeProductId}
+        data-vc-auth-key={vibecafeAuthKey}
+      ></script>
+    )}
 
     {/* JSON-LD: Organization (global) + any page-specific */}
     <JsonLd data={orgJsonLd} />

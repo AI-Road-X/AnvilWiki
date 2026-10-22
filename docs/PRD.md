@@ -1482,6 +1482,7 @@ describe('sitemap', () => {
 |---|---|
 | `PUBLIC_GA_ID` | Google Analytics ID（如 `G-XXXXXXXX`；有 cookie，经同意横幅门控） |
 | `PUBLIC_CF_BEACON_TOKEN` | Cloudflare Web Analytics beacon token（无 cookie，不需同意横幅） |
+| `PUBLIC_VIBECAFE_PRODUCT_ID` / `PUBLIC_VIBECAFE_AUTH_KEY` | VibeCafé 产品遥测（可选，两值齐备才注入，任一为空 = 不渲染） |
 | `PUBLIC_GSC_VERIFICATION` | Google Search Console 验证 token |
 | `INDEXNOW_KEY` | 旧站 IndexNow key 的兼容覆盖；新 fork 由初始化流程生成仓库根 `.indexnow-key`，postbuild 与自动提交共同读取，无需额外变量 |
 | `PUBLIC_SPONSOR_URL` | 赞助/捐赠卡链接（空 = 不渲染） |
@@ -1516,6 +1517,8 @@ PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X600=
 # 分析（可选）
 PUBLIC_GA_ID=
 PUBLIC_CF_BEACON_TOKEN=
+PUBLIC_VIBECAFE_PRODUCT_ID=
+PUBLIC_VIBECAFE_AUTH_KEY=
 PUBLIC_GSC_VERIFICATION=
 # IndexNow 旧站兼容覆盖；新 fork 默认由 .indexnow-key 提供
 INDEXNOW_KEY=
