@@ -30,7 +30,7 @@ export const zh: LandingContent = {
   description:
     '开源游戏 wiki 模板 + AI 原生内容工作流:选对游戏、和 AI 对话就能产页、codes 页自动保鲜。Lighthouse 4×100、Cloudflare 免费部署、广告收入 100% 归你。',
   announcement: {
-    text: `AnvilWiki 模板更新日志（v${PROJECT_VERSION}）：CLI 会说中文了——apply-template 交互运行开头问一句界面语言（1=中文，或 --lang zh），脚本/非交互运行输出字节不变。第五次全项目代码审查同批落地：10 项确认发现全修——consent 事件/存储字面量上了契约测试（单侧改名会让广告静默永不加载）、封面 frontmatter 拼接的 $ 特殊展开静默洞根除、死代码与双真相源（order 字段/t()/llms.txt 枚举句）清除。24 套件/390 条测试护航。fork 用户 merge 上游、照常 pnpm install 即可。本条为模板发版通告，非站点故障；详情与完整变更见 GitHub Releases。`,
+    text: `AnvilWiki 模板更新日志（v${PROJECT_VERSION}）：样品站根路径改为项目门面——打开 anvil.wiki 直接进中文落地页（301 跳转），英文 wiki 样品首页迁至 /demo/（fork 构建逐字节零变化）；手册课页与落地页顶部新增紧凑 native banner 广告位（复用既有单元）；VibeCafé 作品统计改为 env 门控开关式接入，fork 开箱零第三方脚本契约恢复硬约束；落地页新增「关于作者」区块并同步 README——主理人袁锐钦（Ruiqin，PNG 部落主理人）的公开路径首次有了正文面。另含第 35 轮以来审计深挖修复与文档漂移批全量记账。24 套件/401 条测试护航。fork 用户 merge 上游、照常 pnpm install 即可。本条为模板发版通告，非站点故障；详情与完整变更见 GitHub Releases。`,
     href: RELEASES,
     dismissLabel: '关闭公告',
   },

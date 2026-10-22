@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.38.0] - 2026-10-22
+
 ### Added
 
 - **手册课页+主落地页正文区顶部各加挂一个 native banner（紧凑 700×240 槽）**：参考「native banner 挂正文区最顶（H1 之前）」的形态（用户另一站实测图），`HandbookChapter.astro` 在面包屑与课标题之间、`landing.astro`/`zh/landing.astro` 在 hero 之前各直挂一个 `<AdsterraSlot name="native-banner" width={700} height={240}>`，与页内既有成对位（728×90+底部 native）同页共存——各自独立 iframe 文档互不串号，同意门控经 AdsterraSlot 自动继承。「做小」经 sandbox iframe 实测定档：该响应式脚本在 ~700px 宽维持横排 4 卡（实际渲染高 218px），窄于该宽度翻转为更高的竖排堆叠（实测 560w→525h、375w→418h），故紧凑横排即最小形态、700×240 为载重参数（三处代码注释+docs/ads.md 挂载表钉死）；移动端收窄后与既有底部 native 行为完全一致。零新增文件/env/fork 清理面（复用既有 native-banner 单元）。验证：dev 环境（内联 env）桌面 1280px 手册课页+zh 首页顶部渲染截图留档、DOM 位点断言（广告 y=236 / H1 y=540）。
@@ -1386,7 +1388,8 @@ This release covers everything since v0.2.0: the full PRD roadmap (v1.1–v2.0) 
 - Docs: PRD (1600+ lines), deployment, apply-template (4-step guide), content-format, seo, ads, migration-from-nextjs
 - Build: 27 pages, typecheck 0 errors
 
-[Unreleased]: https://github.com/PNGTRID/AnvilWiki/compare/v2.37.0...HEAD
+[Unreleased]: https://github.com/PNGTRID/AnvilWiki/compare/v2.38.0...HEAD
+[2.38.0]: https://github.com/PNGTRID/AnvilWiki/compare/v2.37.0...v2.38.0
 [2.37.0]: https://github.com/PNGTRID/AnvilWiki/compare/v2.36.1...v2.37.0
 [2.36.1]: https://github.com/PNGTRID/AnvilWiki/compare/v2.36.0...v2.36.1
 [2.36.0]: https://github.com/PNGTRID/AnvilWiki/compare/v2.35.2...v2.36.0
