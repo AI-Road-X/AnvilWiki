@@ -4,6 +4,7 @@ import { siteUrl } from '~/config/site';
 const robotsTxt = `
 User-agent: *
 Allow: /
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
 Sitemap: ${siteUrl}/sitemap-index.xml
 `.trim();

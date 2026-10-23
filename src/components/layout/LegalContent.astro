@@ -4,6 +4,7 @@
  * Renders different content based on the `page` prop. English only (per PRD).
  */
 import { site } from '~/config/site';
+import { getUi } from '~/i18n/ui';
 
 interface Props {
   page: 'about' | 'privacy-policy' | 'terms-of-service' | 'copyright' | 'contact';
@@ -11,41 +12,35 @@ interface Props {
 const { page } = Astro.props;
 const game = site.game.name;
 const year = new Date().getFullYear();
+const englishNotice = getUi('en').site.legalNotice;
 ---
 
 {
   page === 'about' && (
     <>
       <p>
-        {site.name} is a fan-made community wiki dedicated to {game}, a {site.game.genre} on{' '}
-        {site.game.platform} developed by {site.game.developer}. Our mission is to provide accurate,
-        up-to-date guides, tips, and reference material to help players get the most out of the
-        game.
+        {site.name} is an independent, unofficial guide to {game}. We organize publicly available
+        game information into character profiles and practical guides, and link to official sources
+        where available. We are not affiliated with {site.game.developer}.
       </p>
       <h2>What We Cover</h2>
       <ul>
-        <li>Boss strategies and attack patterns</li>
-        <li>Item locations, stats, and crafting recipes</li>
-        <li>Active redeemable codes (updated daily)</li>
-        <li>Tier lists and build recommendations</li>
-        <li>Progression guides for new and returning players</li>
+        <li>Character profiles with attributed stats, skills, and source links</li>
+        <li>Beginner guides and notes on quests, regions, items, and platform availability</li>
+        <li>Guidance on checking redeem codes and interpreting tier lists</li>
       </ul>
-      <h2>Community-Driven</h2>
+      <h2>How We Handle Unverified Information</h2>
       <p>
-        This wiki is maintained by volunteers. If you spot an error or have content to contribute,
-        join our Discord and let us know. All content is freely accessible — no account required.
+        We do not list a redeem code as active without a verifiable source, or present an untested
+        character ranking as fact. Game details can change after an update, so check the cited
+        source and the in-game version when a decision depends on current numbers. All pages are
+        freely accessible without an account.
       </p>
-      <h2>Contact</h2>
+      <h2>Corrections and Contact</h2>
       <p>
-        Reach us via our{' '}
-        <a href={site.social.discord} target="_blank" rel="noopener noreferrer">
-          Discord server
-        </a>{' '}
-        or{' '}
-        <a href={site.social.official} target="_blank" rel="noopener noreferrer">
-          the game's official channels
-        </a>
-        .
+        Found an error or an outdated source? Use our <a href="/contact/">contact page</a> to
+        report it through the project issue tracker. Please do not post private account details
+        in a public issue.
       </p>
     </>
   )
@@ -60,8 +55,10 @@ const year = new Date().getFullYear();
       </p>
       <h2>Information We Collect</h2>
       <p>
-        {site.name} is a static website. We do not require you to create an account or submit
-        personal information. We do not directly collect or store personal data.
+        You can read {site.name} without creating an account. Our hosting and analytics providers
+        may process request, device and usage information as explained below. We do not describe
+        information processed by these services as fully anonymous. Do not include passwords,
+        recovery codes or other private account details in public feedback.
       </p>
       <h2>Third-Party Services</h2>
       <p>
@@ -70,15 +67,26 @@ const year = new Date().getFullYear();
       </p>
       <ul>
         <li>
-          <strong>Advertising partners</strong> (e.g. Google AdSense, Adsterra) — may use cookies to
-          serve relevant ads. You can opt out of personalized advertising via your browser settings.
+          <strong>Advertising partners, if enabled</strong> — third-party vendors, including Google,
+          may use cookies to serve ads based on your visits to this and other websites. Google's
+          advertising cookies enable Google and its partners to personalize advertising. You can
+          manage personalized advertising through{' '}
+          <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">
+            Google Ads Settings
+          </a>{' '}
+          and review participating vendors' opt-out options at{' '}
+          <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">
+            Digital Advertising Alliance choices
+          </a>. These settings do not replace any consent required before an advertising service loads.
         </li>
         <li>
-          <strong>Analytics</strong> (e.g. Google Analytics, Cloudflare Web Analytics, VibeCafé) —
-          GA may collect anonymized usage data such as page views and approximate location
-          (cookie-based, loaded only after you accept the consent banner); Cloudflare Web Analytics
-          is cookieless and collects aggregate page-view data. VibeCafé (optional product
-          telemetry, loaded only when the site owner enables it) collects page-visit data.
+          <strong>Analytics</strong> — Google Analytics 4 may use cookies or similar identifiers
+          and process usage and device information to measure page views and interactions. It
+          loads only after you accept the site's consent banner. See{' '}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+            Google's privacy policy
+          </a>. Cloudflare Web Analytics provides cookieless usage measurement; hosting and security
+          request processing are separate from that measurement.
         </li>
         <li>
           <strong>Cloudflare</strong> — our hosting provider, which may process basic request data
@@ -98,9 +106,12 @@ const year = new Date().getFullYear();
       </ul>
       <h2>Cookies</h2>
       <p>
-        Some third-party services set cookies. You can control cookies through your browser
-        settings. Disabling cookies may affect ad personalization but will not prevent you from
-        accessing site content.
+        The site's consent choice is saved in your browser's local storage. Declining keeps the
+        consent-gated analytics and advertising loaders off; reading the guides does not require
+        accepting them. To change a saved choice, use your browser's site-data controls to clear
+        this site's cookies and storage, then reload and choose again. Clearing site data also
+        removes previously stored site cookies and preferences. This does not undo processing
+        that happened before you withdrew consent.
       </p>
       <h2>Children's Privacy</h2>
       <p>
@@ -164,22 +175,21 @@ const year = new Date().getFullYear();
       </p>
       <h2>Game Assets</h2>
       <p>
-        {game}, including its name, logo, characters, artwork, and other related assets, is the
-        property of {site.game.developer}. All {game} content is used on this wiki under fair use
-        for the purpose of providing informational guides to players. {site.name} claims no
-        ownership of any {game} intellectual property.
+        {game} names, characters, artwork, and other game assets belong to their respective rights
+        holders. {site.name} does not claim ownership of those assets. If you believe a specific use
+        should be removed or credited differently, please tell us which page and material is involved.
       </p>
       <h2>DMCA / Takedown</h2>
       <p>
-        If you believe any content on this site infringes your copyright, please contact us via our{' '}
-        <a href={site.social.discord} target="_blank" rel="noopener noreferrer">
-          Discord server
+        For copyright or takedown requests, use the{' '}
+        <a href="https://github.com/AI-Road-X/AnvilWiki/issues" target="_blank" rel="noopener noreferrer">
+          project issue tracker
         </a>{' '}
-        with a detailed description of the allegedly infringing material. We will review and respond
-        to valid requests promptly.
+        and identify the relevant URL and material. Issues are public, so do not post private account
+        details or other sensitive information. We will review reports and respond as appropriate.
       </p>
       <h2>Fan-Made Notice</h2>
-      <p>{site.legalNotice}</p>
+      <p>{englishNotice}</p>
     </>
   )
 }
@@ -190,13 +200,21 @@ const year = new Date().getFullYear();
       {/* h2, not h1 — LegalPage already renders the page H1 (single-H1 rule). */}
       <h2>Contact {site.name}</h2>
       <p>
-        {site.name} is a fan-made wiki. Reach us or contribute through any of the channels below.
+        {site.name} is an independent, fan-made wiki and is not affiliated with the game developer.
+        For corrections, outdated information, or site feedback, please use the project issue tracker
+        linked below. For copyright or takedown requests, use the dedicated Copyright page.
       </p>
-      <h2>Community</h2>
+      <h2>Feedback and project links</h2>
       <ul>
+        <li>
+          <strong>Report a problem or suggest an edit:</strong>{' '}
+          <a href="https://github.com/AI-Road-X/AnvilWiki/issues" target="_blank" rel="noopener noreferrer">
+            Aniimo Wiki issue tracker
+          </a>
+        </li>
         {site.social.official && (
           <li>
-            <strong>Official game website:</strong>{' '}
+            <strong>Official game information (not a wiki support channel):</strong>{' '}
             <a href={site.social.official} target="_blank" rel="noopener noreferrer">
               {site.social.official}
             </a>
@@ -234,8 +252,9 @@ const year = new Date().getFullYear();
       </ul>
       <h2>Contributing</h2>
       <p>
-        Found a typo or outdated info? Want to add a guide? This wiki is open source — submit changes
-        via pull requests or through any channel listed above.
+        This wiki is open source. You can report an issue or propose a change through the project
+        repository. Please do not include private account details or other sensitive information in
+        public reports.
       </p>
       <h2>Reporting Issues</h2>
       <p>

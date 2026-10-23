@@ -1,0 +1,7 @@
+{
+  "status": "under_construction",
+  "available": false,
+  "capabilities_status": "planned_contract_only",
+  "message": "Authentication is unavailable; no signing keys are published.",
+  "keys": []
+}

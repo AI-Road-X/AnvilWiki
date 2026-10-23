@@ -11,9 +11,7 @@ import astro from 'eslint-plugin-astro';
 
 export default [
   {
-    // .zcode/** — workflow-hub drafts (.dwf.ts) are gitignored tooling state,
-    // not project code (their TS-flavored syntax trips the parser).
-    ignores: ['dist/**', 'node_modules/**', '.astro/**', '*.config.{js,ts,mjs}', 'tools/**', '.zcode/**'],
+    ignores: ['dist/**', 'node_modules/**', '.astro/**', '*.config.{js,ts,mjs}', 'tools/**'],
   },
   // TypeScript files
   {

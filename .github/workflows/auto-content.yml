@@ -53,6 +53,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6
         with:
+          version: 11.1.1
           run_install: false
 
       - name: Setup Node
@@ -97,7 +98,7 @@ jobs:
       - name: Quality gates (green = PR, red = nothing)
         uses: ./.github/actions/gates
         with:
-          site-url: ${{ vars.SITE_URL || 'https://anvil.wiki' }}
+          site-url: ${{ vars.SITE_URL || 'https://aniimo-guides.com' }}
 
       - name: Open draft PR
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8

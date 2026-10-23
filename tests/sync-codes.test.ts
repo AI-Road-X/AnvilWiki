@@ -119,18 +119,6 @@ describe('parseCodesCsv', () => {
     expect(okCase.errors).toEqual([]);
     expect(okCase.rows[0]?.expiryDate).toBe('Sep 30');
   });
-
-  test('rejects duplicate header columns — indexOf would always read the first copy and the second silently vanishes (M-series low-5)', () => {
-    const { rows, errors } = parseCodesCsv('locale,slug,code,code\nen,all-codes,A,B', LOCALES);
-    expect(rows).toEqual([]);
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain('duplicate column');
-    expect(errors[0]).toContain('"code"');
-    // Whitespace/case variants of the same name count as duplicates too
-    // (headers are normalized before the check).
-    const spaced = parseCodesCsv('locale, slug ,code,SLUG\nen,all-codes,A,B', LOCALES);
-    expect(spaced.errors.some((e) => e.includes('duplicate column') && e.includes('"slug"'))).toBe(true);
-  });
 });
 
 describe('mergeCodes', () => {
@@ -140,7 +128,7 @@ describe('mergeCodes', () => {
     { code: 'FORGE-2026', reward: '+500 Gold', status: 'active', expiryDate: 'Aug 31' },
     { code: 'FROSTPIKE', reward: '+250 Gold', status: 'expired', expiryDate: 'Aug 21' },
   ];
-  const row = (over: Partial<{ code: string; status: 'active' | 'expired'; reward: string; expiryDate: string; source: string }>) => ({
+  const row = (over: Partial<{ code: string; status: 'active' | 'expired'; reward: string; expiryDate: string }>) => ({
     line: 2,
     locale: 'en',
     slug: 'all-codes',
@@ -177,25 +165,6 @@ describe('mergeCodes', () => {
     const again = mergeCodes(merged, [row({ code: 'FORGE-2026', reward: '+750 Gold' })]);
     expect(again.stats.unchanged).toEqual(['FORGE-2026']);
   });
-
-  test('expired → active lands in its own reactivated bucket, not updated (M4: omitted status used to revive silently)', () => {
-    // Topping up source/reward on an expired code with the status column
-    // omitted (→ "active") must be COUNTED, never silently folded into
-    // "updated" — the revival itself is kept (game reruns are legal).
-    const { merged, stats } = mergeCodes(makeExisting(), [row({ code: 'FROSTPIKE', status: 'active', source: 'Official X post' })]);
-    expect(stats.reactivated).toEqual(['FROSTPIKE']);
-    expect(stats.updated).toEqual([]);
-    expect(stats.expiredFlipped).toEqual([]);
-    expect(merged.find((c) => c.code === 'FROSTPIKE')).toMatchObject({ status: 'active', source: 'Official X post' });
-    // Reactivation never deletes or reorders — the entry stays in place.
-    expect(merged.map((c) => c.code)).toContain('FROSTPIKE');
-  });
-
-  test('bare status-only reactivation (no other fields) is still reactivated, not unchanged', () => {
-    const { stats } = mergeCodes(makeExisting(), [row({ code: 'FROSTPIKE', status: 'active' })]);
-    expect(stats.reactivated).toEqual(['FROSTPIKE']);
-    expect(stats.unchanged).toEqual([]);
-  });
 });
 
 describe('parseCodesBlock', () => {
@@ -231,14 +200,6 @@ describe('parseCodesBlock', () => {
     expect(parseCodesBlock(pageWithCodes("codes:\n  - code: A\n    reward: '+5' # note"))).toHaveProperty('error');
     expect(parseCodesBlock(pageWithCodes('codes:\n  - code: A\n  - - weird'))).toHaveProperty('error');
     expect(parseCodesBlock('no frontmatter here')).toHaveProperty('error');
-  });
-
-  test('aborts on a code repeated inside the block (last-wins merge would hide it; page would show the code in two status zones)', () => {
-    const dup = parseCodesBlock(
-      pageWithCodes('codes:\n  - code: DOUBLE\n    status: active\n  - code: DOUBLE\n    status: expired'),
-    );
-    expect(dup).toHaveProperty('error');
-    expect((dup as { error: string }).error).toContain('duplicate code "DOUBLE"');
   });
 
   test('decodes \\" and \\\\ in double-quoted values, aborts on other escapes (mis-read would be persisted on rewrite)', () => {

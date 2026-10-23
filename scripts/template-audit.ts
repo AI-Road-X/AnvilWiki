@@ -145,13 +145,7 @@ check(() => {
 console.log('\n2. 配置层完整度（site.ts 已换皮 + 分类三处一致）');
 const siteSrc = read('src/config/site.ts');
 const navSrc = read('src/config/navigation.ts');
-// Left-bounded + both quote styles — identical to check-config.ts's parser
-// (a `navKey:`-style property or a `// key: 'x'` comment must not mint
-// ghost keys; a fork reformatting to double quotes must not silently
-// disable every nav-dimension check below).
-const navKeys = Array.from(
-  navSrc.matchAll(/(?<=[{,\s])(?<!\/\/\s*)key:\s*['"]([^'"]+)['"]/g),
-).map((m) => m[1]);
+const navKeys = Array.from(navSrc.matchAll(/key:\s*['"]([^'"]+)['"]/g)).map((m) => m[1]);
 
 check(() => {
   const domain = siteSrc.match(/^\s*domain:\s*['"]([^'"]+)['"]/m)?.[1];
@@ -259,12 +253,9 @@ for (const loc of locales.filter((l) => l !== 'en')) {
 }
 
 check(() => {
-  // Frontmatter-only (same idiom + regex as check-i18n.ts / refresh-audit.ts):
-  // the old whole-file scan also matched prose or code fences that merely
-  // MENTION `draft: true` and false-flagged published files.
   const drafts = walkFiles(contentBase, { exts: ['.mdx'] })
     .map(REL)
-    .filter((rel) => /^draft:\s*true\s*$/m.test(read(rel).split('---')[1] ?? ''));
+    .filter((rel) => /^draft:\s*true\b/m.test(read(rel)));
   if (drafts.length > 0) {
     warn(`${drafts.length} draft:true file${drafts.length === 1 ? '' : 's'} never built — publish (remove draft) or delete before templating: ${drafts.slice(0, 5).join(', ')}${drafts.length > 5 ? ' …' : ''}`);
   } else {

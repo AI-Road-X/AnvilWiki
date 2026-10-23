@@ -32,7 +32,6 @@ import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import subsetFont from 'subset-font';
 import { site } from '~/config/site';
-import { NOTO_BASE } from './lib/fonts';
 import {
   coverFilename,
   hslToHex,
@@ -53,10 +52,9 @@ const COVERS_DIR = join(root, 'src/assets/covers');
 const FONT_CACHE = join(root, 'node_modules/.cache/gen-covers/fonts');
 const MANIFEST_VERSION = 1;
 
+const NOTO_BASE = 'https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/OTF';
 // Per-locale merged CJK fonts (NotoSansCJKjp/sc, ~16MB each) — family names
-// must match the internal font family satori matches on. The download base
-// lives in scripts/lib/fonts.ts (pinned to a noto-cjk release tag, shared
-// with gen-assets).
+// must match the internal font family satori matches on.
 const NOTO_VARIANTS = {
   ja: { region: 'Japanese', family: 'Noto Sans CJK JP', prefix: 'NotoSansCJKjp' },
   zh: { region: 'SimplifiedChinese', family: 'Noto Sans CJK SC', prefix: 'NotoSansCJKsc' },

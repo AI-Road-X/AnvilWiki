@@ -7,15 +7,7 @@ import { loadSiteConfig } from '../core/site.js';
 
 export type OffloadMessage =
   | { kind: 'audit'; cwd: string }
-  | { kind: 'insights'; cwd: string; days: number }
   | { kind: 'submit'; cwd: string; title?: string; base?: string };
-
-/** The CLI command equivalent to each offloaded tool run, for error guidance. */
-const cliEquivalent: Record<OffloadMessage['kind'], string> = {
-  audit: 'anvil-ops audit',
-  insights: 'anvil-ops insights',
-  submit: 'anvil-ops submit',
-};
 
 export type OffloadResult = { ok: true; text: string } | { ok: false; errorText: string };
 
@@ -110,7 +102,7 @@ export function watchdogTimeoutFix(kind: OffloadMessage['kind'], cwd: string): s
 }
 
 /**
- * Run the spawn-heavy tools (audit / insights / submit_pr) in a worker thread.
+ * Run the spawn-heavy tools (audit / submit_pr) in a worker thread.
  *
  * Why: the core runs `pnpm build` etc. through spawnSync, which blocks the
  * Node event loop for the whole run — on the MCP stdio server that freezes
@@ -146,7 +138,7 @@ export async function offload(msg: OffloadMessage): Promise<OffloadResult> {
             reject(
               new OpsError(
                 `The ${msg.kind} worker exited unexpectedly (exit code ${code}) without returning a result.`,
-                `Re-run the tool. If it reproduces, run the equivalent CLI command (\`${cliEquivalent[msg.kind]}\`) to see the raw error.`,
+                'Re-run the tool. If it reproduces, run the equivalent CLI command (`anvil-ops audit` / `anvil-ops submit`) to see the raw error.',
               ),
             );
           }
@@ -162,7 +154,7 @@ export async function offload(msg: OffloadMessage): Promise<OffloadResult> {
     if (e instanceof WatchdogTimeout) {
       throw new OpsError(
         `The ${msg.kind} worker did not return within ${Math.round(OFFLOAD_TIMEOUT_MS / 60_000)} minutes and was terminated.`,
-        `${watchdogTimeoutFix(msg.kind, msg.cwd)} If this recurs, run the equivalent CLI command (\`${cliEquivalent[msg.kind]}\`) to see where it stalls.`,
+        `${watchdogTimeoutFix(msg.kind, msg.cwd)} If this recurs, run the equivalent CLI command (\`anvil-ops audit\` / \`anvil-ops submit\`) to see where it stalls.`,
       );
     }
     throw e;

@@ -1,0 +1,89 @@
+---
+title: "Aniimo Melloblum: Healing Rose, Stats and Support Skills"
+description: "Melloblum's stats, Rose Mark EP reduction, Healing Rose trigger, Grass support skills and form differences, explained from official sources."
+category: "characters"
+date: 2026-09-28
+lastModified: 2026-10-20
+image: "../../../../assets/covers/melloblum-forms.png"
+tags: ["Compendium", "Characters", "Melloblum", "Grass", "Support"]
+summary: "Melloblum is No.035, a Support Aniimo. Its Basic Form is Grass; Prismana also lists holy. Teammates' basic attacks build a trait resource that reduces EP costs, while Healing Rose needs three critical hits on its marked target to trigger nearby party healing. These are distinct mechanics, not an automatic heal on every attack."
+---
+
+## What role does Melloblum fill?
+
+The official compendium classifies Melloblum as **Support**. Its published effects connect teammates' basic attacks, lower EP costs, critical-hit-triggered healing and Grass damage support. That combination gives specific reasons to consider it for a team; the label alone does not establish a best-in-slot build or a tested tier.
+
+| Field | Official information |
+| --- | --- |
+| Name | Melloblum |
+| Number | No.035 |
+| Element | Grass |
+| Role | Support |
+| Attributes | 517 |
+| HP / BREAK / ATK | 95 / 91 / 113 |
+| M.DEF / P.DEF / REGEN | 70 / 70 / 78 |
+| Forms | Basic, Prismana |
+
+Rosetower Woods is the habitat listed for **Basic Form**. That regional label does not establish an exact encounter coordinate, route, time or capture chance. For the elements and information shown by each form, use the separate [Melloblum Prismana comparison](/guides/melloblum-prismana-form/).
+
+## How does the trait reduce EP costs?
+
+- **Phantom Opening** grants 1 Rose Mark stack when a teammate deals basic attack damage, up to 10 stacks. Each stack reduces Melloblum's EP cost by 3.
+
+| Trait stacks | Listed EP reduction, by arithmetic |
+| ---: | ---: |
+| 0 | 0 |
+| 1 | 3 |
+| 5 | 15 |
+| 10 | 30 |
+
+This table multiplies the stated stack count by three. It does not prove that a skill becomes free, returns EP, or preserves its stacks after use: the cited description does not explain a minimum cost or consumption rule. The useful distinction is that teammates' **basic attack damage**, rather than any unspecified team action, is the documented source of these stacks.
+
+## Which skills heal, cleanse or support Grass damage?
+
+| Skill | Type | Cost | Power |
+| --- | --- | ---: | ---: |
+| Thorny Blessing | Magic | 30 | 25 |
+| Healing Rose | Magic | 20 | 40 |
+| Sparkling Rose | Magic | 20 | 40 |
+| Blasting Roses | Magic | 20 | 40 |
+| Rose Garden | Support | 0 | 0 |
+| ATK | Magic | 0 | 6 |
+
+The table records the displayed type, cost and power. Power is not a measured final-damage or healing result, and the shared skill display does not establish which moves can be equipped together on one form.
+
+**Healing Rose** applies a target mark that blooms after the target receives three critical hits. The resulting heal affects nearby allies for 5% of Melloblum's HP. If the marked enemy is not taking critical hits, the described healing trigger has not been satisfied. Allies' position matters too: the wording says nearby allies, not every party member anywhere on the map.
+
+Do not combine that target mark with the trait's EP stack counter merely because both use the Rose Mark name. The trait describes a resource gained from teammates' basic attacks; the healing skill describes a marked target and a critical-hit trigger. The official page does not explicitly say one counter pays for, replaces or consumes the other.
+
+**Sparkling Rose** provides a different kind of support: it removes the team's negative effects, then launches a tracking Light attack. Its listed additional critical rate is 15%. **Blasting Roses** instead lists a 35% extra critical rate for its own attack. Neither description says it grants that critical-rate bonus to the entire party.
+
+**Thorny Blessing** adds a damage effect when Grass critical damage is dealt, with at most one activation every 0.5 seconds during its 15-second duration. **Rose Garden** creates an area that improves allies' Grass critical damage for 30 seconds. Its public description prints a duplicated percent sign, so this guide does not convert that formatting issue into a confirmed numeric bonus.
+
+## What team needs does this kit actually address?
+
+| Team need | Relevant published effect | Condition to check |
+| --- | --- | --- |
+| Less EP pressure | Phantom Opening | Teammates must deal basic attack damage; actual cost behavior still needs checking. |
+| Group recovery | Healing Rose | The marked target must take three critical hits, with allies near the heal. |
+| Negative-effect removal | Sparkling Rose | The skill must be available in the player's actual loadout. |
+| Grass critical support | Thorny Blessing / Rose Garden | The damage element, critical hits and positioning must match the effect. |
+
+This is a fit checklist, not a tested team recommendation. A player looking for Grass damage can compare [Thornblade's reference](/characters/thornblade/), while [Lunara](/characters/lunara/) illustrates a different case: a DPS with personal recovery rather than the same party-healing trigger. A matching label or one high attribute does not prove that either combination is optimal.
+
+## Is REGEN 78 a healing percentage?
+
+No percentage or healing formula is provided beside the REGEN attribute. Reading 78 as “78% healing” or as a guaranteed regeneration rate would add a rule the source does not state. Use the explicit 5% in Healing Rose's description for that skill's stated recovery, and keep it separate from the compendium attribute until a formula is documented.
+
+## What is verified, and what still needs testing?
+
+The identity, displayed attributes and effect descriptions were checked against the official Basic and Prismana pages on October 20, 2026. The stack-reduction table is labeled arithmetic; the team-fit table is an interpretation of activation conditions. No firsthand route, average clear time, acquisition cost, optimal rotation or A/B damage test is claimed.
+
+Before spending resources, inspect your available form and skill slots in the current client. For a capture objective, use the [map research notes](/maps/getting-started/) alongside the official habitat rather than expecting the regional label to supply a precise spawn. New performance claims should be added only when the relevant version and test conditions can be recorded.
+
+## Official sources
+
+- [Melloblum official entry](https://wiki.aniimo.com/item/035/basic-form)
+- [Melloblum official Prismana entry](https://wiki.aniimo.com/item/035/prismana-form)
+- [Grass DPS Thornblade](/characters/thornblade/)
+- [Character compendium overview](/characters/official-aniimo-types/)

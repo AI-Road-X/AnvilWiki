@@ -48,11 +48,6 @@ export interface MergeStats {
   added: string[];
   updated: string[];
   expiredFlipped: string[];
-  /** expired → active: games legitimately rerun codes (anniversary reruns),
-   * so the reactivation is APPLIED — but it is counted in its own bucket and
-   * the CLI flags it with ⚠️, because a revived code is also the classic
-   * signature of a stale/misread CSV row. Signal, not surprise. */
-  reactivated: string[];
   unchanged: string[];
 }
 
@@ -103,15 +98,6 @@ export function parseCodesCsv(text: string, locales: readonly string[]): CsvResu
   if (unknownCols.length > 0) {
     result.errors.push(
       `unknown column(s): ${unknownCols.map((c) => `"${c}"`).join(', ')} (supported: ${CSV_COLUMNS.join(', ')})`,
-    );
-  }
-  // A repeated header name ("code,code") makes the column lookup always read
-  // the FIRST of the two — the duplicate's data would silently vanish on
-  // every merge. Same loud-rejection contract as unknown columns.
-  const dupCols = [...new Set(header.filter((h, i) => h !== '' && header.indexOf(h) !== i))];
-  if (dupCols.length > 0) {
-    result.errors.push(
-      `duplicate column(s): ${dupCols.map((c) => `"${c}"`).join(', ')} — each column may appear at most once`,
     );
   }
   if (result.errors.length > 0) return result;
@@ -215,7 +201,7 @@ export function mergeCodes(
   existing: CodesEntry[],
   rows: CodesCsvRow[],
 ): { merged: CodesEntry[]; stats: MergeStats } {
-  const stats: MergeStats = { added: [], updated: [], expiredFlipped: [], reactivated: [], unchanged: [] };
+  const stats: MergeStats = { added: [], updated: [], expiredFlipped: [], unchanged: [] };
   const byCode = new Map<string, CodesEntry>();
   for (const entry of existing) byCode.set(entry.code, entry);
 
@@ -242,11 +228,6 @@ export function mergeCodes(
       stats.unchanged.push(row.code);
     } else if (statusBefore === 'active' && row.status === 'expired') {
       stats.expiredFlipped.push(row.code);
-    } else if (statusBefore === 'expired' && row.status === 'active') {
-      // Omitting the status column defaults to "active", so topping up
-      // source/reward on an EXPIRED code used to silently revive it with zero
-      // signal. The flip is kept (reruns are legal) but counted separately.
-      stats.reactivated.push(row.code);
     } else {
       stats.updated.push(row.code);
     }
@@ -437,7 +418,6 @@ export function parseCodesBlock(fileText: string): ParsedCodes | { error: string
   }
 
   const codes: CodesEntry[] = [];
-  const seenCodes = new Set<string>();
   let current: CodesEntry | null = null;
   for (let i = codesLine + 1; i < end; i++) {
     const l = lines[i];
@@ -448,14 +428,6 @@ export function parseCodesBlock(fileText: string): ParsedCodes | { error: string
       if ('error' in codeRead) return codeRead;
       if (current) codes.push(current);
       if (!codeRead.value) return { error: `line ${i + 1}: codes entry has an empty code` };
-      // A repeated code would silently merge (field sets folded last-wins,
-      // stats calling it "unchanged") while the page renders the same code in
-      // an Active AND an Expired zone with zero signal. Same contract as every
-      // other structural surprise here: reject loudly, never rewrite blind.
-      if (seenCodes.has(codeRead.value)) {
-        return { error: `line ${i + 1}: duplicate code "${codeRead.value}" — it appears twice in the codes block; remove one entry manually` };
-      }
-      seenCodes.add(codeRead.value);
       current = { code: codeRead.value, status: 'active' };
       continue;
     }

@@ -6,14 +6,12 @@ import {
   websiteJsonLd,
   articleJsonLd,
   breadcrumbJsonLd,
-  simpleBreadcrumbJsonLd,
   itemListJsonLd,
   faqPageJsonLd,
   pageTitle,
 } from '~/lib/seo';
 import { fallbackDetailPaths } from '~/lib/fallback-paths';
 import { site } from '~/config/site';
-import { authors } from '~/config/authors';
 
 /** Repo-root-relative source text (contract-test helper, handbook.test.ts style). */
 const src = (rel: string) => readFileSync(fileURLToPath(new URL(`../${rel}`, import.meta.url)), 'utf8');
@@ -96,53 +94,6 @@ describe('SEO helpers', () => {
       expect(json.itemListElement[1].name).toBe('All Bosses');
       expect(json.itemListElement[2].name).toBe('Emberfang Guide');
     });
-
-    // trailingSlash: 'always' — a slash-less Home item makes Google crawl the
-    // bare URL first and eat a 308 on every breadcrumb.
-    it('emits the Home item with a trailing slash for the default locale', () => {
-      const json = breadcrumbJsonLd({
-        category: 'bosses',
-        categoryLabel: 'All Bosses',
-        title: 'Emberfang Guide',
-        slug: 'emberfang',
-        locale: 'en',
-      });
-      expect(json.itemListElement[0].item).toMatch(/\/$/);
-    });
-
-    it('emits the localized Home item with a trailing slash for non-default locales', () => {
-      const json = breadcrumbJsonLd({
-        category: 'bosses',
-        categoryLabel: 'ボス一覧',
-        title: 'エンバーファング攻略',
-        slug: 'emberfang',
-        locale: 'ja',
-      });
-      expect(json.itemListElement[0].item).toMatch(/\/ja\/$/);
-    });
-  });
-
-  describe('simpleBreadcrumbJsonLd', () => {
-    it('emits the Home item with a trailing slash for every locale', () => {
-      for (const locale of ['en', 'ja'] as const) {
-        const json = simpleBreadcrumbJsonLd({
-          pageLabel: 'All Bosses',
-          path: '/bosses/',
-          locale,
-        });
-        expect(json['@type']).toBe('BreadcrumbList');
-        expect(json.itemListElement[0].item).toMatch(/\/$/);
-      }
-    });
-  });
-
-  describe('authors registry', () => {
-    it('internal (non-http) profile URLs end with "/" (trailingSlash: always)', () => {
-      for (const [name, info] of Object.entries(authors)) {
-        if (!info.url || info.url.startsWith('http')) continue;
-        expect(info.url, `author "${name}" url`).toMatch(/\/$/);
-      }
-    });
   });
 
   describe('itemListJsonLd', () => {
@@ -182,8 +133,9 @@ describe('SEO helpers', () => {
     });
 
     it('skips the suffix when the title already carries the game name', () => {
-      const t = pageTitle('Anvil Quest Boss Guide');
-      expect(t).toBe('Anvil Quest Boss Guide');
+      const title = `${site.game.name} Boss Guide`;
+      const t = pageTitle(title);
+      expect(t).toBe(title);
     });
 
     it('switches to the short suffix for long titles (>50 chars)', () => {

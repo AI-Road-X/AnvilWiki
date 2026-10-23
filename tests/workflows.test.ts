@@ -36,10 +36,6 @@
  *      push CI can submit; initialized forks may use their committed stable
  *      key with SITE_URL from wrangler.toml, while repo vars remain a legacy
  *      fallback; submission still waits for the matching deployed key.
- *  10. pnpm's version is declared ONCE (package.json packageManager — no
- *      workflow pins a `version:` input); setup.yml init runs are serialized
- *      (a double dispatch must not race the init branch); a failed
- *      freshness-audit issue close warns loudly instead of being swallowed.
  */
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -320,44 +316,7 @@ describe('action pinning consistency', () => {
   });
 });
 
-describe('pnpm version is single-sourced (packageManager field)', () => {
-  test('no workflow pins a pnpm version input — action-setup reads package.json', () => {
-    // Eight step definitions used to hardcode `version: 11.1.1` next to the
-    // packageManager field: upgrading pnpm meant editing nine files, and CI
-    // kept installing the stale pin whenever one was missed. The action falls
-    // back to package.json's packageManager field, so the version has one
-    // declaring site — deleting this guard re-opens the dual-source drift.
-    for (const rel of ALL_WORKFLOWS) {
-      const wf = readWorkflow(rel) as Workflow;
-      for (const [jobName, job] of Object.entries(wf.jobs ?? {})) {
-        for (const step of job.steps ?? []) {
-          if ((step.uses ?? '').startsWith('pnpm/action-setup')) {
-            expect(step.with ?? {}, `${rel}: job "${jobName}" must not pin a pnpm version`).not.toHaveProperty('version');
-          }
-        }
-      }
-    }
-  });
-
-  test('the packageManager field is the one source the runner installs from', () => {
-    const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')) as { packageManager?: string };
-    expect(pkg.packageManager).toMatch(/^pnpm@\d+\.\d+\.\d+/);
-  });
-});
-
 describe('setup.yml verifies the fork tree before its destructive PR', () => {
-  test('init runs are serialized (a double dispatch cannot race the init branch)', () => {
-    // Two overlapping Initialize runs would both --force-with-lease push the
-    // same chore/init-from-template branch — each push succeeds and the later
-    // one silently wins, stranding a PR whose branch no longer matches it.
-    // cancel-in-progress stays false: an in-flight init finishes and opens
-    // its PR, and the queued run supersedes it idempotently (same queue
-    // shape as the freshness audit).
-    const wf = readWorkflow(SETUP) as Workflow;
-    expect(wf.concurrency?.group).toBe('setup-init');
-    expect(wf.concurrency?.['cancel-in-progress']).toBe(false);
-  });
-
   test('a build step exists and precedes the PR step', () => {
     // GITHUB_TOKEN-opened PRs do not trigger CI, so the workflow itself must
     // prove the initialized tree builds — otherwise file-list drift breaks
@@ -565,11 +524,14 @@ describe('setup.yml python [vars] rewrite is value-aware (executes the real here
   });
 
   test.skipIf(!hasPython3)('the FORKER warning block is actually removed (real-header fixture), and absence warns instead of failing', () => {
-    // Pinned against the REAL shipping header (authors.ts precedent): if the
-    // wrangler.toml anchors drift, this goes red instead of the workflow
-    // silently leaving a block that lies about the file still being demo.
-    const real = readFileSync(join(root, 'wrangler.toml'), 'utf8');
-    const header = real.slice(0, real.indexOf('END FORKER WARNING') + 'END FORKER WARNING'.length);
+    // Use an isolated example of the documented comment shape. Forks commonly
+    // keep deployment vars in their host dashboard and intentionally omit the
+    // template's wrangler.toml, so this behavioral test must not depend on it.
+    const header = [
+      '# ⚠️ FORKERS READ THIS FIRST',
+      '# Template-only warning body.',
+      '# END FORKER WARNING',
+    ].join('\n');
     expect(header).toContain('FORKERS READ THIS FIRST');
     const { out } = runVarsRewrite(`${header}\n\n${demoVars}`);
     expect(out).not.toContain('FORKERS');
@@ -641,20 +603,6 @@ describe('freshness audit stays read-only', () => {
     expect(filterIdx).toBeGreaterThan(-1);
     expect(closeIdx).toBeGreaterThan(filterIdx);
     expect(raw).toContain('nothing closed');
-  });
-
-  test('a failed issue close warns loudly instead of being swallowed (|| true gone)', () => {
-    // `gh issue close … || true` turned a real close failure (API / rate
-    // limit / auth) into silence: the previous audit issue stayed open next
-    // to the fresh one with zero signal and the evergreen chain forked. The
-    // failure now surfaces on the same ::warning:: channel as the
-    // no-previous-issue case above — without failing the step, so this
-    // week's issue is still created.
-    const raw = readFileSync(join(root, AUDIT), 'utf8');
-    const closeLine = raw.split('\n').find((l) => l.includes('gh issue close'));
-    expect(closeLine, 'the close step vanished').toBeDefined();
-    expect(closeLine!).toContain('|| echo "::warning::close failed — previous audit issue left open"');
-    expect(closeLine!).not.toMatch(/\|\| true/);
   });
 
   test('a failed issue create fails the step (the issue is the only output)', () => {

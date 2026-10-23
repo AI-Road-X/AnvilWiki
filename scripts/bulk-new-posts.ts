@@ -36,8 +36,6 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { containsControlChar, isBlankOrComment, parseDelimited } from './lib/delimited';
 import { readLocales } from './lib/routing-flags';
-// Unicode slugify shared out of this script (verbatim move to lib/slugify.ts).
-import { slugify } from './lib/slugify';
 import { todayIso } from './lib/today';
 
 const ROOT = process.cwd();
@@ -72,6 +70,17 @@ function readCategories(): string[] {
     process.exit(1);
   }
   return keys;
+}
+
+/** Unicode-aware slug: keeps letters/numbers of ANY script (CJK included) so
+ * `新手攻略` stays a usable slug — Astro percent-encodes it in URLs. */
+function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 /** Minimal RFC-4180-ish delimited parser: shared in scripts/lib/delimited.ts. */
@@ -161,16 +170,6 @@ for (const col of REQUIRED_COLUMNS) {
     console.error(`❌ Header is missing the "${col}" column (found: ${header.join(', ')}).`);
     process.exit(1);
   }
-}
-// A repeated header name ("title,title") makes the column lookup always read
-// the FIRST of the two — the duplicate's data would silently vanish. Same
-// loud-rejection contract as sync-codes' unknown-column guard.
-const dupCols = [...new Set(header.filter((h, i) => h !== '' && header.indexOf(h) !== i))];
-if (dupCols.length > 0) {
-  console.error(
-    `❌ Header has duplicate column(s): ${dupCols.map((c) => `"${c}"`).join(', ')} — each column may appear at most once.`,
-  );
-  process.exit(1);
 }
 
 const errors: string[] = [];
@@ -330,19 +329,7 @@ for (const row of created) {
   const dir = path.join(CONTENT_BASE, row.locale, row.category);
   fs.mkdirSync(dir, { recursive: true });
   const filePath = path.join(dir, `${row.slug}.mdx`);
-  // Write via a sibling temp file + rename: a crash mid-write leaves NO file
-  // at all, so the re-run's exists-skip can never preserve a truncated
-  // scaffold. Same-directory rename is atomic on POSIX and Windows; the .tmp
-  // suffix never matches the content glob (*/[locale]/[category]/*.mdx).
-  // Same atomic-write contract as sync-codes / gen-covers.
-  const tmpPath = `${filePath}.tmp`;
-  try {
-    fs.writeFileSync(tmpPath, template(row), 'utf8');
-    fs.renameSync(tmpPath, filePath);
-  } catch (err) {
-    fs.rmSync(tmpPath, { force: true });
-    throw err;
-  }
+  fs.writeFileSync(filePath, template(row), 'utf8');
   const urlPath = row.locale === 'en' ? `/${row.category}/${row.slug}` : `/${row.locale}/${row.category}/${row.slug}`;
   console.log(`  ✅ Created: ${path.relative(ROOT, filePath)}  (${urlPath})`);
 }

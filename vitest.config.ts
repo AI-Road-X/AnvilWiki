@@ -1,5 +1,17 @@
 import { fileURLToPath } from 'node:url';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { defineConfig } from 'vitest/config';
+
+const root = fileURLToPath(new URL('.', import.meta.url));
+const optionalFeatureTestFiles = [
+  ['tests/community-digest.test.ts', 'src/components/landing/community-digest.json'],
+  ['tests/landing-paths.test.ts', 'src/config/landing.ts'],
+  ['tests/redirects.test.ts', 'public/_redirects'],
+] as const;
+const excludedOptionalTests = optionalFeatureTestFiles
+  .filter(([, featureFile]) => !existsSync(join(root, featureFile)))
+  .map(([testFile]) => testFile);
 
 export default defineConfig({
   resolve: {
@@ -11,5 +23,6 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['tests/**/*.test.ts'],
+    exclude: ['**/node_modules/**', '**/dist/**', ...excludedOptionalTests],
   },
 });

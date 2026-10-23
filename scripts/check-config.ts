@@ -49,14 +49,10 @@ const err = (msg: string) => {
 // 1. Parse navigation.ts keys
 // ---------------------------------------------------------------------------
 const navSrc = read('src/config/navigation.ts');
-// Left-bounded (`{`, `,`, or whitespace immediately before `key:`) so a
-// future `navKey:` / `sortKey:` property — or a `// key: 'x'` comment —
-// cannot mint ghost keys (template-audit.ts parses this file with the same
-// regex). Both quote styles: a fork reformatting navigation.ts to double
-// quotes must not silently disable every nav-dimension check below.
-const navKeys = Array.from(
-  navSrc.matchAll(/(?<=[{,\s])(?<!\/\/\s*)key:\s*['"]([^'"]+)['"]/g),
-).map((m) => m[1]);
+// Both quote styles (template-audit.ts parses this same file the same way):
+// a fork reformatting navigation.ts to double quotes must not silently
+// disable every nav-dimension check below.
+const navKeys = Array.from(navSrc.matchAll(/key:\s*['"]([^'"]+)['"]/g)).map((m) => m[1]);
 if (navKeys.length === 0) {
   // Same bargain as the routing.ts readers in lib/routing-flags.ts: a parse
   // failure must be loud — gating nothing while printing green is worse than
@@ -164,9 +160,7 @@ if (displayErrors === 0) console.log('  ✅ all displayTypes valid');
 // --- Check 5: deployment domain gate (wrangler.toml ↔ site.ts) -------------
 console.log('\n4. Deployment domain (wrangler.toml SITE_URL ↔ site.ts domain)');
 const siteSrc = read('src/config/site.ts');
-// Both quote styles (template-audit.ts parses this same field the same way):
-// a fork reformatting site.ts to double quotes must not fail the domain gate.
-const domain = siteSrc.match(/^\s*domain:\s*['"]([^'"]+)['"]/m)?.[1];
+const domain = siteSrc.match(/^\s*domain:\s*'([^']+)'/m)?.[1];
 let effectiveUrl = process.env.SITE_URL ?? '';
 let urlSource = 'env SITE_URL';
 if (!effectiveUrl && fs.existsSync(path.resolve(ROOT, 'wrangler.toml'))) {

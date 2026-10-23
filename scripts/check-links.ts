@@ -21,11 +21,11 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { isAssetPath } from './lib/asset-extensions';
 import { walkFiles } from './lib/walk';
 
 const ROOT = process.cwd();
 const DIST = path.resolve(ROOT, 'dist');
+const FUNCTIONS = path.resolve(ROOT, 'functions');
 
 if (!fs.existsSync(DIST)) {
   console.error('❌ dist/ not found — run `pnpm build` first.');
@@ -50,6 +50,23 @@ for (const file of htmlFiles) {
   knownPaths.add('/' + rel.replace(/\/$/, ''));
 }
 
+// Public files such as /auth.md and /ai/index.ilang are valid link targets
+// even though they are not HTML pages. Keep checking that the built file exists.
+for (const file of walkFiles(DIST)) {
+  if (file.endsWith('.html')) continue;
+  const rel = path.relative(DIST, file).replace(/\\/g, '/');
+  knownPaths.add('/' + rel);
+}
+
+// Cloudflare Pages Functions are deployed alongside dist/ and cannot appear
+// in the static build. Include only concrete route files, not library or
+// parameterized catch-all handlers.
+for (const file of walkFiles(FUNCTIONS, { exts: ['.js', '.ts'] })) {
+  const rel = path.relative(FUNCTIONS, file).replace(/\\/g, '/');
+  if (rel.split('/').some((part) => part.startsWith('_') || part.includes('['))) continue;
+  knownPaths.add('/' + rel.replace(/\.(js|ts)$/, '').replace(/\/index$/, ''));
+}
+
 const HREF_RE = /href="(\/[^"]*)"/g;
 const broken = new Map<string, string[]>(); // link -> [pages...]
 const soft404: string[] = []; // pages whose entire body is "Not Found"
@@ -65,16 +82,24 @@ for (const file of htmlFiles) {
   let m: RegExpExecArray | null;
   while ((m = HREF_RE.exec(src)) !== null) {
     const href = m[1];
-    // Skip asset-like and non-page links — the extension allowlist is shared
-    // with check-content (lib/asset-extensions). This file's old local copy
-    // had drifted from check-content's, so direct mp4/pdf/zip/webm links
-    // were shape-checked here and reported broken.
-    if (isAssetPath(href)) continue;
+    // Skip asset-like and non-page links.
+    if (/\.(png|jpe?g|webp|svg|gif|ico|css|js|mjs|json|xml|txt|webmanifest|woff2?|avif)$/i.test(href))
+      continue;
     if (href.startsWith('//')) continue;
     checked++;
     const clean = href.split('#')[0].split('?')[0];
+    // Browsers percent-encode non-ASCII path segments in hrefs, while the
+    // static output directory keeps the original Unicode filenames.
+    // Compare both in the same decoded form so Chinese (and other Unicode)
+    // tag routes are not reported as broken.
+    let lookupPath = clean;
+    try {
+      lookupPath = decodeURIComponent(clean);
+    } catch {
+      // Keep the raw path so a malformed escape is still reported below.
+    }
     if (clean === '' || clean === '/') continue;
-    if (!knownPaths.has(clean.replace(/\/$/, ''))) {
+    if (!knownPaths.has(lookupPath.replace(/\/$/, ''))) {
       const list = broken.get(href) ?? [];
       if (list.length < 3) list.push(pagePath);
       broken.set(href, list);

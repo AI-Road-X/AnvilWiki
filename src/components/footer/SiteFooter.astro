@@ -39,7 +39,7 @@ const legalLinks: Array<keyof typeof footer> = ['about', 'faq', 'privacyPolicy',
           <Icon name="lucide:hammer" class="h-6 w-6 text-nav" />
           <span>{site.name}</span>
         </div>
-        <p class="mt-2 text-sm text-muted-foreground">{site.tagline}</p>
+        <p class="mt-2 text-sm text-muted-foreground">{ui.site.tagline}</p>
         <p class="mt-3 text-xs">
           <a href={recentPath(locale)} class="text-foreground/70 transition hover:text-nav">
             {shared.recentTitle}
@@ -105,7 +105,7 @@ const legalLinks: Array<keyof typeof footer> = ['about', 'faq', 'privacyPolicy',
       {footer.copyrightText && (
         <p class="text-xs text-muted-foreground">{footer.copyrightText}</p>
       )}
-      {site.legalNotice && <p class="text-xs text-muted-foreground">{site.legalNotice}</p>}
+      {ui.site.legalNotice && <p class="text-xs text-muted-foreground">{ui.site.legalNotice}</p>}
     </div>
   </div>
 </footer>

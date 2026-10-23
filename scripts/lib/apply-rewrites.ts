@@ -81,11 +81,7 @@ export function localeKey(locale: string): string {
   return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(locale) ? locale : JSON.stringify(locale);
 }
 
-/** English-default labels for the LOCALE_LABELS block in routing.ts.
- * new-locale.ts used to carry a second 15-entry table of its own — merged here
- * so both CLIs emit identical labels from one source (the extra six entries
- * below came from that table; buildLocaleLabels only ever gains proper labels
- * for them, no output regresses). */
+/** English-default labels for the LOCALE_LABELS block in routing.ts. */
 export const KNOWN_LOCALE_LABELS: Record<string, string> = {
   en: 'English',
   ja: '日本語',
@@ -96,12 +92,6 @@ export const KNOWN_LOCALE_LABELS: Record<string, string> = {
   ru: 'Русский',
   fr: 'Français',
   de: 'Deutsch',
-  it: 'Italiano',
-  id: 'Bahasa Indonesia',
-  th: 'ไทย',
-  vi: 'Tiếng Việt',
-  tr: 'Türkçe',
-  pl: 'Polski',
 };
 
 /**
@@ -148,14 +138,6 @@ export function buildUiMessagesEntries(locales: string[]): string {
  */
 export const UI_IMPORT_BLOCK_RE = /(?:import \w+ from '~\/locales\/[\w-]+\.json';\n)+/;
 
-/**
- * The `const messages` map literal in ui.ts — the second CLI-rewritten
- * region. Single source shared by rewriteUiTs (apply-template.ts) and the
- * contract test that scans the code OUTSIDE the rewritten regions for
- * strippable locale identifiers: if those two described the regions
- * differently, the contract could silently stop covering the real rewrite.
- */
-export const UI_MESSAGES_BLOCK_RE = /const messages: Record<Locale, Record<string, unknown>> = \{[\s\S]*?\};/;
 
 export interface SkinInput {
   gameName: string;
@@ -338,24 +320,6 @@ function buildHomePreset(input: SkinInput): Record<string, unknown> | null {
 
 
 /**
- * Demo placeholder values the shipped site.ts carries in its OPTIONAL,
- * hand-fill fields. rewriteSiteTs treats any non-empty current value that is
- * NOT in this list as user data and carries it across the rewrite (same
- * value-aware philosophy as rewriteWranglerVars); demo placeholders and
- * empties reset to the blank template silently — that is what a first run is
- * FOR. Exported so the contract test can drift-guard the shipped file.
- */
-export const DEMO_SITE_OPTIONAL_VALUES: readonly string[] = [
-  'https://discord.gg/example',
-  'https://youtube.com/@example',
-  'https://twitter.com/example',
-  'https://reddit.com/r/anvilquest',
-  // Demo official game URL — also the shipped sameAs[0] entry.
-  'https://example.com/anvil-quest',
-  'https://en.wikipedia.org/wiki/Anvil_Quest',
-];
-
-/**
  * Rewrite the `export const site: SiteConfig = { ... };` block in site.ts.
  * Returns null when the block cannot be found — the caller aborts loudly
  * without touching the file.
@@ -366,95 +330,9 @@ export const DEMO_SITE_OPTIONAL_VALUES: readonly string[] = [
  * replacer: string-mode replace expands `$&`/`$'`/`$$` sequences from user
  * input into the replacement, and an unescaped apostrophe in a game name
  * like "Assassin's …" previously produced a site.ts that did not parse.
- *
- * Value-aware backfill: the template hardcodes `contactEmail: ''` and a bare
- * `social { official }`, so a re-run used to silently CLEAR every optional
- * field the forker filled by hand (contactEmail, social.discord/youtube/
- * twitter/reddit, sameAs, defaultAuthor). The current values are read with
- * the same tsField anchors parseSiteTsIdentity uses; non-empty non-demo
- * values ride into the rewritten block. A field that is present but
- * unreadable (compressed one-line object, non-literal array entry…) warns
- * instead of vanishing silently — the destructive direction is never silent.
- * On a pristine demo file the output is byte-identical to the old template
- * (demo placeholders wipe, nothing extra is emitted).
  */
 export function rewriteSiteTs(src: string, input: SkinInput): string | null {
   const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  const siteRe = /export const site: SiteConfig = \{[\s\S]*?\n\};/;
-  if (!siteRe.test(src)) return null;
-
-  const readOptional = (field: string): { value: string; unreadable: boolean } => {
-    const m = tsField(field).exec(src);
-    if (m) return { value: tsUnescape(m[1] ?? m[2]), unreadable: false };
-    // Present but not a parseable quoted literal (empty strings DO match
-    // tsField, so a miss here means the value could not be read at all).
-    // The `?` in an interface declaration (`contactEmail?: string;`) blocks
-    // both regexes, so the type block above never false-positives.
-    if (new RegExp(`\\b${field}\\s*:`).test(src)) return { value: '', unreadable: true };
-    return { value: '', unreadable: false };
-  };
-  const keepValue = (v: string): boolean =>
-    v.trim() !== '' && !DEMO_SITE_OPTIONAL_VALUES.includes(v);
-
-  const contact = readOptional('contactEmail');
-  if (contact.unreadable) {
-    console.warn(
-      '⚠️ could not read the current contactEmail value in src/config/site.ts (unrecognized literal shape) — the rewrite drops it. Re-add it manually if it held your data.',
-    );
-  }
-  const keptContactEmail = contact.unreadable ? '' : keepValue(contact.value) ? contact.value : '';
-
-  const author = readOptional('defaultAuthor');
-  if (author.unreadable) {
-    console.warn(
-      '⚠️ could not read the current defaultAuthor value in src/config/site.ts (unrecognized literal shape) — the rewrite drops it. Re-add it manually if it held your data.',
-    );
-  }
-  const keptDefaultAuthor = author.unreadable ? '' : keepValue(author.value) ? author.value : '';
-
-  const socialKept: [string, string][] = [];
-  for (const field of ['discord', 'youtube', 'twitter', 'reddit'] as const) {
-    const { value, unreadable } = readOptional(field);
-    if (unreadable) {
-      console.warn(
-        `⚠️ could not read the current social.${field} value in src/config/site.ts (unrecognized literal shape) — the rewrite drops it. Re-add it manually if it held your data.`,
-      );
-    } else if (keepValue(value)) {
-      socialKept.push([field, value]);
-    }
-  }
-
-  // sameAs is an array of URL strings: keep the non-demo plain-string
-  // entries. Non-literal residue (a spread, a computed entry) means the array
-  // cannot be faithfully reconstructed — keep what parses, warn about the rest.
-  let sameAs: string[] = [];
-  const sameAsRe = /\bsameAs\s*:\s*\[([\s\S]*?)\]/;
-  if (sameAsRe.test(src)) {
-    const raw = sameAsRe.exec(src)![1];
-    const literalRe = /'((?:\\.|[^'\\])*)'|"((?:\\.|[^"\\])*)"/g;
-    const literals: string[] = [];
-    for (const m of raw.matchAll(literalRe)) literals.push(tsUnescape(m[1] ?? m[2]));
-    const residue = raw.replace(literalRe, '').replace(/[\s'",[\]]/g, '');
-    if (residue !== '') {
-      console.warn(
-        '⚠️ could not fully parse the current sameAs array in src/config/site.ts (non-literal entries) — only the plain string entries were carried over. Re-add the rest manually.',
-      );
-    }
-    sameAs = literals.filter(keepValue);
-  }
-
-  const socialBlock = [
-    '  social: {',
-    `    official: '${esc(input.officialUrl)}',`,
-    ...socialKept.map(([field, value]) => `    ${field}: '${esc(value)}',`),
-    '  },',
-  ].join('\n');
-  const sameAsBlock =
-    sameAs.length > 0
-      ? `  sameAs: [\n${sameAs.map((u) => `    '${esc(u)}',`).join('\n')}\n  ],\n`
-      : '';
-  const defaultAuthorBlock =
-    keptDefaultAuthor !== '' ? `  defaultAuthor: '${esc(keptDefaultAuthor)}',\n` : '';
   const newSite = `export const site: SiteConfig = {
   name: '${esc(input.gameName)} Wiki',
   shortName: '${esc(input.shortName)}',
@@ -464,20 +342,24 @@ export function rewriteSiteTs(src: string, input: SkinInput): string | null {
   legalNotice: '${esc(input.legalNotice)}',
   // Set a real address if you run no social channels — the contact page
   // renders it as a mailto link.
-  contactEmail: '${esc(keptContactEmail)}',
-${socialBlock}
-${sameAsBlock}  game: {
+  contactEmail: '',
+  social: {
+    official: '${esc(input.officialUrl)}',
+  },
+  game: {
     name: '${esc(input.gameName)}',
     platform: '${esc(input.platform)}',
     developer: '${esc(input.developer)}',
     genre: '${esc(input.genre)}',
     releaseDate: '${esc(input.releaseDate)}',
   },
-${defaultAuthorBlock}  // og:image dims of the SHIPPED hero.webp — if you replace public/images/hero.webp,
+  // og:image dims of the SHIPPED hero.webp — if you replace public/images/hero.webp,
   // update these in src/config/site.ts to match (wrong dims mis-crop share cards).
   ogImageWidth: 1200,
   ogImageHeight: 630,
 };`;
+  const siteRe = /export const site: SiteConfig = \{[\s\S]*?\n\};/;
+  if (!siteRe.test(src)) return null;
   return src.replace(siteRe, () => newSite);
 }
 
@@ -598,59 +480,6 @@ export function rerunPromptDefaults(id: SiteTsIdentity): PromptDefaults {
 }
 
 
-/** The fixed tail of a machine-generated overviewDescription. */
-const OVERVIEW_PLACEHOLDER_TAIL =
-  '. Replace this overview text in the locale JSON — it feeds the category page title and description.';
-
-/**
- * Is this description still the machine placeholder a previous run wrote
- * (`<Category> content for <game>` + the fixed tail)? The prefix + tail make
- * a user-edited description essentially impossible to confuse with a
- * placeholder, while an untouched placeholder is ALWAYS regenerated — so a
- * game rename on a re-run refreshes placeholder copy but never user copy.
- */
-export function isPlaceholderOverviewDesc(key: string, desc: string): boolean {
-  const capKey = key
-    .split(/[-_]/)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
-  return desc.startsWith(`${capKey} content for `) && desc.endsWith(OVERVIEW_PLACEHOLDER_TAIL);
-}
-
-/**
- * Is this home namespace still a machine skeleton (a previous run's preset
- * output)? The presets always write an EMPTY faq.items and highlight labels
- * of exactly 'CODE-PLACEHOLDER' / 'Step <n>'; user data — FAQ entries or a
- * renamed highlight label — flips the verdict. (Copy edits confined to
- * hero/start strings are not detected — those fields carry no machine
- * watermark — so a fully hand-polished home should re-run with preset
- * "keep".) Used to warn before a preset overwrite, not to block it.
- */
-export function isHomeSkeleton(home: unknown): boolean {
-  if (home === null || typeof home !== 'object' || Array.isArray(home)) return true;
-  const h = home as Record<string, unknown>;
-  const faqItems = (h.faq as { items?: unknown } | undefined)?.items;
-  if (Array.isArray(faqItems) && faqItems.length > 0) return false;
-  const modules = (h.explore as { modules?: unknown } | undefined)?.modules;
-  if (Array.isArray(modules)) {
-    for (const mod of modules) {
-      const highlights = (mod as { highlights?: unknown } | undefined)?.highlights;
-      if (!Array.isArray(highlights)) continue;
-      for (const hl of highlights) {
-        const label = (hl as { label?: unknown } | undefined)?.label;
-        if (
-          typeof label === 'string' &&
-          label !== 'CODE-PLACEHOLDER' &&
-          !/^Step \d+$/.test(label)
-        ) {
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-}
-
 /**
  * Rewrite the per-locale JSON for the chosen skin. `copyrightYear` is passed
  * in by the caller (apply-template derives it from lib/today.ts) — this layer
@@ -734,10 +563,10 @@ export function rewriteLocaleJson(
     language: 'Language',
   };
   const navCategories: Record<string, string> = {};
-  const generatedOverview: Record<string, { overviewTitle: string; overviewDescription: string }> = {};
+  const overview: Record<string, { overviewTitle: string; overviewDescription: string }> = {};
   for (const { key } of input.categories) {
     navCategories[key] = cap(key);
-    generatedOverview[key] = {
+    overview[key] = {
       overviewTitle: `All ${cap(key)}`,
       overviewDescription: `${cap(key)} content for ${input.gameName}. Replace this overview text in the locale JSON — it feeds the category page title and description.`,
     };
@@ -754,55 +583,10 @@ export function rewriteLocaleJson(
     ),
   );
   obj.nav = { ...navFixed, ...navCategories, ...prevNav };
-  // overview + home are re-run-aware, like prevNav above — but gated on the
-  // SAME demo marker the locale-deletion path trusts (isDemoLocaleContent):
-  // a file that still carries the demo site.name is a FIRST run and must be
-  // overwritten wholesale, or demo copy leaks into the fork (v2.6.3
-  // semantics). Only a non-demo file can hold user copy worth keeping.
-  const rerun = existing !== undefined && !isDemoLocaleContent(existing);
-  if (rerun) {
-    const prevOverview = (obj.overview ?? {}) as Record<string, unknown>;
-    const keptOverview: Record<string, { overviewTitle: string; overviewDescription: string }> = {};
-    for (const [key, gen] of Object.entries(generatedOverview)) {
-      const prev = prevOverview[key] as
-        | { overviewTitle?: unknown; overviewDescription?: unknown }
-        | undefined;
-      const prevTitle = prev?.overviewTitle;
-      const prevDesc = prev?.overviewDescription;
-      // Titles carry no game name (nothing to leak), so any non-empty string
-      // is kept; descriptions survive only when actually edited — a previous
-      // run's placeholder regenerates (isPlaceholderOverviewDesc).
-      keptOverview[key] = {
-        overviewTitle:
-          typeof prevTitle === 'string' && prevTitle.trim() !== ''
-            ? prevTitle
-            : gen.overviewTitle,
-        overviewDescription:
-          typeof prevDesc === 'string' &&
-          prevDesc.trim() !== '' &&
-          !isPlaceholderOverviewDesc(key, prevDesc)
-            ? prevDesc
-            : gen.overviewDescription,
-      };
-    }
-    obj.overview = keptOverview;
-  } else {
-    obj.overview = generatedOverview;
-  }
-  // Homepage preset skeleton (unless 'keep'). The preset is an explicit
-  // choice on every run, so it still overwrites — but overwriting a home
-  // that is NOT a machine skeleton (FAQ entries or edited highlight labels)
-  // warns first, the same warn-before-destructive contract as the demo
-  // content clearing.
+  obj.overview = overview;
+  // Homepage preset skeleton (unless 'keep').
   const home = buildHomePreset(input);
-  if (home) {
-    if (rerun && !isHomeSkeleton(obj.home)) {
-      console.warn(
-        `⚠️ the existing home namespace in ${locale}.json holds edited copy (FAQ entries or custom highlight labels) — the homepage preset will REPLACE it. Re-apply your edits afterwards, or re-run with preset "keep" to preserve it.`,
-      );
-    }
-    obj.home = home;
-  }
+  if (home) obj.home = home;
   return JSON.stringify(obj, null, 2) + '\n';
 }
 
@@ -856,9 +640,6 @@ export const DEMO_VAR_VALUES: readonly string[] = [
   'e2ad36227bacdad94a4bfe6a9a6d3dac',
   // Demo GA4 measurement ID
   'G-X10CG7N6P6',
-  // Demo VibeCafé telemetry ids (product + web auth key)
-  'cmvdec106000002nyeuo0o767',
-  'vc_web_l7OmJ4CD2hLlHkHojq3-M7p0FsluYhiiRjAew-vwKG0',
   // Demo site's legacy IndexNow env key. New forks use .indexnow-key;
   // keep this registered so Initialize/apply-template strip the demo value
   // instead of carrying anvil.wiki ownership into a fork.
@@ -942,12 +723,6 @@ const WRANGLER_VARS_TEMPLATE: VarSpec[] = [
   { key: 'PUBLIC_ADSTERRA_SLOT_STICKY_320X50', commented: true },
   { key: 'PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X300', commented: true },
   { key: 'PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X600', commented: true },
-  {
-    key: 'PUBLIC_VIBECAFE_PRODUCT_ID',
-    comments: ['VibeCafé product telemetry — set BOTH this and the auth key to enable.'],
-    commented: true,
-  },
-  { key: 'PUBLIC_VIBECAFE_AUTH_KEY', commented: true },
   { key: 'PUBLIC_GA_ID', commented: true },
   { key: 'PUBLIC_GSC_VERIFICATION', commented: true },
 ];
@@ -999,26 +774,12 @@ export function rewriteWranglerVars(input: { domain: string }, src: string): str
   // destructive direction, same philosophy as the warn-and-keep paths for
   // locale files and user articles).
   const existingRaw = new Map<string, string>();
-  // Lines that are neither blank, a comment, nor parseable as KEY = value —
-  // dotted keys (`MY.KEY = "x"`), tables of arrays, etc. The rewrite can only
-  // re-emit what it parsed, so these lines are DROPPED from the rewritten
-  // section; that must never happen silently.
-  const unparsedLines: string[] = [];
   for (const line of section.split(/\r?\n/)) {
     const m = line.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(?:"((?:\\.|[^"\\])*)"|'([^']*)'|([^#\s][^#]*?))\s*(?:#.*)?$/);
     if (m) {
       existing.set(m[1], m[2] ?? m[3] ?? m[4]);
       existingRaw.set(m[1], line.trim());
-      continue;
     }
-    const trimmed = line.trim();
-    if (trimmed === '' || trimmed.startsWith('#')) continue;
-    unparsedLines.push(trimmed);
-  }
-  for (const line of unparsedLines) {
-    console.warn(
-      `⚠️ [vars] line "${line}" could not be parsed (dotted key or unusual TOML?) and will be DROPPED from the rewritten [vars] section — move it outside [vars] or re-add it manually.`,
-    );
   }
   const templateKeys = new Set(WRANGLER_VARS_TEMPLATE.map((spec) => spec.key));
   const unknownKeys = [...existing.keys()].filter((key) => !templateKeys.has(key));
@@ -1219,24 +980,4 @@ export function classifyWikiArticles(entries: WikiArticleEntry[]): {
     (isDemoArticleContent(entry.src) ? demo : kept).push(entry);
   }
   return { demo, kept };
-}
-
-/**
- * The demo-author block regex apply-template runs against
- * src/config/authors.ts — extracted from the CLI so the contract test can pin
- * it against the REAL file (and against setup.yml's inline python copy: the
- * two channels must produce identical output or one of them silently drifts).
- */
-export const DEMO_AUTHOR_BLOCK_RE = /\n\s*\/\/ DEMO .*?\n\s*'[^']+'.*?\{[^}]*\},\n/;
-
-/**
- * Remove the demo author entry from src/config/authors.ts. `changed` is false
- * when nothing matched — already removed on a previous run, or the file
- * format drifted — and the caller warns instead of claiming success (a
- * format drift must never print a false ✅, and a silent no-op must never
- * pass unnoticed).
- */
-export function stripDemoAuthors(src: string): { cleaned: string; changed: boolean } {
-  const cleaned = src.replace(DEMO_AUTHOR_BLOCK_RE, '\n');
-  return { cleaned, changed: cleaned !== src };
 }

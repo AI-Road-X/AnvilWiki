@@ -231,15 +231,12 @@ const describeStats = (s: MergeStats): string => {
   const parts: string[] = [];
   if (s.added.length > 0) parts.push(`＋ ${s.added.length} new (${s.added.join(', ')})`);
   if (s.expiredFlipped.length > 0) parts.push(`💀 ${s.expiredFlipped.length} expired (${s.expiredFlipped.join(', ')})`);
-  if (s.reactivated.length > 0)
-    parts.push(`♻️ ${s.reactivated.length} reactivated ⚠️ expired→active (${s.reactivated.join(', ')})`);
   if (s.updated.length > 0) parts.push(`⟳ ${s.updated.length} updated (${s.updated.join(', ')})`);
   if (s.unchanged.length > 0) parts.push(`= ${s.unchanged.length} unchanged`);
   return parts.length > 0 ? parts.join(' · ') : 'no changes';
 };
 
-const hasChanges = (s: MergeStats): boolean =>
-  s.added.length + s.updated.length + s.expiredFlipped.length + s.reactivated.length > 0;
+const hasChanges = (s: MergeStats): boolean => s.added.length + s.updated.length + s.expiredFlipped.length > 0;
 
 if (DRY_RUN) {
   console.log('\n🔍 Dry run — nothing written. Plan:\n');

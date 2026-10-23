@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Lunara: Silver Moon Mark</title>
+  <desc id="desc">Original mechanics diagram: a skill cast grants four marks; qualifying basic attack hits consume them. Based on the official compendium.</desc>
+  <rect width="1200" height="675" fill="#111827"/>
+  <path d="M900 90a170 170 0 1 0 170 240A150 150 0 0 1 900 90" fill="#334155"/>
+  <text x="80" y="105" fill="#a5b4fc" font-family="sans-serif" font-size="24">ANIIMO WIKI · MECHANICS REFERENCE</text>
+  <text x="80" y="210" fill="#fff" font-family="sans-serif" font-size="74" font-weight="700">Lunara</text>
+  <text x="80" y="276" fill="#cbd5e1" font-family="sans-serif" font-size="36">Silver Moon Mark</text>
+  <text x="80" y="370" fill="#fff" font-family="sans-serif" font-size="28">SKILL CAST</text>
+  <path d="M285 360h105m-20-16 20 16-20 16" fill="none" stroke="#a5b4fc" stroke-width="5"/>
+  <g fill="#a5b4fc"><circle cx="450" cy="360" r="27"/><circle cx="535" cy="360" r="27"/><circle cx="620" cy="360" r="27"/><circle cx="705" cy="360" r="27"/></g>
+  <text x="420" y="435" fill="#cbd5e1" font-family="sans-serif" font-size="26">FOUR STACKS</text>
+  <text x="80" y="555" fill="#e2e8f0" font-family="sans-serif" font-size="29">Basic attack hit → one stack consumed</text>
+  <text x="80" y="610" fill="#94a3b8" font-family="sans-serif" font-size="22">Source-based illustration · not a gameplay screenshot</text>
+</svg>

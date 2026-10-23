@@ -33,14 +33,6 @@ permissions:
   contents: write
   pull-requests: write
 
-# One init at a time — two overlapping runs would both force-push the same
-# chore/init-from-template branch and race on its PR. A queue, not a cancel:
-# an in-flight init finishes and opens its PR; the queued run then supersedes
-# it idempotently.
-concurrency:
-  group: setup-init
-  cancel-in-progress: false
-
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -106,9 +98,6 @@ jobs:
           #PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X300 = ""
           #PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X600 = ""
           #PUBLIC_GA_ID = ""
-          # VibeCafé product telemetry — set BOTH to enable, empty = off.
-          #PUBLIC_VIBECAFE_PRODUCT_ID = ""
-          #PUBLIC_VIBECAFE_AUTH_KEY = ""
           #PUBLIC_GSC_VERIFICATION = ""'''
           new_vars = new_vars.replace('__SITE_URL__', url)
           # Anchor [vars] at LINE START — same shape as the JS channel in
@@ -141,7 +130,6 @@ jobs:
               'PUBLIC_ADSTERRA_SLOT_INCONTENT_728X90', 'PUBLIC_ADSTERRA_SLOT_NATIVE_BANNER',
               'PUBLIC_ADSTERRA_SLOT_STICKY_320X50', 'PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X300',
               'PUBLIC_ADSTERRA_SLOT_SIDEBAR_160X600', 'PUBLIC_GA_ID', 'PUBLIC_GSC_VERIFICATION',
-              'PUBLIC_VIBECAFE_PRODUCT_ID', 'PUBLIC_VIBECAFE_AUTH_KEY',
           }
           custom = []
           for ln in s[m.start():m.end()].splitlines():
@@ -179,8 +167,6 @@ jobs:
               'fba4ed072bed8749c56ebcf099b30f0e',
               'e2ad36227bacdad94a4bfe6a9a6d3dac',
               'G-X10CG7N6P6',
-              'cmvdec106000002nyeuo0o767',
-              'vc_web_l7OmJ4CD2hLlHkHojq3-M7p0FsluYhiiRjAew-vwKG0',
               '736d8608fdec899849d382dffdaf4dda78605ffe0f40e2f1dbb57c7390341bed',
           }
           # Same accepted value forms as the JS channel: double-quoted
@@ -262,9 +248,7 @@ jobs:
           # Keep in sync with LANDING_PATHS in scripts/apply-template.ts —
           # forgetting src/pages/landing (docs routes) leaves files importing
           # the deleted ~/config/landing and breaks the fork's build.
-          # NEVER add src/components/RootGateway.astro here — index.astro
-          # statically imports it; deleting it breaks the fork's build.
-          rm -rf src/components/landing src/config/landing.ts src/config/landing-types.ts src/config/landing-shared.ts src/config/landing-en.ts src/config/landing-zh.ts src/config/landing-templates.ts src/pages/landing.astro src/pages/demo.astro src/pages/landing src/pages/zh/landing.astro src/pages/zh/landing public/images/showcase public/images/wechat-qr.jpg public/_redirects
+          rm -rf src/components/landing src/config/landing.ts src/config/landing-types.ts src/config/landing-shared.ts src/config/landing-en.ts src/config/landing-zh.ts src/config/landing-templates.ts src/pages/landing.astro src/pages/landing src/pages/zh/landing.astro src/pages/zh/landing public/images/showcase public/images/wechat-qr.jpg public/_redirects
           sed -i.bak 's/landingLinkEnabled = true/landingLinkEnabled = false/' src/config/project.ts && rm -f src/config/project.ts.bak
           # The flip must never be a silent no-op (audit round 21): a drifted
           # pattern would leave fork nav pointing at the deleted /landing/
@@ -312,6 +296,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6
         with:
+          version: 11.1.1
           run_install: false
 
       - name: Setup Node

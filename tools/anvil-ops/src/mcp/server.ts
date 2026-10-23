@@ -143,20 +143,8 @@ export function buildServer(opts: BuildServerOpts): McpServer {
     },
     async ({ days, site }) => {
       try {
-        const cwd = effectiveCwd(site);
-        // insights spawns pnpm children (refresh-audit) plus GSC/CF HTTP with
-        // long timeouts — offload to a worker thread so the stdio event loop
-        // stays responsive (keepalive pings). Same rationale as the audit
-        // tool above; falls back in-process for injected test runs / unbuilt
-        // source (which also keeps injected test deps effective).
-        if (!opts.run && canOffload()) {
-          const r = await offload({ kind: 'insights', cwd, days: days ?? 28 });
-          return r.ok
-            ? { content: [{ type: 'text', text: r.text }] }
-            : { isError: true, content: [{ type: 'text', text: r.errorText }] };
-        }
         const report = await collectInsights({
-          cwd,
+          cwd: effectiveCwd(site),
           days: days ?? 28,
           run: opts.run,
           gscClientFactory: opts.gscClientFactory,
