@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Minespine No.074 mechanics reference</title>
+  <desc id="desc">Tunnel needs stamina and protects against ranged attacks. Seismic Wave lists cost 40, power 120 and eight seconds. These labels do not establish DPS.</desc>
+  <rect width="1200" height="675" fill="#18271f"/>
+  <path d="M870 30 1160 170 1080 455 820 535 655 265Z" fill="#41513a"/>
+  <text x="70" y="78" fill="#c9e991" font-family="sans-serif" font-size="23" letter-spacing="3">ANIIMO WIKI / NO.074</text>
+  <text x="70" y="170" fill="#fff" font-family="sans-serif" font-size="72" font-weight="700">Minespine</text>
+  <text x="70" y="220" fill="#bfcdbb" font-family="sans-serif" font-size="27">Rock / BREAK / read conditions before totals</text>
+  <rect x="70" y="267" width="510" height="255" rx="20" fill="#2b4436"/>
+  <rect x="620" y="267" width="510" height="255" rx="20" fill="#41452e"/>
+  <text x="105" y="325" fill="#b7edc2" font-family="sans-serif" font-size="25">TUNNEL</text>
+  <text x="105" y="390" fill="#fff" font-family="sans-serif" font-size="32">Ranged protection</text>
+  <text x="105" y="441" fill="#fff" font-family="sans-serif" font-size="29">Continuous stamina cost</text>
+  <text x="105" y="487" fill="#c9d7c7" font-family="sans-serif" font-size="23">Pound can launch it</text>
+  <text x="655" y="325" fill="#eee39d" font-family="sans-serif" font-size="25">SEISMIC WAVE</text>
+  <text x="655" y="390" fill="#fff" font-family="sans-serif" font-size="32">Cost 40 / Power 120</text>
+  <text x="655" y="441" fill="#fff" font-family="sans-serif" font-size="29">8-second description</text>
+  <text x="655" y="487" fill="#d6d5b8" font-family="sans-serif" font-size="23">Not a published DPS calculation</text>
+  <text x="70" y="581" fill="#e4ecdf" font-family="sans-serif" font-size="27">A listed number is not a tested damage result.</text>
+  <text x="70" y="631" fill="#a6baa7" font-family="sans-serif" font-size="20">Original source-based diagram / not official art or a gameplay screenshot</text>
+</svg>

@@ -1,39 +1,70 @@
 ---
-title: "Hummin 图鉴：官方编号 No.020"
-description: "整理官方 Aniimo Wiki 中 Hummin 的属性、栖息地、移动能力、特性和技能资料。"
+title: "Aniimo No.020（Hummin）：Mountain 形态、生命与 BREAK 技能"
+description: "查阅 Aniimo Hummin No.020 的 Mountain 形态、Energized 生命缩放、当前技能与地区名称，并区分自身资料和 Tuckin 召唤规则。"
 category: "characters"
+image: '../../../../assets/covers/hummin-hp-reference.png'
 date: 2026-09-28
+lastModified: 2026-10-24
 tags: ["图鉴", "角色", "Hummin", "草", "BREAK"]
-summary: "Hummin 是官方编号 No.020 的草属性 BREAK Aniimo，拥有 Rooted 和 Bursting with Energy 特性。"
+summary: "Aniimo No.020 对应 Hummin，本页限定 Mountain 形态：草属性、BREAK 定位，总属性 467。Energized 依据最大生命值，而不是面板 HP 属性 94。本页核对当前技能名称和地区标签，并将这些资料与未经验证的精确捕捉地点、Tuckin 召唤规则分开。"
 ---
 
-## 基本资料
+import { Image } from 'astro:assets';
+import hpDiagram from '../../../../assets/covers/hummin-hp-reference.png';
+
+## 本页的 Hummin No.020 是哪个形态？
+
+No.020 对应 **Hummin**。本文记录官方 **Mountain Form**，公开标签为草属性和 BREAK。来源也提供 Basic Form 链接，但存在形态切换入口，不代表所有形态共享同一面板、栖息地或技能。比较资料前，应先核对选择的形态。
 
 | 项目 | 官方资料 |
 | --- | --- |
 | 名称 | Hummin |
 | 编号 | No.020 |
+| 本页形态 | Mountain Form |
 | 属性 | Grass |
 | 角色定位 | BREAK |
 | 属性总值 | 467 |
 | HP / BREAK / ATK | 94 / 80 / 68 |
 | M.DEF / P.DEF / REGEN | 94 / 71 / 60 |
 | 进化阶段 | Lumin、Gamma |
-| 栖息地 | Sea of Flowers、Beryl Boardwalk |
+| 栖息地 | Sea of Flowers、Berylline Causeway |
 
-官方描述称，土地影响了 Hummin，使其皮肤变厚并呈矿物红色，从而保持身体水分。官方页面列出了 Basic Form 和 Mountain Form。
+官网当前英文地区名称为 **Berylline Causeway**；本页旧文曾写作 Beryl Boardwalk。它们属于地区层面的名称，不是精确刷新点。规划路线可参考[官方地区名称资料](/zh/maps/official-region-names/)，不要把地区名当作确认坐标或保证遭遇的地点。
 
-## 移动能力、特性与技能
+## Energized 到底依据哪一种生命值？
 
-- **Rooted**：牢牢扎根于土地。
-- **Bursting with Energy**：每拥有 1000 点最大 HP，BREAK 伤害提高 2%。
+当前官网特性名为 **Energized**，说明将每 1,000 点最大生命值与 2% BREAK 伤害提升关联。面板 HP 属性 94，与培养后实战中的最大生命值不是同一个数值；不能直接拿 94 代入最大 HP 条款。
 
-| 技能 | 类型 | 消耗 | 威力 |
-| --- | --- | ---: | ---: |
-| Gravel Rush | Physical | 10 | 39 |
-| Euphoric Sonic Blast | Magic | 0 | 30 |
-| Vegetal Charge | Physical | 10 | 39 |
-| ATK | Physical | 0 | 6 |
+| 数值 | 正确阅读方式 | 不能据此得出的结论 |
+| --- | --- | --- |
+| HP 属性 94 | 公开面板的一项属性 | 最终实战生命值 |
+| 最大 HP | Energized 说明所指数量 | 官方公布的最佳配装目标 |
+| BREAK 属性 80 | 另一项公开面板属性 | 直接百分比或实测伤害结果 |
+
+所引句子未解释取整、上限和全部交互。制作配装计算器，还需要这些规则，不能仅凭一句特性就编造最优生命值门槛，或断言任何生命装备都优于其他选择。
+
+<Image src={hpDiagram} alt="Hummin 原创示意图：区分 HP 属性 94 与最大生命值，后者才是 Energized 每 1,000 HP 与 2% BREAK 条款所指的数量。" loading="lazy" />
+
+示意图用于解释数值，不是官方立绘、配装计算器或实机伤害测试。
+
+## 当前技能名称和效果是什么？
+
+当前页面将移动能力命名为 **Dig In**，描述其扎根于土地；这并不证明具有远程免疫。[Geodeback 的 Tunnel](/zh/characters/geodeback/)是另一项能力。下表保留当前官方技能名称，效果栏仅归纳公开文本。
+
+| 技能 | 类型 | 消耗 | 威力 | 公开效果摘要 |
+| --- | --- | ---: | ---: | --- |
+| Gravel Tackle | Physical | 10 | 39 | 以身体撞击，说明写作 Earth 伤害。 |
+| Euphoric Sonic Blast | Magic | 0 | 30 | 前方扇形攻击；文本另提到恢复 10 点 energy。 |
+| Plant Charge | Physical | 10 | 39 | 以身体向目标冲撞。 |
+| ATK | Physical | 0 | 6 | 近距离草属性攻击，标记 BREAK。 |
+
+恢复 energy 的句子没有确认这是全队能量恢复；技能涉及 Earth 伤害，也不会自动改变形态列出的草属性。比较时应把生物标签、技能类型和资源效果分开。
+
+## 本资料是否等于 Tuckin 召唤出的 Hummin？
+
+[Tuckin 的 Mountain 形态](/zh/characters/tuckin/)确实在召唤与支援技能中提到 Hummin，但那些说明属于 Tuckin 自身技能组。No.020 资料没有交代召唤单位是否继承已捕捉 Hummin 的装备、最大生命值或全部特性，因此不能未经验证就互相套用配装数值。
+
+自身面板查本页，召唤时机与数量上限查 Tuckin 页面；[资料核验说明](/zh/characters/verification-notes/)用于区分已有来源与仍需实测的内容。上述页面都不代表通用队伍排名。
 
 ## 官方来源
 

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Hummin No.020 Mountain Form HP reference</title>
+  <desc id="desc">HP attribute 94 is not the same as combat maximum HP. Energized refers to each 1,000 maximum HP and a 2 percent BREAK-damage increase.</desc>
+  <rect width="1200" height="675" fill="#28221e"/>
+  <path d="M815 25 1150 140 1080 430 800 530 650 280Z" fill="#554536"/>
+  <text x="70" y="78" fill="#ffc892" font-family="sans-serif" font-size="23" letter-spacing="3">ANIIMO WIKI / NO.020</text>
+  <text x="70" y="170" fill="#fff" font-family="sans-serif" font-size="72" font-weight="700">Hummin</text>
+  <text x="70" y="220" fill="#dccaba" font-family="sans-serif" font-size="27">Mountain Form / Grass / BREAK</text>
+  <rect x="70" y="267" width="510" height="255" rx="20" fill="#4a352b"/>
+  <rect x="620" y="267" width="510" height="255" rx="20" fill="#3e4831"/>
+  <text x="105" y="325" fill="#ffceaa" font-family="sans-serif" font-size="25">PROFILE ATTRIBUTE</text>
+  <text x="105" y="403" fill="#fff" font-family="sans-serif" font-size="52" font-weight="700">HP 94</text>
+  <text x="105" y="475" fill="#e3cdbd" font-family="sans-serif" font-size="25">Not final in-combat maximum HP</text>
+  <text x="655" y="325" fill="#d0e69c" font-family="sans-serif" font-size="25">ENERGIZED USES MAX HP</text>
+  <text x="655" y="394" fill="#fff" font-family="sans-serif" font-size="35">Each 1,000 max HP</text>
+  <text x="655" y="448" fill="#fff" font-family="sans-serif" font-size="35">2% BREAK-damage increase</text>
+  <text x="655" y="491" fill="#cdd5ba" font-family="sans-serif" font-size="23">No invented build target or cap</text>
+  <text x="70" y="581" fill="#eee2d7" font-family="sans-serif" font-size="27">Different quantities. Do not substitute one for the other.</text>
+  <text x="70" y="631" fill="#baa99a" font-family="sans-serif" font-size="20">Original source-based diagram / not official art or a damage calculator</text>
+</svg>

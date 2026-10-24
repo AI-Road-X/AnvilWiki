@@ -1,14 +1,20 @@
 ---
-title: "Minespine 图鉴：官方 No.074 属性与技能"
-description: "查阅官方 Aniimo Wiki 中 Minespine（No.074）的岩属性、BREAK 定位、Tunnel 移动能力、Earth Affinity 特性与战斗技能。"
+title: "Aniimo No.074（Minespine）：面板、遁地与 Seismic Wave"
+description: "Aniimo 074 对应 Minespine。本页整理 540 点面板、Tunnel 触发条件、Seismic Wave 持续时间，并附 Geodeback 官方数据对照。"
 category: "characters"
+image: '../../../../assets/covers/minespine-mechanics.png'
 date: 2026-09-28
-lastModified: 2026-09-29
+lastModified: 2026-10-24
 tags: ["图鉴", "Characters", "Minespine", "Rock", "BREAK"]
-summary: "Minespine 是官方编号 No.074 的岩属性 BREAK 角色，总属性为 540。Tunnel 可在持续消耗耐力时躲避远程攻击；Earth Affinity 在潜地状态下提高 20% BREAK。"
+summary: "Aniimo No.074 是 Minespine，岩属性 BREAK 角色，公开总属性为 540。Tunnel 持续消耗耐力并防护远程攻击，Earth Affinity 的加成限定遁地状态。Seismic Wave 持续八秒，但威力不等于已公布的每秒伤害。本页区分条件、面板与实战结论。"
 ---
 
-## 基本资料
+import { Image } from 'astro:assets';
+import mechanicsDiagram from '../../../../assets/covers/minespine-mechanics.png';
+
+## Aniimo 074 是谁，面板应如何理解？
+
+No.074 对应 **Minespine**，岩属性、BREAK 定位，官方基础形态页面列出总属性 540。总值可概览资料，但不是伤害评分：生命、防御、恢复与进攻属性衡量不同内容，相加不能直接得到经过实测的强度排名。
 
 | 项目 | 官方资料 |
 | --- | --- |
@@ -21,16 +27,24 @@ summary: "Minespine 是官方编号 No.074 的岩属性 BREAK 角色，总属性
 | M.DEF / P.DEF / REGEN | 60 / 97 / 78 |
 | 栖息地 | 官方形态页面未列出具体地点 |
 
-官方描述称 Minespine 坚硬的背刺既能保护身体，也能储存能量；晶体矿物出现的地方通常也能找到它。不过官方页面没有给出具体栖息地名称。
+矿物相关的背景描述不是具体捕捉路线。所引形态页未确认地区、坐标、刷新时间或捕获概率。需要找地点时，可先参考[地图研究方法](/zh/maps/region-research/)，将实际观测点与笼统环境描述分开。
 
-## 移动能力与特性
+## Tunnel 与 Earth Affinity 如何配合？
+
+Tunnel 提供有条件的远程防护，不代表完全无敌。Earth Affinity 允许在遁地中施放技能，并且仅在该状态下额外造成 20% BREAK。计算收益前应检查当前状态与可用耐力，不能把状态限定的特性当作常驻增伤。
 
 - **Tunnel：** Minespine 潜入地下，并在持续消耗耐力时免疫远程攻击；Pound 类技能可以将它击飞至空中。
 - **Earth Affinity：** 处于潜地状态时，Minespine 可以施放技能，并额外造成 20% BREAK。
 
-官方说明明确把潜地与躲避远程攻击、造成 BREAK 联系起来。Tunnel 会持续消耗耐力，因此可维持时间受当前耐力影响。
+来源没有给出这里的耐力消耗速率，因此无法计算固定的地下持续时间；同时明确提到 Pound 类技能可将其击飞。针对远程攻击安排防护，与认为所有攻击或打断都会无效，是两回事。
 
-## 技能一览
+<Image src={mechanicsDiagram} alt="Minespine 原创说明图：遁地需要耐力；Seismic Wave 列出消耗 40、威力 120、持续八秒，未将其当作每秒伤害。" loading="lazy" />
+
+此图为本站根据来源制作的示意图，不是官方角色立绘或实机测试画面。
+
+## 官方列出了哪些技能和消耗？
+
+基础形态资料同时列出物理与魔法技能，因此岩属性标签不代表每个技能都是物理。应分别比较动作、消耗与时间条件。下表用于阅读公开说明，不代表所有条目已经被验证为同一套可装备的实测配装。
 
 | 技能 | 类型 | 消耗 | 威力 | 官方说明摘要 |
 | --- | --- | ---: | ---: | --- |
@@ -38,10 +52,30 @@ summary: "Minespine 是官方编号 No.074 的岩属性 BREAK 角色，总属性
 | Seismic Wave | 魔法 | 40 | 120 | 持续释放冲击波，连续 8 秒每秒造成伤害。 |
 | Stone Shell | 物理 | 10 | 30 | 向目标发射石壳。 |
 | Meteors | 物理 | 0 | 175 | 将背部矿物储存的能量射向空中，再化作陨石落下。 |
-| ATK (BREAK) | 物理 | 0 | 6 | 近距离岩属性攻击。 |
+| ATK (BREAK) | 物理 | 0 | 6 | 近距离 BREAK 攻击。 |
+
+## Seismic Wave 是否每秒造成 120 点伤害？
+
+来源列出威力 120，并说明八秒内每秒造成伤害，但未解释威力换算伤害的公式，也没有为每次跳伤单列威力。直接用 120 乘八，会引入未经验证的假设，不能据此宣布总伤害或 DPS。
+
+实战比较时可分开检查：动作能否持续到描述中的时长、目标能否留在有效范围内、当前资源能否承担消耗。这是玩家可核验的检查项，不是本站已完成的测试结果。Meteors 显示零消耗，也不代表没有冷却或能够无限连续使用。
+
+## Minespine 与 Geodeback 有何区别？
+
+两个官方基础形态页面都列出岩属性、BREAK、Tunnel 与 Earth Affinity，但面板不同。[Geodeback 资料](/zh/characters/geodeback/)适合作为相似机制对照；机制相同、图鉴编号相邻，都不能单独证明进化关系或全面替代关系。
+
+| 公开项目 | Minespine No.074 | Geodeback No.073 |
+| --- | ---: | ---: |
+| 总属性 | 540 | 486 |
+| BREAK 属性 | 105 | 102 |
+| 定位 | BREAK | BREAK |
+| 移动能力 | Tunnel | Tunnel |
+
+总属性相差 54 点，BREAK 属性相差三点，但都不是实测伤害提升。若想对照另一类 BREAK 机制，[Tuckin 的 Mountain 形态](/zh/characters/tuckin/)使用 Hummin 召唤，而不是另一套遁地说明。
 
 ## 来源与延伸阅读
 
 - [Minespine 官方 Basic Form 页面](https://wiki.aniimo.com/item/074/basic-form)
+- [Geodeback 官方 Basic Form 页面](https://wiki.aniimo.com/item/073/basic-form)
 - [官方 Aniimo 属性指南](/zh/characters/official-aniimo-types/)与[角色索引](/zh/characters/)
 - [图鉴核对说明](/zh/characters/verification-notes/)

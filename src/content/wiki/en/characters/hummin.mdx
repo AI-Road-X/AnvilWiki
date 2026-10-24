@@ -1,39 +1,70 @@
 ---
-title: "Hummin Compendium Entry: Official No.020"
-description: "A source-checked Hummin entry with official attributes, habitats, mobility, trait, and skills from the Aniimo Wiki."
+title: "Aniimo No.020 (Hummin): Mountain Form, HP & BREAK Skills"
+description: "Check Aniimo Hummin No.020 Mountain Form stats, Energized HP scaling, current skill names, habitat labels and its distinction from Tuckin summons."
 category: "characters"
+image: '../../../../assets/covers/hummin-hp-reference.png'
 date: 2026-09-28
+lastModified: 2026-10-24
 tags: ["Compendium", "Characters", "Hummin", "Grass", "BREAK"]
-summary: "Hummin is official Aniimo No.020, a Grass BREAK Aniimo with Rooted and Bursting with Energy traits."
+summary: "Aniimo No.020 is Hummin. This reference covers Mountain Form, listed as Grass and BREAK with 467 total attributes. Energized uses maximum HP, not the profile's HP attribute of 94. Current skill names and regional habitat labels are separated from unverified capture coordinates and Tuckin's distinct summon rules."
 ---
 
-## Basic information
+import { Image } from 'astro:assets';
+import hpDiagram from '../../../../assets/covers/hummin-hp-reference.png';
+
+## Which Hummin form does No.020 describe here?
+
+No.020 is **Hummin**, and this page covers the official **Mountain Form**. Its published labels are Grass and BREAK. The source also offers a Basic Form link, but a form selector is not evidence that all forms share these values. Match the selected form before comparing stats, habitats or skills.
 
 | Field | Official information |
 | --- | --- |
 | Name | Hummin |
 | Number | No.020 |
+| Form covered | Mountain Form |
 | Element | Grass |
 | Role | BREAK |
 | Attributes | 467 |
 | HP / BREAK / ATK | 94 / 80 / 68 |
 | M.DEF / P.DEF / REGEN | 94 / 71 / 60 |
 | Stages | Lumin, Gamma |
-| Habitats | Sea of Flowers, Beryl Boardwalk |
+| Habitats | Sea of Flowers, Berylline Causeway |
 
-The official description says that altered by the earth, Hummin's skin becomes thicker and mineral red to keep its body hydrated. The official page lists Basic Form and Mountain Form.
+The current official English habitat label is **Berylline Causeway**; older wording on this page used Beryl Boardwalk. These are regional labels, not precise spawn points. For route planning, see the [official-region reference](/maps/official-region-names/) and avoid treating a region name as a confirmed coordinate or guaranteed encounter.
 
-## Mobility, trait, and skills
+## What does Energized scale with?
 
-- **Rooted**: firmly rooted in the earth.
-- **Bursting with Energy**: for every 1,000 max HP, BREAK damage increases by 2%.
+The current official trait name is **Energized**. Its description relates a 2% BREAK-damage increase to each 1,000 maximum HP. The profile's HP attribute of 94 is a different quantity from a developed creature's in-combat maximum HP. Read the actual maximum-HP value rather than substituting 94 into that clause.
 
-| Skill | Type | Cost | Power |
-| --- | --- | ---: | ---: |
-| Gravel Rush | Physical | 10 | 39 |
-| Euphoric Sonic Blast | Magic | 0 | 30 |
-| Vegetal Charge | Physical | 10 | 39 |
-| ATK | Physical | 0 | 6 |
+| Quantity | How to read it | What it does not establish |
+| --- | --- | --- |
+| HP attribute: 94 | One listed profile attribute | The creature's final combat HP |
+| Maximum HP | The quantity named by Energized | A published optimum build target |
+| BREAK attribute: 80 | Another listed profile attribute | A direct percentage or a measured damage result |
+
+The cited sentence does not explain rounding, caps or every interaction. A build calculator would need those rules in addition to the trait text. That is why this reference does not manufacture an ideal HP threshold or declare that every HP item is better than every alternative.
+
+<Image src={hpDiagram} alt="Original Hummin diagram separating HP attribute 94 from maximum HP, the quantity used by Energized's 1,000-HP and 2-percent BREAK clause." loading="lazy" />
+
+The illustration explains quantities; it is not official art, a build calculator or a gameplay damage test.
+
+## Which skill names and effects are current?
+
+The current page names the mobility entry **Dig In** and describes being rooted in soil. This does not establish ranged immunity: [Geodeback's Tunnel](/characters/geodeback/) is a different named ability. The skill table below retains the official names, while the effect notes distinguish what the published text actually says.
+
+| Skill | Type | Cost | Power | Published effect, summarized |
+| --- | --- | ---: | ---: | --- |
+| Gravel Tackle | Physical | 10 | 39 | A body ram described as Earth damage. |
+| Euphoric Sonic Blast | Magic | 0 | 30 | Frontal-cone attack; the description also says it restores 10 energy. |
+| Plant Charge | Physical | 10 | 39 | A body-charge attack. |
+| ATK | Physical | 0 | 6 | Close-range Grass attack marked BREAK. |
+
+The energy sentence does not identify a team-wide energy-restoration effect. Likewise, a skill using Earth damage does not change the form's listed Grass element. Keep the creature's labels, skill types and resource effects separate when comparing options.
+
+## Is this profile the same as Tuckin's summoned Hummin?
+
+[Tuckin's Mountain Form](/characters/tuckin/) names Hummin in its summon and support descriptions, but those descriptions belong to Tuckin's own kit. The No.020 profile does not explain whether a summoned unit inherits a captured Hummin's equipment, maximum HP or every trait. Do not transfer build numbers between them without evidence.
+
+Use this page for Hummin's published profile, Tuckin's page for its summon timing and cap, and the [verification notes](/characters/verification-notes/) to distinguish sourced rules from tests still needed. Neither page establishes a universal team ranking.
 
 ## Official sources
 

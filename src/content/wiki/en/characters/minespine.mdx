@@ -1,14 +1,20 @@
 ---
-title: "Minespine Compendium: Official No.074 Stats and Skills"
-description: "Official Minespine No.074 Rock BREAK stats, Tunnel mobility, Earth Affinity trait, and combat skills from the Aniimo Wiki."
+title: "Aniimo No.074 (Minespine): Stats, Tunnel & Seismic Wave"
+description: "Aniimo 074 is Minespine. Check its 540 stats, Tunnel conditions, Seismic Wave timing and a sourced comparison with Geodeback."
 category: "characters"
+image: '../../../../assets/covers/minespine-mechanics.png'
 date: 2026-09-28
-lastModified: 2026-09-29
+lastModified: 2026-10-24
 tags: ["Compendium", "Characters", "Minespine", "Rock", "BREAK"]
-summary: "Minespine is official Aniimo No.074, a Rock BREAK specialist with 540 total attributes. Tunnel avoids ranged attacks while consuming stamina, and Earth Affinity adds 20% BREAK while tunneling."
+summary: "Aniimo No.074 is Minespine, a Rock BREAK creature with 540 listed attributes. Tunnel protects against ranged attacks while consuming stamina, and Earth Affinity adds BREAK only while Tunneling. Seismic Wave lasts eight seconds, but its listed power is not a published damage-per-second figure. Compare conditions before choosing skills."
 ---
 
-## Basic information
+import { Image } from 'astro:assets';
+import mechanicsDiagram from '../../../../assets/covers/minespine-mechanics.png';
+
+## What is Aniimo 074, and what do its stats mean?
+
+No.074 is **Minespine**, a Rock creature in the BREAK role. Its Basic Form page lists 540 total attributes. Use that total as a compact profile, not a damage score: HP, defenses, recovery and offensive attributes are different quantities, and adding them does not reveal a tested combat ranking.
 
 | Field | Official data |
 | --- | --- |
@@ -21,16 +27,24 @@ summary: "Minespine is official Aniimo No.074, a Rock BREAK specialist with 540 
 | M.DEF / P.DEF / REGEN | 60 / 97 / 78 |
 | Habitat | Not listed on the official form page |
 
-The official description says Minespine's hard spines protect it and store energy, and that it is found wherever crystal minerals are found. The page does not specify a named habitat.
+The mineral-related flavor description is not a named capture route. The cited form page does not identify a region, coordinates, spawn time or capture chance. If you need locations, start with the [map research guide](/maps/region-research/) and distinguish an observed location from a general environmental description.
 
-## Mobility and trait
+## How do Tunnel and Earth Affinity work together?
+
+Tunnel supplies conditional ranged protection, not complete invulnerability. Earth Affinity permits skills and adds 20% BREAK specifically while Tunneling. Check the current state and available stamina before counting on that benefit; a trait tied to a state should not be included in an always-on damage estimate.
 
 - **Tunnel:** Minespine tunnels underground and becomes immune to ranged attacks while continuously consuming stamina. Pound skills can launch it into the air.
 - **Earth Affinity:** While in the Tunneling state, Minespine can cast skills and deals 20% extra BREAK.
 
-The mobility and trait descriptions explicitly connect tunneling with avoiding ranged attacks and applying BREAK. Stamina is continuously consumed during Tunnel, so its duration depends on available stamina.
+The source does not give a stamina drain rate here, so this page cannot calculate a fixed underground duration. It also expressly allows Pound skills to launch the creature. Planning around a ranged enemy is different from assuming every incoming attack or interruption will fail.
 
-## Skill summary
+<Image src={mechanicsDiagram} alt="Original Minespine reference: Tunnel needs stamina; Seismic Wave lists cost 40, power 120 and duration eight seconds, not a published DPS value." loading="lazy" />
+
+This is an original source-based diagram, not official character art or a gameplay test.
+
+## Which skills and costs are listed?
+
+The Basic Form reference contains both Physical and Magic entries. A Rock element label therefore does not make every listed skill Physical. Compare the action, cost and timing separately; the table is a reference to published descriptions, not a claim that all entries form one tested equipable loadout.
 
 | Skill | Type | Cost | Power | Official description summary |
 | --- | --- | ---: | ---: | --- |
@@ -38,10 +52,30 @@ The mobility and trait descriptions explicitly connect tunneling with avoiding r
 | Seismic Wave | Magic | 40 | 120 | Releases shock waves that deal damage each second for 8 seconds. |
 | Stone Shell | Physical | 10 | 30 | Fires a stone shell at the target. |
 | Meteors | Physical | 0 | 175 | Launches the energy stored in its back minerals, which falls as meteors. |
-| ATK (BREAK) | Physical | 0 | 6 | Close-range Rock attack. |
+| ATK (BREAK) | Physical | 0 | 6 | Close-range BREAK attack. |
+
+## Does Seismic Wave deal 120 damage every second?
+
+The source lists power 120 and describes damage each second over eight seconds. It does not define the power-to-damage formula or clarify a separate power value for each tick. Multiplying 120 by eight would introduce an assumption, not produce a verified total damage or DPS result.
+
+For a practical comparison, separate three questions: can the action continue for its described duration, can the target remain in its effective area, and can your current resources support its cost? These are checks to perform in-game, not results of a test conducted for this page. The zero cost printed for Meteors likewise does not establish zero cooldown or unrestricted repeated use.
+
+## How does Minespine compare with Geodeback?
+
+Both official Basic Form pages list Rock, BREAK, Tunnel and Earth Affinity, but their numeric profiles differ. [Geodeback's reference](/characters/geodeback/) is a useful comparison because the state conditions overlap. Shared mechanics and adjacent compendium numbers alone do not prove an evolution path or a universal upgrade.
+
+| Published field | Minespine No.074 | Geodeback No.073 |
+| --- | ---: | ---: |
+| Attribute total | 540 | 486 |
+| BREAK attribute | 105 | 102 |
+| Role | BREAK | BREAK |
+| Mobility | Tunnel | Tunnel |
+
+The totals differ by 54 points and the BREAK attributes by three. Neither difference is a measured damage increase. If you want a contrasting BREAK mechanic rather than another Tunnel user, [Tuckin's Mountain Form](/characters/tuckin/) relies on Hummin summons instead.
 
 ## Sources and related reading
 
 - [Minespine official Basic Form entry](https://wiki.aniimo.com/item/074/basic-form)
+- [Geodeback official Basic Form entry](https://wiki.aniimo.com/item/073/basic-form)
 - [Official Aniimo type guide](/characters/official-aniimo-types/) and [character index](/characters/).
 - [Compendium verification notes](/characters/verification-notes/).
