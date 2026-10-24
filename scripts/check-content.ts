@@ -29,8 +29,6 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { isAssetPath } from './lib/asset-extensions';
-import { extractPageLinks } from './lib/link-scan';
 import { readDefaultLocale } from './lib/routing-flags';
 import { walkFiles } from './lib/walk';
 
@@ -40,6 +38,9 @@ const BASE = path.resolve(ROOT, 'src/content/wiki');
 // Parsed from routing.ts (NOT hardcoded) so forks that change the default
 // locale keep this rule honest.
 const DEFAULT_LOCALE = readDefaultLocale(ROOT);
+
+// Asset paths are locale-less by design (public/ is shared) — rule 5 skips them.
+const ASSET_RE = /\.(png|webp|jpe?g|gif|svg|ico|json|xml|txt|css|js|woff2?|avif|mp4)$/i;
 
 const files = walkFiles(BASE, { exts: ['.mdx'] });
 
@@ -94,36 +95,32 @@ for (const file of files) {
       if (!alt.trim()) error(file, ln, `image without alt text: ${m.slice(0, 60)}`);
     }
 
-    // 4 + 5 + 6. Internal MD page links: trailing slash, locale prefix, and
-    // link counting. Image syntax is stripped BEFORE extraction (lib/link-scan)
-    // so an image WRAPPED in a link ([![img](a.webp)](/bosses/x/)) yields the
-    // page link — the old inline negative-lookbehind regex anchored at the
-    // outer `[` and captured the image's asset URL instead.
-    for (const href of extractPageLinks(line)) {
+    // 4 + 5 + 6. Internal MD links (non-image): trailing slash, locale
+    // prefix, and link counting. (?<!!) excludes image syntax ![alt](/…) —
+    // assets are locale-less by design (public/ is shared).
+    const mdLinks = line.match(/(?<!!)\[[^\]]*\]\([^)]+\)/g) ?? [];
+    for (const m of mdLinks) {
+      const href = m.match(/\]\(([^)\s]+)/)?.[1] ?? '';
       if (!href.startsWith('/') || href === '/') continue;
+      internalLinkCount++;
       // Strip #anchor / ?query before shape checks.
       const pathOnly = href.split('#')[0].split('?')[0];
-      // Assets are locale-less by design (public/ is shared, shared
-      // allowlist in lib/asset-extensions) — not page links: no shape
-      // checks, no rule-6 credit.
-      if (isAssetPath(pathOnly)) continue;
-      internalLinkCount++;
-      // 4. Page links end with "/".
-      if (!pathOnly.endsWith('/')) {
+      // 4. Page links end with "/" (assets exempt).
+      if (!ASSET_RE.test(pathOnly) && !pathOnly.endsWith('/')) {
         error(
           file,
           ln,
-          `internal page link must end with "/" (trailingSlash always): ${href.slice(0, 60)}`,
+          `internal page link must end with "/" (trailingSlash always): ${m.slice(0, 60)}`,
         );
       }
       // 5. Non-default-locale bodies carry their own locale prefix.
-      if (fileLocale !== DEFAULT_LOCALE) {
+      if (fileLocale !== DEFAULT_LOCALE && !ASSET_RE.test(pathOnly)) {
         const ok = href.startsWith(`/${fileLocale}/`) || href === `/${fileLocale}`;
         if (!ok) {
           error(
             file,
             ln,
-            `non-default-locale body links without the "${fileLocale}/" prefix (silently lands on the ${DEFAULT_LOCALE} page): ${href.slice(0, 60)}`,
+            `non-default-locale body links without the "${fileLocale}/" prefix (silently lands on the ${DEFAULT_LOCALE} page): ${m.slice(0, 60)}`,
           );
         }
       }

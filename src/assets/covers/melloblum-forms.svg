@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Melloblum: Basic and Prismana forms</title>
+  <desc id="desc">Original comparison diagram: Basic is Grass; Prismana lists holy and Grass. Both official pages classify Melloblum as Support.</desc>
+  <rect width="1200" height="675" fill="#10261f"/>
+  <text x="75" y="95" fill="#86efac" font-family="sans-serif" font-size="24">ANIIMO WIKI · FORM COMPARISON</text>
+  <text x="75" y="195" fill="#fff" font-family="sans-serif" font-size="72" font-weight="700">Melloblum</text>
+  <rect x="75" y="260" width="500" height="245" rx="22" fill="#1e4032"/>
+  <rect x="625" y="260" width="500" height="245" rx="22" fill="#35433d"/>
+  <text x="115" y="330" fill="#fff" font-family="sans-serif" font-size="34">BASIC FORM</text>
+  <text x="665" y="330" fill="#fff" font-family="sans-serif" font-size="34">PRISMANA FORM</text>
+  <text x="115" y="405" fill="#86efac" font-family="sans-serif" font-size="42">Grass</text>
+  <text x="665" y="405" fill="#fef3c7" font-family="sans-serif" font-size="42">holy + Grass</text>
+  <text x="115" y="465" fill="#cbd5e1" font-family="sans-serif" font-size="27">Support</text>
+  <text x="665" y="465" fill="#cbd5e1" font-family="sans-serif" font-size="27">Support</text>
+  <text x="75" y="585" fill="#e2e8f0" font-family="sans-serif" font-size="28">Compare form labels before comparing skills.</text>
+  <text x="75" y="635" fill="#94a3b8" font-family="sans-serif" font-size="20">Source-based illustration · not a gameplay screenshot</text>
+</svg>

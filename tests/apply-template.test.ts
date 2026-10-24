@@ -25,7 +25,6 @@ import {
   DEMO_GALLERY_IMAGES,
   DEMO_INDEXNOW_KEY_FILE,
   DEMO_PUBLIC_FILES,
-  DEMO_SITE_OPTIONAL_VALUES,
   DEMO_VAR_VALUES,
   buildLocaleLabels,
   buildScaffoldDescription,
@@ -36,9 +35,7 @@ import {
   isDemoLocaleContent,
   isDemoPublicFileContent,
   isDemoSiteTsIdentity,
-  isHomeSkeleton,
   isLocaleCode,
-  isPlaceholderOverviewDesc,
   KNOWN_LOCALE_LABELS,
   localeIdent,
   localeKey,
@@ -47,19 +44,18 @@ import {
   rewriteLocaleJson,
   rewriteSiteTs,
   rewriteWranglerVars,
-  stripDemoAuthors,
   tsEscape,
   UI_IMPORT_BLOCK_RE,
-  UI_MESSAGES_BLOCK_RE,
   type SkinInput,
 } from '../scripts/lib/apply-rewrites';
-import {
-  APPLY_TEMPLATE_STRINGS,
-  envDefaultLang,
-  langFromFlag,
-} from '../scripts/lib/apply-template-i18n';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+// Repository-level demo drift guards apply only to the pristine template
+// checkout. Forks intentionally replace these files/content; behavior remains
+// covered below by fixture-based tests that do not depend on the demo site.
+const isDefaultTemplate = readFileSync(join(repoRoot, 'src/config/site.ts'), 'utf8').includes(
+  "name: 'Anvil Quest Wiki'",
+);
 
 function makeInput(overrides: Partial<SkinInput> = {}): SkinInput {
   return {
@@ -67,7 +63,8 @@ function makeInput(overrides: Partial<SkinInput> = {}): SkinInput {
     shortName: 'TG',
     domain: 'testgame.pages.dev',
     tagline: 'Forge your knowledge',
-    description: 'Complete Test Game wiki with guides, codes, and tier lists. Every page carries a verified date.',
+    description:
+      'Complete Test Game wiki with guides, codes, and tier lists. Every page carries a verified date.',
     legalNotice: 'Fan-made, not affiliated with the developer.',
     themeHex: '#3b82f6',
     platform: 'Roblox',
@@ -184,7 +181,9 @@ describe('rewriteWranglerVars is value-aware (a re-run must not wipe the user en
       const out = rewriteWranglerVars(makeInput(), withCustom)!;
       expect(out).toContain('PUBLIC_TWITTER_HANDLE = "@mygame"');
       expect(out).toContain('DISCORD_INVITE = "abc123"');
-      expect(out).toContain('# Custom [vars] keys the template does not know are preserved verbatim.');
+      expect(out).toContain(
+        '# Custom [vars] keys the template does not know are preserved verbatim.',
+      );
       expect(warn.mock.calls.some(([m]) => String(m).includes('PUBLIC_TWITTER_HANDLE'))).toBe(true);
       expect(warn.mock.calls.some(([m]) => String(m).includes('DISCORD_INVITE'))).toBe(true);
       const out2 = rewriteWranglerVars(makeInput(), out)!;
@@ -210,8 +209,13 @@ describe('rewriteWranglerVars is value-aware (a re-run must not wipe the user en
     // vars are strings anyway).
     const out = rewriteWranglerVars(
       makeInput(),
-      USER_WRANGLER.replace('PUBLIC_CF_BEACON_TOKEN = "cf-beacon-user"', 'PUBLIC_CF_BEACON_TOKEN = 12345678')
-        .replace('PUBLIC_GISCUS_MAPPING = "pathname"', 'PUBLIC_GISCUS_MAPPING = true # user hand-edit'),
+      USER_WRANGLER.replace(
+        'PUBLIC_CF_BEACON_TOKEN = "cf-beacon-user"',
+        'PUBLIC_CF_BEACON_TOKEN = 12345678',
+      ).replace(
+        'PUBLIC_GISCUS_MAPPING = "pathname"',
+        'PUBLIC_GISCUS_MAPPING = true # user hand-edit',
+      ),
     )!;
     expect(out).toContain('PUBLIC_CF_BEACON_TOKEN = "12345678"');
     expect(out).toContain('PUBLIC_GISCUS_MAPPING = "true"');
@@ -220,7 +224,10 @@ describe('rewriteWranglerVars is value-aware (a re-run must not wipe the user en
   test('an empty bare value still resets (no value to preserve)', () => {
     const out = rewriteWranglerVars(
       makeInput(),
-      USER_WRANGLER.replace('PUBLIC_CF_BEACON_TOKEN = "cf-beacon-user"', 'PUBLIC_CF_BEACON_TOKEN ='),
+      USER_WRANGLER.replace(
+        'PUBLIC_CF_BEACON_TOKEN = "cf-beacon-user"',
+        'PUBLIC_CF_BEACON_TOKEN =',
+      ),
     )!;
     expect(out).toContain('PUBLIC_CF_BEACON_TOKEN = ""');
   });
@@ -251,46 +258,50 @@ describe('rewriteWranglerVars is value-aware (a re-run must not wipe the user en
     expect(rewriteWranglerVars(makeInput(), demoOnce)).toBe(demoOnce);
   });
 
-  test('DEMO_VAR_VALUES covers every live value in the shipped wrangler.toml (drift guard)', () => {
-    // If the demo gains a new non-empty env value that is not registered as a
-    // demo value, a re-run would PRESERVE it into every fork — the exact leak
-    // this list exists to prevent. Every uncommented [vars] value must either
-    // be listed here or be empty.
-    const toml = readFileSync(join(repoRoot, 'wrangler.toml'), 'utf8');
-    const section = toml.match(/(?:^|\n)\[vars\]\r?\n([\s\S]*?)(?=\r?\n\[|$)/)?.[1] ?? '';
-    const values = [...section.matchAll(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"(.*)"\s*$/gm)].map(
-      (m) => m[2],
-    );
-    expect(values.length, 'the shipped wrangler.toml should carry demo values').toBeGreaterThan(0);
-    // "pathname" is the template's GENERIC giscus mapping default (a user may
-    // legitimately set "url"/"topic" — the rewrite preserves those), not demo
-    // identity; it is deliberately not in DEMO_VAR_VALUES. "Announcements" is
-    // deliberately not registered either (real forks legitimately use that
-    // giscus category name) — its demo-ness is the PAIRED rule: demo category
-    // name + demo category ID together, asserted below. Anything else
-    // non-empty must be registered.
-    const genericDefaults = new Set(['pathname']);
-    for (const v of values) {
-      expect(
-        v === '' || genericDefaults.has(v) || v === 'Announcements' || DEMO_VAR_VALUES.includes(v),
-        `unregistered demo value: "${v}"`,
-      ).toBe(true);
-    }
-    // Paired-rule guard: the shipped file must carry Announcements TOGETHER
-    // with the demo category ID (only that pair is auto-cleared; a fork with
-    // its own ID keeps the name).
-    if (values.includes('Announcements')) {
-      expect(values).toContain('DIC_kwDOT1aRPc4DDODo');
-    }
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'DEMO_VAR_VALUES covers every live value in the shipped wrangler.toml (drift guard)',
+    () => {
+      // If the demo gains a new non-empty env value that is not registered as a
+      // demo value, a re-run would PRESERVE it into every fork — the exact leak
+      // this list exists to prevent. Every uncommented [vars] value must either
+      // be listed here or be empty.
+      const toml = readFileSync(join(repoRoot, 'wrangler.toml'), 'utf8');
+      const section = toml.match(/(?:^|\n)\[vars\]\r?\n([\s\S]*?)(?=\r?\n\[|$)/)?.[1] ?? '';
+      const values = [...section.matchAll(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"(.*)"\s*$/gm)].map(
+        (m) => m[2],
+      );
+      expect(values.length, 'the shipped wrangler.toml should carry demo values').toBeGreaterThan(
+        0,
+      );
+      // "pathname" is the template's GENERIC giscus mapping default (a user may
+      // legitimately set "url"/"topic" — the rewrite preserves those), not demo
+      // identity; it is deliberately not in DEMO_VAR_VALUES. "Announcements" is
+      // deliberately not registered either (real forks legitimately use that
+      // giscus category name) — its demo-ness is the PAIRED rule: demo category
+      // name + demo category ID together, asserted below. Anything else
+      // non-empty must be registered.
+      const genericDefaults = new Set(['pathname']);
+      for (const v of values) {
+        expect(
+          v === '' ||
+            genericDefaults.has(v) ||
+            v === 'Announcements' ||
+            DEMO_VAR_VALUES.includes(v),
+          `unregistered demo value: "${v}"`,
+        ).toBe(true);
+      }
+      // Paired-rule guard: the shipped file must carry Announcements TOGETHER
+      // with the demo category ID (only that pair is auto-cleared; a fork with
+      // its own ID keeps the name).
+      if (values.includes('Announcements')) {
+        expect(values).toContain('DIC_kwDOT1aRPc4DDODo');
+      }
+    },
+  );
 });
 
 describe('rewriteLocaleJson (P3: no unchosen-category leak, re-run labels kept)', () => {
   const demoLike = JSON.stringify({
-    // site.name is the demo marker isDemoLocaleContent trusts — without it
-    // this fixture would classify as a re-run and take the overview/home
-    // preservation paths instead of the wholesale demo overwrite.
-    site: { name: 'Anvil Quest Wiki' },
     nav: {
       home: 'Home',
       bosses: 'Bosses',
@@ -321,7 +332,12 @@ describe('rewriteLocaleJson (P3: no unchosen-category leak, re-run labels kept)'
       nav: { home: 'ホーム', bosses: 'ボス', items: 'アイテム' },
     });
     const out = JSON.parse(
-      rewriteLocaleJson(makeInput({ categories: [{ key: 'bosses', icon: 'x' }] }), 'ja', 2026, translated),
+      rewriteLocaleJson(
+        makeInput({ categories: [{ key: 'bosses', icon: 'x' }] }),
+        'ja',
+        2026,
+        translated,
+      ),
     );
     expect(out.nav.bosses).toBe('ボス'); // kept, not reset to the placeholder
     expect(out.nav.home).toBe('ホーム');
@@ -447,23 +463,36 @@ describe('home preset pickHref substitution is consistent per preferred key (rou
     { key: 'bosses', icon: 'lucide:swords' },
   ];
 
-  const codesCardHref = (home: { start: { cards: Array<{ title: string; href: string }> } }): string =>
-    home.start.cards.find((c) => c.title === 'Codes')!.href;
+  const codesCardHref = (home: {
+    start: { cards: Array<{ title: string; href: string }> };
+  }): string => home.start.cards.find((c) => c.title === 'Codes')!.href;
   const codesModuleHref = (home: {
     explore: { modules: Array<{ name: string; href: string }> };
   }): string => home.explore.modules.find((m) => m.name === 'Active codes')!.href;
 
   test('both "codes" slots land on the SAME substituted page (4 chosen categories, no codes)', () => {
     const out = JSON.parse(
-      rewriteLocaleJson(makeInput({ homePreset: 'codes', categories: fourWithoutCodes }), 'en', 2026),
-    ) as { home: { start: { cards: Array<{ title: string; href: string }> }; explore: { modules: Array<{ name: string; href: string }> } } };
+      rewriteLocaleJson(
+        makeInput({ homePreset: 'codes', categories: fourWithoutCodes }),
+        'en',
+        2026,
+      ),
+    ) as {
+      home: {
+        start: { cards: Array<{ title: string; href: string }> };
+        explore: { modules: Array<{ name: string; href: string }> };
+      };
+    };
     expect(codesCardHref(out.home)).toBe('/items');
     expect(codesModuleHref(out.home)).toBe(codesCardHref(out.home));
   });
 
   test('codes chosen ⇒ both slots point at /codes (baseline unchanged)', () => {
     const out = JSON.parse(rewriteLocaleJson(makeInput(), 'en', 2026)) as {
-      home: { start: { cards: Array<{ title: string; href: string }> }; explore: { modules: Array<{ name: string; href: string }> } };
+      home: {
+        start: { cards: Array<{ title: string; href: string }> };
+        explore: { modules: Array<{ name: string; href: string }> };
+      };
     };
     expect(codesCardHref(out.home)).toBe('/codes');
     expect(codesModuleHref(out.home)).toBe('/codes');
@@ -501,7 +530,9 @@ describe('home preset hrefs resolve to chosen categories (no dead links on the f
       expect(hrefs.length).toBeGreaterThan(0);
       for (const h of hrefs) expect(['/items', '/codes'], h).toContain(h);
       expect(
-        warn.mock.calls.some(([m]) => String(m).includes('"guides"') && String(m).includes('substituted')),
+        warn.mock.calls.some(
+          ([m]) => String(m).includes('"guides"') && String(m).includes('substituted'),
+        ),
       ).toBe(true);
     } finally {
       warn.mockRestore();
@@ -577,11 +608,7 @@ describe('demo asset inventories stay in sync with setup.yml (drift has shipped 
   test('image inventories stay in the setup rm list; public config uses the content-aware script', () => {
     const yml = readFileSync(join(repoRoot, '.github/workflows/setup.yml'), 'utf8');
     const listed = new Set(yml.match(/[\w-]+\.png/g) || []);
-    const demoImages = new Set([
-      ...DEMO_COVERS,
-      ...DEMO_GALLERY_IMAGES,
-      ...DEMO_ARTICLE_IMAGES,
-    ]);
+    const demoImages = new Set([...DEMO_COVERS, ...DEMO_GALLERY_IMAGES, ...DEMO_ARTICLE_IMAGES]);
     for (const name of demoImages) {
       expect(listed.has(name), `${name} missing from setup.yml rm list`).toBe(true);
     }
@@ -602,29 +629,30 @@ describe('demo asset inventories stay in sync with setup.yml (drift has shipped 
       expect(isDemoPublicFileContent(rel, `before ${marker} after`), rel).toBe(true);
       expect(isDemoPublicFileContent(rel, 'user-owned-ad-unit-key'), rel).toBe(false);
     }
-    expect(
-      isDemoPublicFileContent('google8362d9398114b66b.html', 'verification token'),
-    ).toBe(true);
+    expect(isDemoPublicFileContent('google8362d9398114b66b.html', 'verification token')).toBe(true);
   });
 
-  test('every demo public file is covered by the content registry (no silent-keep holes)', () => {
-    for (const rel of DEMO_PUBLIC_FILES) {
-      // The exact-name files (search-console token, retired pre-env IndexNow
-      // key file) have no content marker — their identity IS the name.
-      if (rel === 'google8362d9398114b66b.html' || rel === DEMO_INDEXNOW_KEY_FILE) continue;
-      expect(DEMO_ADSTERRA_UNIT_MARKERS, `${rel} has no demo unit marker`).toHaveProperty(rel);
-    }
-    // The retired key file is deleted by exact name regardless of content —
-    // forks initialized from older trees must lose it on the next rerun.
-    expect(isDemoPublicFileContent(DEMO_INDEXNOW_KEY_FILE, 'any content')).toBe(true);
-    // Registry keys must match the shipped demo unit files — a regenerated
-    // demo key without updating the registry would silently keep demo
-    // residue in forks (isDemoPublicFileContent defaults to keep).
-    for (const [rel, marker] of Object.entries(DEMO_ADSTERRA_UNIT_MARKERS)) {
-      const source = readFileSync(join(repoRoot, 'public', rel), 'utf8');
-      expect(source, rel).toContain(marker);
-    }
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'every demo public file is covered by the content registry (no silent-keep holes)',
+    () => {
+      for (const rel of DEMO_PUBLIC_FILES) {
+        // The exact-name files (search-console token, retired pre-env IndexNow
+        // key file) have no content marker — their identity IS the name.
+        if (rel === 'google8362d9398114b66b.html' || rel === DEMO_INDEXNOW_KEY_FILE) continue;
+        expect(DEMO_ADSTERRA_UNIT_MARKERS, `${rel} has no demo unit marker`).toHaveProperty(rel);
+      }
+      // The retired key file is deleted by exact name regardless of content —
+      // forks initialized from older trees must lose it on the next rerun.
+      expect(isDemoPublicFileContent(DEMO_INDEXNOW_KEY_FILE, 'any content')).toBe(true);
+      // Registry keys must match the shipped demo unit files — a regenerated
+      // demo key without updating the registry would silently keep demo
+      // residue in forks (isDemoPublicFileContent defaults to keep).
+      for (const [rel, marker] of Object.entries(DEMO_ADSTERRA_UNIT_MARKERS)) {
+        const source = readFileSync(join(repoRoot, 'public', rel), 'utf8');
+        expect(source, rel).toContain(marker);
+      }
+    },
+  );
 
   test('the inventories do not overlap', () => {
     const all = [
@@ -666,7 +694,7 @@ describe('rewriteSiteTs (quote/backslash-safe, $-expansion-proof site.ts rewriti
     'export const other = 1;',
   ].join('\n');
 
-  test("an apostrophe in the game name cannot break the string literal", () => {
+  test('an apostrophe in the game name cannot break the string literal', () => {
     const out = rewriteSiteTs(SITE_TS, makeInput({ gameName: "Assassin's Creed Shadows" }));
     expect(out).toContain("name: 'Assassin\\'s Creed Shadows Wiki'");
   });
@@ -758,35 +786,11 @@ describe('hyphen locales (zh-tw / pt-br) generate legal TypeScript', () => {
     const rewritten =
       "import en from '~/locales/en.json';\nimport zhTw from '~/locales/zh-tw.json';\n\nimport { defaultLocale } from './routing';";
     expect(UI_IMPORT_BLOCK_RE.test(rewritten)).toBe(true);
-    expect(rewritten.replace(UI_IMPORT_BLOCK_RE, () => `${buildUiImports(['en', 'zh-tw'])}\n`)).toBe(
+    expect(
+      rewritten.replace(UI_IMPORT_BLOCK_RE, () => `${buildUiImports(['en', 'zh-tw'])}\n`),
+    ).toBe(
       "import en from '~/locales/en.json';\nimport zhTw from '~/locales/zh-tw.json';\n\nimport { defaultLocale } from './routing';",
     );
-  });
-
-  test('ui.ts outside the CLI-rewritten regions never references a strippable locale import', () => {
-    // rewriteUiTs replaces exactly two regions: the locale-JSON import block
-    // and the `const messages` literal. A fork that drops a locale loses that
-    // import — any OTHER code reference to its binding is a fork-only
-    // "ja is not defined" ReferenceError at build (caught by e2e-template in
-    // CI 2026-10-03: a deepFreeze(ja) statement sat outside the regions).
-    // Comments are prose, not code, and are stripped before matching.
-    // `en` is exempt: every fork keeps en, so its import always survives.
-    const src = readFileSync(join(repoRoot, 'src/i18n/ui.ts'), 'utf8');
-    const importBlock = UI_IMPORT_BLOCK_RE.exec(src)?.[0] ?? '';
-    expect(importBlock, 'ui.ts must still carry the locale-JSON import block').toBeTruthy();
-    const outside = src
-      .replace(UI_IMPORT_BLOCK_RE, '')
-      .replace(UI_MESSAGES_BLOCK_RE, '')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/^\s*\/\/.*$/gm, '');
-    const ids = Array.from(importBlock.matchAll(/import (\w+) from/g)).map((m) => m[1]);
-    for (const id of ids) {
-      if (id === 'en') continue;
-      expect(
-        outside,
-        `ui.ts references strippable locale import "${id}" outside the rewritten regions`,
-      ).not.toMatch(new RegExp(`\\b${id}\\b`));
-    }
   });
 
   test('KNOWN_LOCALE_LABELS still covers the plain locales (routing labels unchanged)', () => {
@@ -797,12 +801,15 @@ describe('hyphen locales (zh-tw / pt-br) generate legal TypeScript', () => {
 });
 
 describe('demo locale deletion is content-aware (rebranded locales must survive re-runs)', () => {
-  test('the shipped demo locale files still carry the site.name marker (marker drift guard)', () => {
-    for (const locale of ['en', 'ja']) {
-      const raw = readFileSync(join(repoRoot, 'src/locales', `${locale}.json`), 'utf8');
-      expect(isDemoLocaleContent(raw)).toBe(true);
-    }
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'the shipped demo locale files still carry the site.name marker (marker drift guard)',
+    () => {
+      for (const locale of ['en', 'ja']) {
+        const raw = readFileSync(join(repoRoot, 'src/locales', `${locale}.json`), 'utf8');
+        expect(isDemoLocaleContent(raw)).toBe(true);
+      }
+    },
+  );
 
   test('a rewritten demo-named locale is no longer demo content', () => {
     const demoEn = readFileSync(join(repoRoot, 'src/locales/en.json'), 'utf8');
@@ -824,36 +831,48 @@ describe('demo locale deletion is content-aware (rebranded locales must survive 
 });
 
 describe('demo article clearing is content-aware (re-runs must keep user work)', () => {
-  test('every shipped demo article carries the demo-game marker (marker drift guard)', () => {
-    // Mirrors the locale marker guard above: if a template author ships a demo
-    // article that never mentions the demo game, content-aware clearing would
-    // KEEP it forever — this goes red in the template repo until the article
-    // carries the marker. Vacuous in forks after a first-run clear.
-    const base = join(repoRoot, 'src/content/wiki');
-    const walk = (dir: string): string[] =>
-      existsSync(dir)
-        ? readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
-            e.isDirectory()
-              ? walk(join(dir, e.name))
-              : /\.(mdx|md)$/.test(e.name)
-                ? [join(dir, e.name)]
-                : [],
-          )
-        : [];
-    const files = walk(base);
-    expect(files.length, 'the template repo should ship demo wiki articles').toBeGreaterThan(0);
-    for (const file of files) {
-      expect(
-        isDemoArticleContent(readFileSync(file, 'utf8')),
-        `${file} lacks the demo-game marker (${DEMO_GAME_NAMES.join(', ')}) — content-aware clearing would keep it`,
-      ).toBe(true);
-    }
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'every shipped demo article carries the demo-game marker (marker drift guard)',
+    () => {
+      // Mirrors the locale marker guard above: if a template author ships a demo
+      // article that never mentions the demo game, content-aware clearing would
+      // KEEP it forever — this goes red in the template repo until the article
+      // carries the marker. Vacuous in forks after a first-run clear.
+      const base = join(repoRoot, 'src/content/wiki');
+      const walk = (dir: string): string[] =>
+        existsSync(dir)
+          ? readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+              e.isDirectory()
+                ? walk(join(dir, e.name))
+                : /\.(mdx|md)$/.test(e.name)
+                  ? [join(dir, e.name)]
+                  : [],
+            )
+          : [];
+      const files = walk(base);
+      expect(files.length, 'the template repo should ship demo wiki articles').toBeGreaterThan(0);
+      for (const file of files) {
+        expect(
+          isDemoArticleContent(readFileSync(file, 'utf8')),
+          `${file} lacks the demo-game marker (${DEMO_GAME_NAMES.join(', ')}) — content-aware clearing would keep it`,
+        ).toBe(true);
+      }
+    },
+  );
 
   test('the verdict is content-only: same path flips when rewritten for the fork game', () => {
-    const asDemo = { rel: 'en/bosses/emberfang.mdx', src: '---\ntitle: Emberfang\n---\n\nAnvil Quest boss strategy.' };
-    const rewritten = { rel: 'en/bosses/emberfang.mdx', src: '---\ntitle: Emberfang\n---\n\nMy own boss, rewritten for my game.' };
-    const scaffold = { rel: 'en/bosses/getting-started.mdx', src: '---\ntitle: Getting Started\n---\n\nReplace this scaffold with your article.' };
+    const asDemo = {
+      rel: 'en/bosses/emberfang.mdx',
+      src: '---\ntitle: Emberfang\n---\n\nAnvil Quest boss strategy.',
+    };
+    const rewritten = {
+      rel: 'en/bosses/emberfang.mdx',
+      src: '---\ntitle: Emberfang\n---\n\nMy own boss, rewritten for my game.',
+    };
+    const scaffold = {
+      rel: 'en/bosses/getting-started.mdx',
+      src: '---\ntitle: Getting Started\n---\n\nReplace this scaffold with your article.',
+    };
     expect(classifyWikiArticles([asDemo]).demo).toHaveLength(1);
     expect(classifyWikiArticles([rewritten]).kept).toHaveLength(1);
     expect(classifyWikiArticles([rewritten]).demo).toHaveLength(0);
@@ -861,7 +880,9 @@ describe('demo article clearing is content-aware (re-runs must keep user work)',
   });
 
   test('rel path shape never flips the verdict (win32 callers normalize, content decides)', () => {
-    const out = classifyWikiArticles([{ rel: 'en\\bosses\\emberfang.mdx', src: 'no demo mention here' }]);
+    const out = classifyWikiArticles([
+      { rel: 'en\\bosses\\emberfang.mdx', src: 'no demo mention here' },
+    ]);
     expect(out.kept).toHaveLength(1);
     expect(out.demo).toHaveLength(0);
   });
@@ -892,38 +913,44 @@ describe('setup.yml demo-author removal still matches the real authors.ts', () =
   // changes shape, the regex silently no-ops and the fork ships the demo
   // author. This contract runs the ACTUAL pattern from setup.yml against the
   // ACTUAL authors.ts, so either side drifting goes red here.
-  test('the inline python regex removes exactly the demo block, byte-preserving the rest', () => {
-    const yml = readFileSync(join(repoRoot, '.github/workflows/setup.yml'), 'utf8');
-    const literal = yml.match(/re\.sub\(r"((?:[^"\\]|\\.)*)", '\\n', s\)/);
-    expect(literal, 'setup.yml demo-author re.sub literal not found — step rewritten?').toBeTruthy();
-    const pyPattern = literal![1];
-    // Python↔JS semantics for THIS pattern are 1:1: `.` is not dotall in
-    // either, `\s` spans newlines in both, lazy `.*?` behaves identically.
-    // re.sub replaces ALL occurrences → the `g` flag.
-    const demoAuthorRe = new RegExp(pyPattern, 'g');
-    const src = readFileSync(join(repoRoot, 'src/config/authors.ts'), 'utf8');
-    const after = src.replace(demoAuthorRe, '\n');
-    // The demo identity is gone — comment line AND entry line.
-    expect(after).not.toContain('Forge Master Kael');
-    expect(after).not.toContain('// DEMO');
-    // Byte-preservation oracle: the demo block is the comment line directly
-    // above the entry line; deleting exactly those two lines must equal the
-    // regex output — anything else the regex touched fails here.
-    const lines = src.split('\n');
-    const start = lines.findIndex((l) => l.includes('// DEMO'));
-    const end = lines.findIndex((l) => l.includes("'Forge Master Kael'"));
-    expect(start).toBeGreaterThan(-1);
-    expect(end).toBe(start + 1);
-    const expected = [...lines.slice(0, start), ...lines.slice(end + 1)].join('\n');
-    expect(after).toBe(expected);
-    // The user-owned scaffolding survives untouched — the example comment,
-    // the (now empty) registry object still closing cleanly right after it,
-    // and the getAuthor helper that follows the registry in the real file.
-    expect(after).toContain("// 'Yuan Ruiqin'");
-    expect(after).toContain('export const authors: Record<string, AuthorInfo> = {');
-    expect(after).toMatch(/'] },\n\};\n/);
-    expect(after).toContain('export function getAuthor');
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'the inline python regex removes exactly the demo block, byte-preserving the rest',
+    () => {
+      const yml = readFileSync(join(repoRoot, '.github/workflows/setup.yml'), 'utf8');
+      const literal = yml.match(/re\.sub\(r"((?:[^"\\]|\\.)*)", '\\n', s\)/);
+      expect(
+        literal,
+        'setup.yml demo-author re.sub literal not found — step rewritten?',
+      ).toBeTruthy();
+      const pyPattern = literal![1];
+      // Python↔JS semantics for THIS pattern are 1:1: `.` is not dotall in
+      // either, `\s` spans newlines in both, lazy `.*?` behaves identically.
+      // re.sub replaces ALL occurrences → the `g` flag.
+      const demoAuthorRe = new RegExp(pyPattern, 'g');
+      const src = readFileSync(join(repoRoot, 'src/config/authors.ts'), 'utf8');
+      const after = src.replace(demoAuthorRe, '\n');
+      // The demo identity is gone — comment line AND entry line.
+      expect(after).not.toContain('Forge Master Kael');
+      expect(after).not.toContain('// DEMO');
+      // Byte-preservation oracle: the demo block is the comment line directly
+      // above the entry line; deleting exactly those two lines must equal the
+      // regex output — anything else the regex touched fails here.
+      const lines = src.split('\n');
+      const start = lines.findIndex((l) => l.includes('// DEMO'));
+      const end = lines.findIndex((l) => l.includes("'Forge Master Kael'"));
+      expect(start).toBeGreaterThan(-1);
+      expect(end).toBe(start + 1);
+      const expected = [...lines.slice(0, start), ...lines.slice(end + 1)].join('\n');
+      expect(after).toBe(expected);
+      // The user-owned scaffolding survives untouched — the example comment,
+      // the (now empty) registry object still closing cleanly right after it,
+      // and the getAuthor helper that follows the registry in the real file.
+      expect(after).toContain("// 'Yuan Ruiqin'");
+      expect(after).toContain('export const authors: Record<string, AuthorInfo> = {');
+      expect(after).toMatch(/'] },\n\};\n/);
+      expect(after).toContain('export function getAuthor');
+    },
+  );
 });
 
 describe('answer intake rejects newline/control characters (S9)', () => {
@@ -1007,15 +1034,13 @@ describe('re-run identity detection (S12: re-run = confirm current, never demo d
     const id = parseSiteTsIdentity(USER_SITE_TS)!;
     // The fixture starts from demo values → rewritten by makeInput defaults...
     // assert both directions explicitly with synthetic identities:
-    expect(
-      isDemoSiteTsIdentity({ ...id, gameName: 'Anvil Quest', domain: 'anvil.wiki' }),
-    ).toBe(true);
+    expect(isDemoSiteTsIdentity({ ...id, gameName: 'Anvil Quest', domain: 'anvil.wiki' })).toBe(
+      true,
+    );
     expect(
       isDemoSiteTsIdentity({ ...id, gameName: 'Anvil Quest', domain: 'acshadows.guide' }),
     ).toBe(false); // half-rebranded: game renamed, domain forgotten → re-run semantics
-    expect(
-      isDemoSiteTsIdentity({ ...id, gameName: 'My Game', domain: 'anvil.wiki' }),
-    ).toBe(false);
+    expect(isDemoSiteTsIdentity({ ...id, gameName: 'My Game', domain: 'anvil.wiki' })).toBe(false);
   });
 
   test('rerunPromptDefaults returns the current site.ts values verbatim', () => {
@@ -1030,13 +1055,16 @@ describe('re-run identity detection (S12: re-run = confirm current, never demo d
     expect(empty.releaseDate).toBe('');
   });
 
-  test('the shipped demo site.ts parses as the demo identity (drift guard)', () => {
-    const raw = readFileSync(join(repoRoot, 'src/config/site.ts'), 'utf8');
-    const id = parseSiteTsIdentity(raw);
-    expect(id).not.toBeNull();
-    expect(isDemoSiteTsIdentity(id!)).toBe(true);
-    expect(DEMO_DOMAINS).toContain(id!.domain);
-  });
+  test.skipIf(!isDefaultTemplate)(
+    'the shipped demo site.ts parses as the demo identity (drift guard)',
+    () => {
+      const raw = readFileSync(join(repoRoot, 'src/config/site.ts'), 'utf8');
+      const id = parseSiteTsIdentity(raw);
+      expect(id).not.toBeNull();
+      expect(isDemoSiteTsIdentity(id!)).toBe(true);
+      expect(DEMO_DOMAINS).toContain(id!.domain);
+    },
+  );
 });
 
 describe('rewriteWranglerVars parses hand-edited TOML forms (round-15: silent env resets)', () => {
@@ -1124,352 +1152,11 @@ describe('parseSiteTsIdentity reads hand-edited double-quoted site.ts (round-15)
   });
 
   test('mixed quote styles parse too', () => {
-    const id = parseSiteTsIdentity(DOUBLE_QUOTED.replace('  shortName: "MGW",', "  shortName: 'MGW',"));
+    const id = parseSiteTsIdentity(
+      DOUBLE_QUOTED.replace('  shortName: "MGW",', "  shortName: 'MGW',"),
+    );
     expect(id).not.toBeNull();
     expect(id!.shortName).toBe('MGW');
     expect(id!.name).toBe('My Game Wiki');
-  });
-});
-
-describe('rewriteSiteTs is value-aware on the optional hand-fill fields', () => {
-  // The shipped template hardcodes contactEmail: '' and a bare
-  // `social { official }` — a re-run used to silently CLEAR every optional
-  // field the forker filled by hand (contactEmail, social.*, sameAs,
-  // defaultAuthor). The rewrite must carry non-demo values across.
-  const USER_FILLED = [
-    "import type { SiteConfig } from '~/lib/site';",
-    'export const site: SiteConfig = {',
-    "  name: 'My Game Wiki',",
-    "  shortName: 'MGW',",
-    "  description: 'My description',",
-    "  domain: 'mygame.dev',",
-    "  tagline: 'Tagline',",
-    "  legalNotice: 'Notice',",
-    "  contactEmail: 'hi@mygame.dev',",
-    '  social: {',
-    "    official: 'https://example.com/mygame',",
-    "    discord: 'https://discord.gg/myinvite',",
-    "    youtube: 'https://youtube.com/@mygame',",
-    "    twitter: 'https://twitter.com/mygame',",
-    "    reddit: 'https://reddit.com/r/mygame',",
-    '  },',
-    '  sameAs: [',
-    "    'https://store.steampowered.com/app/mygame',",
-    "    'https://en.wikipedia.org/wiki/My_Game',",
-    '  ],',
-    '  game: {',
-    "    name: 'My Game',",
-    "    platform: 'PC',",
-    "    developer: 'D',",
-    "    genre: 'G',",
-    "    releaseDate: '',",
-    '  },',
-    "  defaultAuthor: 'Jane the Wikiwright',",
-    '  ogImageWidth: 1200,',
-    '  ogImageHeight: 630,',
-    '};',
-  ].join('\n');
-
-  test('hand-filled optional fields survive the rewrite (re-run safety)', () => {
-    const out = rewriteSiteTs(USER_FILLED, makeInput())!;
-    expect(out).toContain("contactEmail: 'hi@mygame.dev',");
-    expect(out).toContain("discord: 'https://discord.gg/myinvite',");
-    expect(out).toContain("youtube: 'https://youtube.com/@mygame',");
-    expect(out).toContain("twitter: 'https://twitter.com/mygame',");
-    expect(out).toContain("reddit: 'https://reddit.com/r/mygame',");
-    expect(out).toContain("'https://store.steampowered.com/app/mygame',");
-    expect(out).toContain("defaultAuthor: 'Jane the Wikiwright',");
-    // Identity fields still follow the CLI answers, and the file parses as
-    // far as the identity parser is concerned (round-trip).
-    expect(out).toContain("name: 'Test Game Wiki',");
-    expect(parseSiteTsIdentity(out)).not.toBeNull();
-  });
-
-  test('demo placeholder values are wiped on a first run (shipped-file drift guard)', () => {
-    const demoSrc = readFileSync(join(repoRoot, 'src/config/site.ts'), 'utf8');
-    const out = rewriteSiteTs(demoSrc, makeInput())!;
-    for (const demo of DEMO_SITE_OPTIONAL_VALUES) {
-      expect(out, demo).not.toContain(demo);
-    }
-    // Assert on the rewritten SITE BLOCK (the returned file also carries the
-    // untouched interface declaration above it, whose optional fields spell
-    // the same identifiers).
-    const block = out.match(/export const site: SiteConfig = \{[\s\S]*?\n\};/)![0];
-    // The blank-template shape is intact: no optional extras on a first run.
-    expect(block).toContain("contactEmail: '',");
-    expect(block).not.toContain('discord:');
-    expect(block).not.toContain('defaultAuthor');
-    expect(block).not.toContain('sameAs');
-  });
-
-  test('sameAs keeps user entries and drops demo ones in the same array', () => {
-    const mixed = USER_FILLED.replace(
-      "    'https://store.steampowered.com/app/mygame',",
-      "    'https://example.com/anvil-quest',",
-    );
-    const out = rewriteSiteTs(mixed, makeInput())!;
-    expect(out).toContain("'https://en.wikipedia.org/wiki/My_Game',");
-    expect(out).not.toContain('https://example.com/anvil-quest');
-  });
-
-  test('a present-but-unreadable value warns instead of vanishing silently', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    try {
-      const compressed = USER_FILLED.replace(
-        /  social: \{[\s\S]*?\},/,
-        "  social: { official: 'https://example.com/mygame', discord: myInviteVariable },",
-      );
-      rewriteSiteTs(compressed, makeInput());
-      expect(warn.mock.calls.some(([m]) => String(m).includes('social.discord'))).toBe(true);
-    } finally {
-      warn.mockRestore();
-    }
-  });
-
-  test('a re-run over its own output is byte-identical (idempotent)', () => {
-    const once = rewriteSiteTs(USER_FILLED, makeInput())!;
-    const twice = rewriteSiteTs(once, makeInput())!;
-    expect(twice).toBe(once);
-  });
-});
-
-describe('rewriteLocaleJson overview/home are re-run-aware (M2)', () => {
-  // A non-demo file (user site.name) = a re-run: hand-written overview copy
-  // for owned keys must survive, machine placeholders must regenerate, and a
-  // preset overwrite of an edited home must warn.
-  const userJson = JSON.stringify({
-    site: { name: 'My Game Wiki' },
-    overview: {
-      bosses: {
-        overviewTitle: 'Boss Compendium',
-        overviewDescription: 'A hand-written index of every boss, updated weekly.',
-      },
-      guides: {
-        overviewTitle: 'All Guides',
-        overviewDescription:
-          'Guides content for My Game. Replace this overview text in the locale JSON — it feeds the category page title and description.',
-      },
-    },
-    home: {
-      faq: { title: 'FAQ', items: [{ question: 'Is it out?', answer: 'Yes.' }] },
-    },
-  });
-
-  test('re-run keeps hand-written overview copy for owned keys', () => {
-    const out = JSON.parse(rewriteLocaleJson(makeInput(), 'en', 2026, userJson));
-    expect(out.overview.bosses.overviewTitle).toBe('Boss Compendium');
-    expect(out.overview.bosses.overviewDescription).toBe(
-      'A hand-written index of every boss, updated weekly.',
-    );
-  });
-
-  test('re-run regenerates placeholder-shaped descriptions (a game rename stays fresh)', () => {
-    const out = JSON.parse(rewriteLocaleJson(makeInput(), 'en', 2026, userJson));
-    expect(out.overview.guides.overviewDescription).toContain('Test Game');
-    expect(out.overview.guides.overviewDescription).not.toContain('My Game');
-    // Unowned keys still never leak back into the overview.
-    expect(Object.keys(out.overview).sort()).toEqual(['bosses', 'codes', 'guides']);
-  });
-
-  test('re-run over an edited home warns before the preset replaces it', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    try {
-      const raw = rewriteLocaleJson(makeInput(), 'en', 2026, userJson);
-      expect(warn.mock.calls.some(([m]) => String(m).includes('home namespace'))).toBe(true);
-      // The preset still lands (an explicit choice every run) — but loudly.
-      expect(JSON.parse(raw).home.hero.title).toContain('Test Game');
-    } finally {
-      warn.mockRestore();
-    }
-  });
-
-  test('a machine-skeleton home (previous preset output) is replaced silently', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    try {
-      const skeleton = JSON.stringify({
-        site: { name: 'My Game Wiki' },
-        home: {
-          hero: { title: 'Old Game Codes' },
-          explore: {
-            modules: [
-              {
-                order: 1,
-                name: 'Active codes',
-                href: '/codes',
-                displayType: 'badge-list',
-                highlights: [
-                  { label: 'CODE-PLACEHOLDER', detail: 'd', badge: 'NEW' },
-                ],
-              },
-            ],
-          },
-          faq: { title: 'FAQ', items: [] },
-        },
-      });
-      rewriteLocaleJson(makeInput(), 'en', 2026, skeleton);
-      expect(warn.mock.calls.some(([m]) => String(m).includes('home namespace'))).toBe(false);
-    } finally {
-      warn.mockRestore();
-    }
-  });
-
-  test('first run over a demo file still overwrites wholesale (v2.6.3: no demo leak)', () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    try {
-      const demoFile = JSON.stringify({
-        site: { name: 'Anvil Quest Wiki' },
-        overview: {
-          bosses: { overviewTitle: 'Anvil Quest Bosses', overviewDescription: 'demo boss text' },
-        },
-        home: { faq: { items: [{ question: 'demo?', answer: 'demo' }] } },
-      });
-      const out = JSON.parse(rewriteLocaleJson(makeInput(), 'en', 2026, demoFile));
-      expect(out.overview.bosses.overviewTitle).toBe('All Bosses');
-      expect(JSON.stringify(out)).not.toContain('Anvil Quest');
-      // A non-skeleton demo home is replaced WITHOUT the re-run warning —
-      // first-run semantics are untouched.
-      expect(warn.mock.calls.some(([m]) => String(m).includes('home namespace'))).toBe(false);
-    } finally {
-      warn.mockRestore();
-    }
-  });
-
-  test('isPlaceholderOverviewDesc / isHomeSkeleton helpers (direct units)', () => {
-    expect(isPlaceholderOverviewDesc('tier-list', 'Tier List content for Foo. Replace this overview text in the locale JSON — it feeds the category page title and description.')).toBe(true);
-    expect(isPlaceholderOverviewDesc('tier-list', 'Hand-written tier list intro.')).toBe(false);
-    // Empty/missing home is trivially a skeleton; user FAQ data is not.
-    expect(isHomeSkeleton(undefined)).toBe(true);
-    expect(isHomeSkeleton({ faq: { items: [] } })).toBe(true);
-    expect(isHomeSkeleton({ faq: { items: [{ q: 1 }] } })).toBe(false);
-    expect(isHomeSkeleton({ explore: { modules: [{ highlights: [{ label: 'Codes — updated daily' }] }] } })).toBe(false);
-    expect(isHomeSkeleton({ explore: { modules: [{ highlights: [{ label: 'Step 1' }] }] } })).toBe(true);
-  });
-});
-
-describe('stripDemoAuthors — the CLI authors.ts regex (real-file contract + setup.yml parity)', () => {
-  test('removes exactly the demo block from the shipped authors.ts, byte-preserving the rest', () => {
-    const src = readFileSync(join(repoRoot, 'src/config/authors.ts'), 'utf8');
-    const once = stripDemoAuthors(src);
-    expect(once.changed).toBe(true);
-    expect(once.cleaned).not.toContain('Forge Master Kael');
-    expect(once.cleaned).not.toContain('// DEMO');
-    // Byte-preservation oracle: the demo block is the comment line directly
-    // above the entry line; deleting exactly those two lines must equal the
-    // regex output — anything else the regex touched fails here.
-    const lines = src.split('\n');
-    const start = lines.findIndex((l) => l.includes('// DEMO'));
-    const end = lines.findIndex((l) => l.includes("'Forge Master Kael'"));
-    expect(start).toBeGreaterThan(-1);
-    expect(end).toBe(start + 1);
-    const expected = [...lines.slice(0, start), ...lines.slice(end + 1)].join('\n');
-    expect(once.cleaned).toBe(expected);
-    // Idempotent: a re-run finds nothing and reports no-change — the CLI
-    // warns instead of writing a false ✅.
-    expect(stripDemoAuthors(once.cleaned).changed).toBe(false);
-  });
-
-  test('the CLI regex output equals the setup.yml python re.sub output (no channel drift)', () => {
-    const yml = readFileSync(join(repoRoot, '.github/workflows/setup.yml'), 'utf8');
-    const literal = yml.match(/re\.sub\(r"((?:[^"\\]|\\.)*)", '\\n', s\)/);
-    expect(literal, 'setup.yml demo-author re.sub literal not found — step rewritten?').toBeTruthy();
-    const src = readFileSync(join(repoRoot, 'src/config/authors.ts'), 'utf8');
-    // Python↔JS semantics for THIS pattern are 1:1 (same argument as the
-    // setup.yml contract test above); re.sub is global.
-    const afterPy = src.replace(new RegExp(literal![1], 'g'), '\n');
-    expect(stripDemoAuthors(src).cleaned).toBe(afterPy);
-  });
-});
-
-describe('new-locale.ts single-sources locale helpers (drift guard)', () => {
-  // new-locale.ts runs main() at import time, so the contract is a static
-  // source scan — same pattern as tests/prompt.test.ts's CLI wiring pins.
-  const src = readFileSync(join(repoRoot, 'scripts/new-locale.ts'), 'utf8');
-
-  test('validates through the shared isLocaleCode (hyphen locales pass)', () => {
-    expect(src).toContain("from './lib/apply-rewrites'");
-    expect(src).toMatch(/\bisLocaleCode\b/);
-    // The old 2-3-letter gate rejected zh-tw/pt-br — must not come back.
-    expect(src).not.toMatch(/\^\[a-z\]\{2,3\}\$/);
-    // The 15-entry local label table is gone — labels come from the lib.
-    expect(src).not.toContain("'Italiano'");
-    expect(src).not.toContain("'Bahasa Indonesia'");
-  });
-
-  test('injects legal TS for hyphen locales (localeKey/localeIdent)', () => {
-    expect(src).toMatch(/\blocaleKey\b/);
-    expect(src).toMatch(/\blocaleIdent\b/);
-  });
-
-  test('writes go through the shared atomic helper (no bare writeFileSync)', () => {
-    expect(src).toContain('writeAtomic');
-    expect(src).not.toMatch(/\bwriteFileSync\b/);
-  });
-});
-
-describe('apply-template CLI bilingual UI (--lang + interactive language question)', () => {
-  // The CLI speaks en or zh (scripts/lib/apply-template-i18n.ts). The table
-  // is the whole contract: zh must mirror en key-for-key, and the ENGLISH
-  // table must keep the exact phrases scripts/e2e-apply-template.mjs greps
-  // for — a casual rewording of "Base config complete" would fail every CI
-  // e2e run, not just look off.
-  const cliSrc = readFileSync(join(repoRoot, 'scripts/apply-template.ts'), 'utf8');
-
-  test('zh table mirrors the en table key-for-key (no silent drift)', () => {
-    const { en, zh } = APPLY_TEMPLATE_STRINGS;
-    expect(Object.keys(zh).sort()).toEqual(Object.keys(en).sort());
-    // Type-level Record<keyof typeof en, string> enforces this at typecheck;
-    // this runtime guard covers future refactors that loosen the annotation.
-  });
-
-  test('en table keeps the phrases pnpm test:e2e pins, verbatim', () => {
-    const t = APPLY_TEMPLATE_STRINGS.en;
-    expect(t.secComplete).toContain('Base config complete');
-    expect(t.orphanKeptWarn(2, 'en, zh')).toContain('not in your chosen locales');
-    expect(t.keptFilesWarn(1, 'X')).toContain('NOT demo content');
-  });
-
-  test('langFromFlag parses --lang zh / --lang=zh, regional tags, absence, and rejects the rest', () => {
-    expect(langFromFlag(['--lang', 'zh'])).toBe('zh');
-    expect(langFromFlag(['--lang=zh'])).toBe('zh');
-    expect(langFromFlag(['--lang', 'zh-TW'])).toBe('zh');
-    expect(langFromFlag(['--lang', 'en'])).toBe('en');
-    expect(langFromFlag(['--lang', 'en-US'])).toBe('en');
-    expect(langFromFlag(['--dry-run', '-n'])).toBeUndefined();
-    expect(langFromFlag(['--lang'])).toBe('invalid'); // dangling flag = user error, not absence
-    expect(langFromFlag(['--lang', 'fr'])).toBe('invalid');
-    expect(langFromFlag(['--lang='])).toBe('invalid');
-  });
-
-  test('envDefaultLang: a zh terminal locale defaults the interactive question to 中文', () => {
-    expect(envDefaultLang({ LANG: 'zh_CN.UTF-8' })).toBe('zh');
-    expect(envDefaultLang({ LC_ALL: 'zh_TW', LANG: 'en_US.UTF-8' })).toBe('zh');
-    expect(envDefaultLang({ LANGUAGE: 'zh:en' })).toBe('zh');
-    expect(envDefaultLang({ LANG: 'en_US.UTF-8' })).toBe('en');
-    expect(envDefaultLang({ LANG: 'C' })).toBe('en');
-    expect(envDefaultLang({})).toBe('en');
-  });
-
-  test('the language question is TTY-gated and never consumes scripted answers', () => {
-    // askLanguage must go through rl.ask DIRECTLY — the ask()/askBool helpers
-    // divert to the scripted --answers queue, where a language question would
-    // either eat the first of the 18 positional answers or stall a piped run.
-    expect(cliSrc).toMatch(/await rl\.ask\(`选择界面语言/);
-    // ...and the interactive ask is gated to non-scripted TTY runs only, so
-    // --answers/piped/CI output (and the E2E's pinned markers) stay English.
-    expect(cliSrc).toMatch(/LANG_FLAG === undefined && !scripted && process\.stdin\.isTTY/);
-  });
-
-  test('en count-lines keep the pre-i18n singular/plural forms (scripted output byte-stable)', () => {
-    // The v2.37.0 release banner promises scripted runs stay byte-identical.
-    // The i18n table initially collapsed these to "(s)", which changed the
-    // n=1 lines; the plural logic must match the pre-i18n literals exactly.
-    const t = APPLY_TEMPLATE_STRINGS.en;
-    expect(t.clearedArticles(1, false)).toContain('1 demo article under');
-    expect(t.clearedArticles(2, false)).toContain('2 demo articles under');
-    expect(t.clearedArticles(1, true)).toContain('Would remove');
-    expect(t.scaffoldCreated(1)).toContain('1 scaffold article (');
-    expect(t.scaffoldCreated(3)).toContain('3 scaffold articles (');
-    expect(t.landingRemoved(1)).toContain('1 project landing page file (');
-    expect(t.landingRemoved(5)).toContain('5 project landing page files (');
   });
 });

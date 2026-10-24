@@ -132,21 +132,9 @@ for (const locale of locales.filter((l) => l !== defaultLocale)) {
     missingUiKeys = true;
     continue;
   }
-  let locJson: Record<string, unknown>;
-  try {
-    locJson = JSON.parse(fs.readFileSync(locJsonPath, 'utf8'));
-  } catch (e) {
-    // Report-only contract (docstring: this script exits 0 unless a strict
-    // flag says otherwise) — a mangled locale JSON must not crash with a raw
-    // stack. Counted as the template defect it is (--strict-ui fails), with
-    // the same ❌ caliber as check-config.ts's JSON gate.
-    console.log(
-      `   ❌ src/locales/${locale}.json is not valid JSON: ${(e as Error).message} — template defect (--strict-ui fails)`,
-    );
-    missingUiKeys = true;
-    continue;
-  }
-  const locKeys = new Set(flattenKeys(locJson));
+  const locKeys = new Set(
+    flattenKeys(JSON.parse(fs.readFileSync(locJsonPath, 'utf8'))),
+  );
   const missingKeys = [...defaultKeys].filter((k) => !locKeys.has(k)).sort();
   const coverageKeys =
     defaultKeys.size === 0 ? 100 : Math.round(((defaultKeys.size - missingKeys.length) / defaultKeys.size) * 100);

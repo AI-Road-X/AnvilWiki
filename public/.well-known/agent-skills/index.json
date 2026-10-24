@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "aniimo-wiki-lookup",
+      "type": "skill-md",
+      "description": "Search and read published public Aniimo Wiki guides with cited source URLs.",
+      "url": "https://aniimo-guides.com/ai/skills/aniimo-lookup/SKILL.md",
+      "digest": "sha256:4528812ae453894a8838633e1afceea67297715c5dccaf8a6c7f4fae8f2f27bc"
+    }
+  ]
+}

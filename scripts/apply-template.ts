@@ -20,11 +20,6 @@
  *   pnpm apply-template --answers answers.json  non-interactive: JSON array of
  *                               raw answers, one per prompt in order ("" = enter
  *                               = default). For CI and scripted runs.
- *   pnpm apply-template --lang zh          force the CLI UI language (en|zh).
- *                               Interactive TTY runs are asked instead (enter =
- *                               the LANG-derived default); --answers/piped/CI
- *                               runs never ask and default to English, so the
- *                               18-answer positional order stays stable.
  *
  * What this does NOT do (left for the user, see docs/apply-template.md):
  *   - Homepage modules (home.hero / start / explore / faq in locales)
@@ -39,13 +34,12 @@
 
 import * as fs from 'node:fs';
 import { todayIso } from './lib/today';
-import { hexToHsl as hexToHslPure, hslToHex, parseBrandHsl } from '~/lib/covers';
+import { hexToHsl as hexToHslPure, hslToHex } from '~/lib/covers';
 import * as path from 'node:path';
 import { createLinePrompt, type LinePrompt } from './lib/prompt';
 import { containsControlChar } from './lib/delimited';
 import { walkDirs, walkFiles } from './lib/walk';
 import { ensureIndexNowKey, INDEXNOW_KEY_PATH } from './lib/indexnow';
-import { writeAtomic } from './lib/atomic';
 import {
   DEMO_ARTICLE_IMAGES,
   DEMO_COVERS,
@@ -68,33 +62,16 @@ import {
   rewriteSiteTs as rewriteSiteTsBlock,
   rewriteWranglerVars,
   slugify,
-  stripDemoAuthors,
   tsEscape,
   UI_IMPORT_BLOCK_RE,
-  UI_MESSAGES_BLOCK_RE,
   type SkinInput,
 } from './lib/apply-rewrites';
-import {
-  APPLY_TEMPLATE_STRINGS,
-  envDefaultLang,
-  langFromFlag,
-  type CliLang,
-  type CliStrings,
-} from './lib/apply-template-i18n';
 
 const ROOT = process.cwd();
 const ARGS = process.argv.slice(2);
 const DRY_RUN = ARGS.includes('--dry-run') || ARGS.includes('-n');
 const KEEP_CONTENT = ARGS.includes('--no-clear-content');
 const KEEP_LANDING = ARGS.includes('--keep-landing');
-
-// CLI UI language. `--lang` forces it; otherwise an interactive TTY is asked
-// (askLanguage below) and every non-interactive channel (--answers, pipes,
-// CI) silently defaults to English so scripted answer order and the E2E's
-// pinned output markers stay byte-stable. T is set in main() once resolved;
-// until then it points at the English table for the pre-resolution paths.
-const LANG_FLAG = langFromFlag(ARGS);
-let T: CliStrings = APPLY_TEMPLATE_STRINGS.en;
 
 // --answers <file> (or --answers=<file>): non-interactive mode for CI and
 // scripted runs. The file is a JSON array of raw answers, one per prompt, in
@@ -163,13 +140,31 @@ function warnOnLeftoverAnswers(): void {
 const REL = (p: string) => path.relative(ROOT, p);
 const read = (p: string) => fs.readFileSync(path.resolve(ROOT, p), 'utf8');
 
-// Atomic write (same-directory temp + rename) lives in lib/atomic.ts, shared
-// with new-locale.ts — killed processes leave a .tmp breadcrumb, never a
-// truncated config file.
+/**
+ * Atomic write: same-directory temp file + rename. A process killed mid-write
+ * (Ctrl-C, CI timeout) leaves a `.<name>.tmp` breadcrumb, never a truncated
+ * site.ts / wrangler.toml / locale JSON — same pattern sync-codes.ts uses for
+ * MDX pages. rename within one directory is atomic on POSIX and Windows.
+ */
+function writeAtomic(target: string, content: string): void {
+  const abs = path.resolve(ROOT, target);
+  const tmp = path.join(path.dirname(abs), `.${path.basename(abs)}.tmp`);
+  try {
+    fs.writeFileSync(tmp, content, 'utf8');
+    fs.renameSync(tmp, abs);
+  } catch (err) {
+    try {
+      fs.rmSync(tmp, { force: true });
+    } catch {
+      // best-effort cleanup — the original error matters more
+    }
+    throw err;
+  }
+}
 
 const write = (p: string, content: string) => {
   if (DRY_RUN) {
-    console.log(`   ${dim('~')} ${T.writePlanned} ${REL(p)}`);
+    console.log(`   ${dim('~')} would write ${REL(p)}`);
     return;
   }
   writeAtomic(p, content);
@@ -179,7 +174,7 @@ const write = (p: string, content: string) => {
 function hexToHsl(hex: string): { h: number; s: number; l: number } {
   const c = hexToHslPure(hex);
   if (!c) {
-    console.error(T.invalidHexError(hex));
+    console.error(`❌ Invalid hex color "${hex}". Expected #rgb or #rrggbb.`);
     process.exit(1);
   }
   return c;
@@ -187,23 +182,6 @@ function hexToHsl(hex: string): { h: number; s: number; l: number } {
 
 const hslStr = (c: { h: number; s: number; l: number }, lOffset: number) =>
   `${c.h} ${c.s}% ${Math.max(0, Math.min(100, c.l + lOffset))}%`;
-
-/**
- * The CURRENT theme color as hex, parsed from globals.css :root --brand via
- * the shared covers lib (parseBrandHsl + hslToHex — the same pair
- * rewriteManifest uses, so the manifest round-trips). Re-run default for the
- * theme-color prompt: an enter-through keeps the site's color instead of
- * resetting it to the first-run orange. Null when unreadable — the caller
- * warns and falls back to the historical first-run default.
- */
-function currentThemeHex(): string | null {
-  try {
-    const hsl = parseBrandHsl(read('src/styles/globals.css'));
-    return hsl ? hslToHex(hsl.h, hsl.s, hsl.l) : null;
-  } catch {
-    return null;
-  }
-}
 
 /** Dim a string for dry-run output (ANSI escape; no chalk dependency). */
 const dim = (s: string) => `\x1b[2m${s}\x1b[0m`;
@@ -232,43 +210,11 @@ async function ask(rl: LinePrompt, question: string, fallback?: string): Promise
 }
 
 async function askBool(rl: LinePrompt, question: string, fallback = false): Promise<boolean> {
-  // Both branches normalize case: a scripted 'Y' must mean Yes exactly like a
-  // typed 'Y' does (the scripted branch used to trim only and read as No).
   const answer = scripted
-    ? takeScriptedAnswer(question).toLowerCase()
+    ? takeScriptedAnswer(question)
     : (await rl.ask(`${question} [${fallback ? 'Y/n' : 'y/N'}]: `)).trim().toLowerCase();
   if (!answer) return fallback;
-  // zh UI also accepts 是; the table keeps the per-language list.
-  return T.yesWords.includes(answer);
-}
-
-/**
- * The language question — bilingual itself, asked ONLY on an interactive TTY
- * outside --answers mode: a scripted run must not consume stdin lines that
- * belong to the answers file (LinePrompt queues everything it sees), and a
- * piped run has no human to ask. EOF reads as bare Enter → the fallback.
- */
-async function askLanguage(rl: LinePrompt, fallback: CliLang): Promise<CliLang> {
-  console.log('\n🌐 界面语言 / CLI language');
-  console.log('   1) 中文 (Chinese)');
-  console.log('   2) English');
-  for (;;) {
-    const raw = (
-      await rl.ask(`选择界面语言 / Select CLI language [${fallback === 'zh' ? '1' : '2'}]: `)
-    )
-      .trim()
-      .toLowerCase();
-    if (raw === '') return fallback;
-    if (raw === '1' || raw === 'zh' || raw === 'zh-cn' || raw === '中文') return 'zh';
-    if (raw === '2' || raw === 'en') return 'en';
-    // Not retry-capped on purpose: a capped loop would silently misalign a
-    // pasted 18-line answer sheet (eaten lines shift every later answer).
-    // The loop fails visibly instead, and the rejection names the right tool
-    // for bulk input.
-    console.log(
-      '   请输入 1 或 2 / Please answer 1 or 2 (整段粘贴答案请改用 --answers <file> / pasting a full answer sheet? use --answers <file>).',
-    );
-  }
+  return answer === 'y' || answer === 'yes';
 }
 
 // ---------------------------------------------------------------------------
@@ -293,16 +239,11 @@ function rewriteNavigationTs(input: SkinInput): string {
   const src = read(filePath);
   const items = input.categories
     .map(
-      (c) => `  { key: '${c.key}', path: '/${c.key}', icon: '${c.icon}', isContentType: true }`,
+      (c, i) =>
+        `  { key: '${c.key}', path: '/${c.key}', icon: '${c.icon}', isContentType: true, order: ${i + 1} }`,
     )
     .join(',\n');
-  // An empty selection must produce a VALID empty array — the naive
-  // `[\n${items},\n]` spelled a leading-comma holey literal that did not
-  // parse as NavigationItem[].
-  const newArray =
-    input.categories.length === 0
-      ? 'export const NAVIGATION_CONFIG: NavigationItem[] = [];'
-      : `export const NAVIGATION_CONFIG: NavigationItem[] = [\n${items},\n];`;
+  const newArray = `export const NAVIGATION_CONFIG: NavigationItem[] = [\n${items},\n];`;
   const navRe = /export const NAVIGATION_CONFIG: NavigationItem\[\] = \[[\s\S]*?\];/;
   if (!navRe.test(src)) {
     console.error(`❌ Could not find NAVIGATION_CONFIG in ${filePath}. Aborting.`);
@@ -408,9 +349,7 @@ function rewriteUiTs(input: SkinInput): string {
   // (a) locale-JSON import block: one or more import lines.
   const importBlockRe = UI_IMPORT_BLOCK_RE;
   // (b) messages map: from `const messages` through the closing `};`.
-  // Shared constant — the contract test that scans ui.ts OUTSIDE the rewritten
-  // regions strips this exact regex, so both sides can never drift apart.
-  const messagesRe = UI_MESSAGES_BLOCK_RE;
+  const messagesRe = /const messages: Record<Locale, Record<string, unknown>> = \{[\s\S]*?\};/;
   if (!importBlockRe.test(src) || !messagesRe.test(src)) {
     console.error(`❌ Could not rewrite locale imports in ${filePath}. Aborting.`);
     process.exit(1);
@@ -604,7 +543,6 @@ const LANDING_PATHS = [
   'src/config/landing-zh.ts', // Chinese landing copy
   'src/config/landing-templates.ts', // "wiki page templates" showcase copy (v2.32.0)
   'src/pages/landing.astro', // file — coexists with the src/pages/landing/ dir
-  'src/pages/demo.astro', // demo wiki English homepage — root / is the landing gateway in the demo
   'src/pages/landing', // directory (docs hub + chapter routes)
   'src/pages/zh/landing.astro', // file — coexists with the src/pages/zh/landing/ dir
   'src/pages/zh/landing', // directory (zh docs routes)
@@ -612,13 +550,6 @@ const LANDING_PATHS = [
   'public/images/wechat-qr.jpg', // maintainer's personal QR — not needed by forks
   'public/_redirects', // 301s for renamed handbook lesson slugs — only the demo serves /landing/docs routes
 ];
-// ⚠️ NEVER add src/components/RootGateway.astro to this list (unquoted here
-// on purpose — the survive pin in tests/redirects.test.ts greps for the
-// quoted form) — src/pages/index.astro statically imports it, so build-time
-// module resolution runs even with landingLinkEnabled=false; deleting it
-// makes the fork's build fail to resolve the import. Same for the setup.yml
-// rm line. Pinned by the survive pins in tests/redirects.test.ts and the e2e
-// positive tripwire.
 
 function removeLandingPage(): number {
   let removed = 0;
@@ -662,25 +593,13 @@ function removeLandingPage(): number {
 // ---------------------------------------------------------------------------
 
 async function main() {
+  console.log(
+    `\n🎨 AnvilWiki apply-template CLI — base config (metadata, theme, nav, locales)${DRY_RUN ? ' [DRY RUN]' : ''}\n`,
+  );
+
   loadScriptedAnswers();
 
-  if (LANG_FLAG === 'invalid') {
-    console.error("❌ Unknown --lang value. Use 'en' or 'zh'.(--lang 语言代码只支持 en / zh)");
-    process.exit(1);
-  }
-
   const rl = createLinePrompt();
-
-  // Resolve the UI language BEFORE anything user-facing prints: --lang wins,
-  // then an interactive TTY gets the bilingual question (LANG-derived
-  // default), then English — the byte-stable default for --answers/CI runs.
-  let lang: CliLang = LANG_FLAG ?? 'en';
-  if (LANG_FLAG === undefined && !scripted && process.stdin.isTTY) {
-    lang = await askLanguage(rl, envDefaultLang());
-  }
-  T = APPLY_TEMPLATE_STRINGS[lang];
-
-  console.log(T.banner(DRY_RUN));
 
   // --- Collect inputs -----------------------------------------------------
   // Re-run = confirm current (S12): when src/config/site.ts already carries a
@@ -694,15 +613,15 @@ async function main() {
   const rerunDefaults =
     identity !== null && !isDemoSiteTsIdentity(identity) ? rerunPromptDefaults(identity) : null;
   if (rerunDefaults !== null && identity !== null) {
-    console.log(T.rerunBanner(identity.name));
-    console.log(T.rerunNote);
+    console.log(`♻️  Re-run detected — src/config/site.ts already carries "${identity.name}".`);
+    console.log('   Prompt defaults below are your CURRENT values (enter = keep), not demo placeholders.\n');
   }
   const d = rerunDefaults;
 
   console.log('━'.repeat(60));
-  console.log(T.secIdentity);
+  console.log('Game identity');
   console.log('━'.repeat(60));
-  const gameName = await ask(rl, T.qGameName, d ? d.gameName : 'Anvil Quest');
+  const gameName = await ask(rl, 'Full game name', d ? d.gameName : 'Anvil Quest');
   // Collapse whitespace runs first: split(' ') on a double-spaced name yields
   // empty words whose w[0] is undefined — the default spelled "UNDE Wiki".
   // (Skipped on a re-run: the current shortName is the default there.)
@@ -715,59 +634,47 @@ async function main() {
         .join('')
         .slice(0, 4)
         .toUpperCase() + ' Wiki';
-  const shortName = await ask(rl, T.qShortName, shortNameDefault);
-  const domain = await ask(rl, T.qDomain, d ? d.domain : 'anvilwiki.pages.dev');
-  const tagline = await ask(rl, T.qTagline, d ? d.tagline : `Your home for everything ${gameName}`);
+  const shortName = await ask(rl, 'Short name (PWA / mobile)', shortNameDefault);
+  const domain = await ask(rl, 'Domain (no protocol)', d ? d.domain : 'anvilwiki.pages.dev');
+  const tagline = await ask(rl, 'Hero tagline', d ? d.tagline : `Your home for everything ${gameName}`);
   const description = await ask(
     rl,
-    T.qDescription,
+    'Site description (SEO, 40-165 chars)',
     d ? d.description : `Complete ${gameName} wiki with guides, codes, tier lists, and tips. Every page carries a last-verified date.`,
   );
   const legalNotice = await ask(
     rl,
-    T.qLegalNotice,
+    'Legal / copyright notice',
     d ? d.legalNotice : `${gameName} Wiki is a fan-made community site. Not affiliated with or endorsed by the game developer.`,
   );
-  const officialUrl = await ask(rl, T.qOfficialUrl, d ? d.officialUrl : 'https://example.com');
+  const officialUrl = await ask(rl, 'Official game URL', d ? d.officialUrl : 'https://example.com');
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secTheme);
+  console.log('Theme color');
   console.log('━'.repeat(60));
-  // Re-run = keep the CURRENT color as the default (the other 11 identity
-  // prompts do the same via rerunPromptDefaults); a first run keeps the
-  // historical demo orange.
-  let themeDefault = '#f97316';
-  if (rerunDefaults !== null) {
-    const current = currentThemeHex();
-    if (current !== null) {
-      themeDefault = current;
-    } else {
-      console.warn(T.themeUnreadableWarn);
-    }
-  }
-  const themeHex = await ask(rl, T.qThemeColor, themeDefault);
+  const themeHex = await ask(rl, 'Theme color (#rrggbb)', '#f97316');
   const preview = hexToHsl(themeHex);
   console.log(`   → ${themeHex} = HSL(${preview.h}, ${preview.s}%, ${preview.l}%)`);
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secMetadata);
+  console.log('Game metadata');
   console.log('━'.repeat(60));
-  const platform = await ask(rl, T.qPlatform, d ? d.platform : 'Roblox');
-  const developer = await ask(rl, T.qDeveloper, d ? d.developer : 'Forge Studios');
-  const genre = await ask(rl, T.qGenre, d ? d.genre : 'Fantasy RPG');
-  const releaseDate = await ask(rl, T.qReleaseDate, d ? d.releaseDate : '');
+  const platform = await ask(rl, 'Platform', d ? d.platform : 'Roblox');
+  const developer = await ask(rl, 'Developer / studio', d ? d.developer : 'Forge Studios');
+  const genre = await ask(rl, 'Genre', d ? d.genre : 'Fantasy RPG');
+  const releaseDate = await ask(rl, 'Release date (ISO, optional)', d ? d.releaseDate : '');
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secLocales);
+  console.log('Locales (comma-separated, first = default)');
   console.log('━'.repeat(60));
-  const localesInput = await ask(rl, T.qLocales, 'en');
+  const localesInput = await ask(rl, 'Locales', 'en');
   const locales = localesInput
     .split(',')
     .map((l) => l.trim())
     .filter(Boolean)
     .map((l) => slugify(l) || l);
   if (locales.length === 0 || !locales.includes('en')) {
-    console.warn(T.localesEnAddedWarn);
+    console.warn('⚠️ "en" must be present (default locale). Adding it.');
     locales.unshift('en');
   }
   // Dedupe.
@@ -779,15 +686,19 @@ async function main() {
   // --answers modes (the repo's established pattern for bad input).
   const badLocales = uniqueLocales.filter((l) => !isLocaleCode(l));
   if (badLocales.length > 0) {
-    console.error(T.badLocalesError(badLocales.map((l) => JSON.stringify(l)).join(', ')));
+    console.error(
+      `❌ Invalid locale code(s): ${badLocales.map((l) => JSON.stringify(l)).join(', ')}`,
+    );
+    console.error('   Accepted format: lowercase, starting with a letter — "en", "ja",');
+    console.error('   "zh-tw", "pt-br" (letters/digits, hyphen-separated subtags of 2-8).');
     process.exit(1);
   }
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secCategories);
+  console.log('Content categories (comma-separated keys, lowercase)');
   console.log('━'.repeat(60));
-  console.log(T.hintCommonCategories);
-  const catsInput = await ask(rl, T.qCategories, '');
+  console.log('   Common: bosses, guides, items, codes, tier-list, characters');
+  const catsInput = await ask(rl, 'Categories', '');
   const catKeys = catsInput
     .split(',')
     .map((c) => slugify(c.trim()))
@@ -809,38 +720,40 @@ async function main() {
     icon: ICON_DEFAULTS[key] ?? 'lucide:folder',
   }));
   if (categories.length === 0) {
-    console.warn(T.noCategoriesWarn);
+    console.warn('⚠️ No categories provided. navigation.ts will be empty — fill it manually.');
   }
 
   let clearContent = false;
   if (!KEEP_CONTENT) {
     console.log('\n' + '━'.repeat(60));
-    console.log(T.secContentLayer);
+    console.log('⚠️  CONTENT LAYER');
     console.log('━'.repeat(60));
     const articleCount = countWikiArticles();
-    console.log(T.contentLayerCount(articleCount));
-    console.log(T.contentLayerAware1);
-    console.log(T.contentLayerAware2);
-    console.log(T.contentLayerAware3);
-    clearContent = await askBool(rl, T.qClearContent, false);
+    console.log(`   ${articleCount} article file(s) under src/content/wiki/ right now.`);
+    console.log('   Clearing is CONTENT-AWARE: demo-authored articles are removed, and');
+    console.log('   anything else (articles/scaffolds you wrote) is KEPT with a warning.');
+    console.log('   Directory structure is preserved for you to drop in new content.');
+    clearContent = await askBool(rl, 'Clear demo content?', false);
   }
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secHomePreset);
+  console.log('🏠  Homepage preset');
   console.log('━'.repeat(60));
-  console.log(T.presetMenu);
-  const presetAnswer = (await ask(rl, T.qPreset, '1')).trim();
+  console.log('   1) codes     — hero "All Codes", badge-list codes module (codes-driven sites)');
+  console.log('   2) guides    — hero wiki-style, steps module (guide-driven sites)');
+  console.log('   3) keep      — keep the demo homepage JSON as a starting point');
+  const presetAnswer = (await ask(rl, 'Preset [1/2/3]', '1')).trim();
   const homePreset: 'codes' | 'guides' | 'keep' =
     presetAnswer === '2' ? 'guides' : presetAnswer === '3' ? 'keep' : 'codes';
 
   let clearLanding = false;
   if (!KEEP_LANDING) {
     console.log('\n' + '━'.repeat(60));
-    console.log(T.secLanding);
+    console.log('🌐  PROJECT LANDING PAGE');
     console.log('━'.repeat(60));
-    console.log(T.landingInfo1);
-    console.log(T.landingInfo2);
-    clearLanding = await askBool(rl, T.qRemoveLanding, true);
+    console.log('   /landing is a marketing page for the AnvilWiki project itself.');
+    console.log('   Your game wiki does not need it. Removing it keeps your repo clean.');
+    clearLanding = await askBool(rl, 'Remove the project landing page (/landing)?', true);
   }
 
   // --- Summarize planned changes -----------------------------------------
@@ -865,32 +778,32 @@ async function main() {
   };
 
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secPlanned(DRY_RUN));
+  console.log(`📋 Planned changes${DRY_RUN ? ' (DRY RUN — nothing will be written)' : ''}`);
   console.log('━'.repeat(60));
-  console.log(`${T.plannedGame}${gameName}`);
-  console.log(`${T.plannedShort}${shortName}`);
-  console.log(`${T.plannedDomain}${domain}`);
-  console.log(`${T.plannedTheme}${themeHex} → HSL(${preview.h}, ${preview.s}%, ${preview.l}%)`);
-  console.log(`${T.plannedLocales}${uniqueLocales.join(', ')}`);
-  console.log(`${T.plannedCategories}${categories.map((c) => c.key).join(', ') || T.plannedNone}`);
-  console.log(`${T.plannedClear}${clearContent ? T.plannedYes : T.plannedNo}`);
-  console.log(`${T.plannedLanding}${skinInput.clearLanding ? T.plannedYes : T.plannedNo}`);
-  console.log(T.plannedFilesHeader);
+  console.log(`   Game:        ${gameName}`);
+  console.log(`   Short name:  ${shortName}`);
+  console.log(`   Domain:      ${domain}`);
+  console.log(`   Theme:       ${themeHex} → HSL(${preview.h}, ${preview.s}%, ${preview.l}%)`);
+  console.log(`   Locales:     ${uniqueLocales.join(', ')}`);
+  console.log(`   Categories:  ${categories.map((c) => c.key).join(', ') || '(none)'}`);
+  console.log(`   Clear demo:  ${clearContent ? 'YES' : 'no'}`);
+  console.log(`   Remove /landing: ${skinInput.clearLanding ? 'YES' : 'no'}`);
+  console.log('   Files to write:');
   console.log('     - src/config/site.ts');
   console.log('     - src/config/navigation.ts');
-  console.log(T.plannedGlobalsNote);
+  console.log('     - src/styles/globals.css (4 theme lines only)');
   console.log('     - src/i18n/routing.ts');
   console.log('     - src/i18n/ui.ts');
   console.log(`     - src/locales/{${uniqueLocales.join(',')}}.json`);
   console.log('     - public/manifest.json');
-  console.log(T.plannedWranglerNote);
-  console.log(T.plannedIndexNowNote(INDEXNOW_KEY_PATH));
+  console.log('     - wrangler.toml ([vars] reset to your domain, demo Giscus cleared)');
+  console.log(`     - ${INDEXNOW_KEY_PATH} (generated once if missing; reused on re-runs)`);
 
   if (!DRY_RUN) {
-    const proceed = await askBool(rl, T.qProceed, false);
+    const proceed = await askBool(rl, '\nProceed with these changes?', false);
     rl.close();
     if (!proceed) {
-      console.log(T.aborted);
+      console.log('\n🚫 Aborted. No files were changed.');
       process.exit(0);
     }
   } else {
@@ -898,7 +811,7 @@ async function main() {
   }
 
   // --- Apply -------------------------------------------------------------
-  console.log(T.applying);
+  console.log('\n🔧 Applying changes…');
 
   write('src/config/site.ts', rewriteSiteTs(skinInput));
   console.log('   ✅ src/config/site.ts');
@@ -973,17 +886,17 @@ async function main() {
         isDemoLocaleContent(read(path.join('src/locales', file)))
       ) {
         fs.unlinkSync(path.resolve(ROOT, 'src/locales', file));
-        console.log(T.orphanRemoved(file));
+        console.log(`   🗑️  Removed src/locales/${file} (locale not chosen — still demo translation leftover)`);
       } else {
         orphanLocales.push(file);
       }
     }
     if (orphanLocales.length > 0) {
-      console.warn(T.orphanKeptWarn(orphanLocales.length, uniqueLocales.join(', ')));
+      console.warn(`\n   ⚠️  Kept ${orphanLocales.length} locale file(s) not in your chosen locales (${uniqueLocales.join(', ')}) — NOT deleted:`);
       for (const f of orphanLocales) console.warn(`      src/locales/${f}`);
-      console.warn(T.orphanKeptWhy1);
-      console.warn(T.orphanKeptWhy2);
-      console.warn(T.orphanKeptWhy3);
+      console.warn('      These were kept because they are either not demo files, or demo-named files you');
+      console.warn('      already rewrote for your own game — either way they may hold translation work.');
+      console.warn('      Delete them yourself if they are leftovers — until then `pnpm check-config` stays red.');
     }
   }
 
@@ -995,85 +908,79 @@ async function main() {
     : null;
   if (wrangler !== null) {
     write('wrangler.toml', wrangler);
-    console.log(T.wranglerDone);
+    console.log('   ✅ wrangler.toml ([vars] reset — demo Giscus config cleared)');
   }
 
   if (DRY_RUN) {
     console.log(
       fs.existsSync(path.resolve(ROOT, INDEXNOW_KEY_PATH))
-        ? T.indexNowDryKeep(INDEXNOW_KEY_PATH)
-        : T.indexNowDryGen(INDEXNOW_KEY_PATH),
+        ? `   ♻️  Would keep existing ${INDEXNOW_KEY_PATH}`
+        : `   🔑 Would generate ${INDEXNOW_KEY_PATH} once for zero-config IndexNow`,
     );
   } else {
     const indexNow = ensureIndexNowKey(ROOT);
     console.log(
       indexNow.created
-        ? T.indexNowCreated(INDEXNOW_KEY_PATH)
-        : T.indexNowReused(INDEXNOW_KEY_PATH),
+        ? `   🔑 Generated ${INDEXNOW_KEY_PATH} (stable public IndexNow key)`
+        : `   ♻️  Reusing existing ${INDEXNOW_KEY_PATH}`,
     );
   }
 
   // Reset the demo author registry so fork sites don't inherit demo authors.
-  // The regex lives in lib/apply-rewrites.ts (stripDemoAuthors) so the
-  // contract test can pin it against the real file and against setup.yml's
-  // inline python copy.
   const authorsPath = 'src/config/authors.ts';
   if (fs.existsSync(path.resolve(ROOT, authorsPath))) {
     const src = read(authorsPath);
-    const { cleaned, changed } = stripDemoAuthors(src);
+    const cleaned = src.replace(/\n\s*\/\/ DEMO .*?\n\s*'[^']+'.*?\{[^}]*\},\n/, '\n');
     // Only claim success when the demo block actually matched — an upstream
-    // authors.ts format change must not print a false ✅, and a silent no-op
-    // (already removed on a previous run, or the format drifted) must not
-    // pass unnoticed either.
-    if (changed) {
+    // authors.ts format change must not print a false ✅.
+    if (cleaned !== src) {
       write(authorsPath, cleaned);
-      console.log(T.authorsDone);
-    } else {
-      console.warn(T.authorsDriftWarn);
+      console.log('   ✅ src/config/authors.ts (demo author removed)');
     }
   }
 
   if (clearContent) {
     const { removed, kept } = clearDemoContent(categories);
     const assets = clearDemoAssets();
-    console.log(T.clearedArticles(removed, DRY_RUN));
-    console.log(T.clearedAssets(assets, DRY_RUN));
+    console.log(`   🗑️  ${DRY_RUN ? 'Would remove' : 'Removed'} ${removed} demo article${removed === 1 ? '' : 's'} under src/content/wiki/ (content-aware)`);
+    console.log(`   🖼️  ${DRY_RUN ? 'Would remove' : 'Removed'} ${assets} demo asset file(s) (covers/gallery/article images/public tokens, by name)`);
     if (kept.length > 0) {
-      console.warn(T.keptFilesWarn(kept.length, DEMO_GAME_NAMES.join(', ')));
+      console.warn(`   ⚠️  Kept ${kept.length} file(s) that are NOT demo content — they never mention the demo game (${DEMO_GAME_NAMES.join(', ')}). Delete them yourself if unwanted:`);
       for (const rel of kept) console.warn(`      ${rel}`);
     }
     if (categories.length > 0) {
       const s = scaffoldContent(categories);
-      console.log(T.scaffoldCreated(s));
+      console.log(`   📄 Created ${s} scaffold article${s === 1 ? '' : 's'} (one per category, en/)`);
     }
   }
 
   if (skinInput.clearLanding) {
     const n = removeLandingPage();
     if (n > 0) {
-      console.log(T.landingRemoved(n));
+      console.log(`   🗑️  Removed ${n} project landing page file${n === 1 ? '' : 's'} (src/components/landing/, src/config/landing*.ts, src/pages/landing* incl. the /landing/docs center, public/images/showcase/ + wechat-qr.jpg; docs/handbook markdown stays as repo docs)`);
     }
   }
 
   // --- Next steps --------------------------------------------------------
   console.log('\n' + '━'.repeat(60));
-  console.log(T.secComplete);
+  console.log('✅ Base config complete.');
   console.log('━'.repeat(60));
-  console.log(`\n${T.nextStepsHeader}`);
-  console.log(T.nextIcons1);
-  console.log(T.nextIcons2);
-  console.log(T.nextIcons3);
-  console.log(T.nextIcons4);
-  console.log(T.nextIcons5);
-  console.log(T.nextIcons6);
-  console.log(T.nextIcons7);
-  console.log(T.nextHome);
-  console.log(T.nextHomeDetail);
-  console.log(T.nextArticles);
-  console.log(T.nextArticlesDetail);
-  console.log(T.nextTranslate);
-  console.log(T.nextSitemap);
-  console.log(T.nextCommands);
+  console.log('\n📌 Remaining tasks (see docs/apply-template.md):');
+  console.log('   • Replace the icon set — your site still shows the demo anvil icons.');
+  console.log('           Generate a full set from one image at https://favicon.io/favicon-converter/,');
+  console.log('           then drag the files into public/ overwriting: favicon.ico, favicon.svg,');
+  console.log('           favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png,');
+  console.log('           android-chrome-192x192.png, android-chrome-512x512.png.');
+  console.log('           Same for the homepage hero image: public/images/hero.webp / hero.svg.');
+  console.log('           (CLI cannot generate binary assets — see the learning manual, chapter 3, step 5.)');
+  console.log('   • Fill homepage modules in src/locales/<locale>.json');
+  console.log('           (home.hero / start / explore / faq / updates).');
+  console.log('   • Add article MDX under src/content/wiki/<locale>/<category>/.');
+  console.log('           Then fill nav.<key> + overview.<key> in locale JSONs.');
+  console.log('   • Translate non-English locale JSONs + copy MDX bodies.');
+  console.log('   • After deploy, run `pnpm check-sitemap` to verify all URLs.');
+  console.log('\n   Then: pnpm dev    (preview)');
+  console.log('         pnpm build  (verify production build)\n');
 
   warnOnLeftoverAnswers();
 }

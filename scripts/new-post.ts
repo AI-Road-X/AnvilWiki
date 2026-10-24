@@ -14,9 +14,7 @@ import * as fs from 'node:fs';
 import { todayIso } from './lib/today';
 import * as path from 'node:path';
 import { createLinePrompt } from './lib/prompt';
-import { containsControlChar } from './lib/delimited';
 import { readLocales } from './lib/routing-flags';
-import { slugify } from './lib/slugify';
 
 const CONTENT_BASE = path.resolve(process.cwd(), 'src/content/wiki');
 
@@ -33,6 +31,17 @@ function readCategories(): string[] {
     process.exit(1);
   }
   return keys;
+}
+
+/** Unicode-aware slug: keeps letters/numbers of ANY script (CJK included) so
+ * `新手攻略` stays a usable slug — Astro percent-encodes it in URLs. */
+function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 
@@ -52,38 +61,10 @@ async function main() {
     process.exit(1);
   }
 
-  const categoryRaw = (await rl.ask(`Category [${categories.join('/')}]: `)).trim();
-  if (!categoryRaw) {
+  const category = (await rl.ask(`Category [${categories.join('/')}]: `)).trim();
+  if (!category) {
     console.error('❌ Category is required.');
     process.exit(1);
-  }
-  // Path-traversal / frontmatter defense (same intake discipline as
-  // apply-template's category prompts): separators and control characters are
-  // rejected BEFORE normalizing — silently slugifying "../evil" into "evil"
-  // would write into an unexpected directory. The slug then feeds both the
-  // directory path and the frontmatter, so it can no longer carry a quote
-  // that breaks the YAML scalar either.
-  if (categoryRaw.includes('/') || categoryRaw.includes('\\')) {
-    console.error(
-      `❌ Category "${categoryRaw}" contains a path separator — use a single directory name (e.g. bosses).`,
-    );
-    process.exit(1);
-  }
-  if (containsControlChar(categoryRaw)) {
-    console.error(
-      `❌ Category "${categoryRaw}" contains newline/control characters — not valid in a directory name or frontmatter.`,
-    );
-    process.exit(1);
-  }
-  const category = slugify(categoryRaw);
-  if (!category) {
-    console.error(
-      `❌ Category "${categoryRaw}" normalizes to an empty slug — use letters, numbers, or hyphens.`,
-    );
-    process.exit(1);
-  }
-  if (category !== categoryRaw) {
-    console.warn(`⚠️ Category normalized: "${categoryRaw}" → "${category}".`);
   }
   if (!categories.includes(category)) {
     const proceed = (
@@ -143,7 +124,7 @@ async function main() {
   const template = `---
 title: "${yamlQuote(titleInput)}"
 description: "${yamlQuote(description)}"
-category: "${yamlQuote(category)}"
+category: "${category}"
 date: ${today}
 lastModified: ${today}
 tags: []

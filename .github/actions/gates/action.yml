@@ -6,7 +6,7 @@ description: >-
   content with the exact same standard — no drift between the workflows.
 inputs:
   site-url:
-    description: 'SITE_URL for the build step (CI passes vars.SITE_URL; falls back to the demo domain).'
+    description: 'SITE_URL used by the domain consistency check and production-like build.'
     required: false
     default: 'https://anvil.wiki'
 
@@ -28,6 +28,8 @@ runs:
     - name: Config consistency (nav/locale 3-place check)
       run: pnpm check-config
       shell: bash
+      env:
+        SITE_URL: ${{ inputs.site-url }}
 
     - name: Build
       run: pnpm build

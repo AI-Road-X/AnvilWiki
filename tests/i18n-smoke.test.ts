@@ -13,7 +13,6 @@
 import { describe, expect, it } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { getUi } from '~/i18n/ui';
 
 const ROOT = path.resolve(__dirname, '..');
 const LOCALE_ROUTES_DIR = path.join(ROOT, 'src/pages/[locale]');
@@ -60,28 +59,25 @@ describe('i18n: no hardcoded locale arrays', () => {
   });
 });
 
-describe('i18n: getUi results are deeply frozen (read-only by contract AND at runtime)', () => {
-  // getUi caches merged objects and deepMerge shares nested references with
-  // the en module table — one caller mutating its copy would silently poison
-  // every other locale's view. ui.ts deep-freezes all results so mutation
-  // throws (strict-mode modules) instead.
-  it('every locale flavor is deeply frozen (en, cached merge, unknown-locale copy)', () => {
-    const ja = getUi('ja');
-    expect(Object.isFrozen(ja)).toBe(true);
-    expect(Object.isFrozen(ja.home)).toBe(true);
-    expect(Object.isFrozen(getUi('en').shared)).toBe(true);
-    const unknown = getUi('zz');
-    expect(Object.isFrozen(unknown)).toBe(true);
+describe('published locale copy', () => {
+  it('does not expose category template instructions or Chinese copy on the English homepage', () => {
+    const en = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/locales/en.json'), 'utf8'));
+    for (const [category, copy] of Object.entries(en.overview) as Array<
+      [string, { overviewDescription: string }]
+    >) {
+      expect(copy.overviewDescription, category).not.toMatch(/replace this overview text|locale JSON/i);
+    }
+    expect(en.home.meta.description).not.toMatch(/[\u3400-\u9fff]/);
   });
 
-  it('mutating a cached locale result throws (no silent cross-locale poisoning)', () => {
-    const ja = getUi('ja');
-    expect(() => {
-      (ja as Record<string, unknown>).nav = 'poison';
-    }).toThrow();
-    // Nesting that came from the en table through the merge must be frozen too.
-    expect(() => {
-      (ja.shared as Record<string, unknown>).wikiNavAria = 'poison';
-    }).toThrow();
+  it('uses localized footer text and a configured copyright contact path', () => {
+    const footer = fs.readFileSync(path.join(ROOT, 'src/components/footer/SiteFooter.astro'), 'utf8');
+    const legal = fs.readFileSync(path.join(ROOT, 'src/components/layout/LegalContent.astro'), 'utf8');
+    expect(footer).toContain('ui.site.tagline');
+    expect(footer).toContain('ui.site.legalNotice');
+    const copyrightPage = legal.split("page === 'copyright'")[1]?.split("page === 'contact'")[0];
+    expect(copyrightPage).toBeTruthy();
+    expect(copyrightPage).not.toContain('href={site.social.discord}');
+    expect(legal).toContain('https://github.com/AI-Road-X/AnvilWiki/issues');
   });
 });

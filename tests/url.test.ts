@@ -1,10 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
-
-// Demo-build state: landingLinkEnabled=true (the repo's real flag — and the
-// explicit mock keeps these tests green even in a forked repo where the flag
-// has been flipped to false).
-vi.mock('~/config/project', () => ({ landingLinkEnabled: true }));
-
+import { describe, it, expect } from 'vitest';
 import {
   localizePath,
   listPath,
@@ -23,42 +17,29 @@ describe('url helpers', () => {
     });
 
     it('prepends the locale prefix for non-default locales', () => {
-      expect(localizePath('/bosses', 'ja')).toBe('/ja/bosses/');
-      expect(localizePath('/bosses/emberfang', 'ja')).toBe('/ja/bosses/emberfang/');
+      expect(localizePath('/bosses', 'zh')).toBe('/zh/bosses/');
+      expect(localizePath('/bosses/emberfang', 'zh')).toBe('/zh/bosses/emberfang/');
     });
 
     it('ensures leading slash on input without one', () => {
       expect(localizePath('about', 'en')).toBe('/about/');
-      expect(localizePath('about', 'ja')).toBe('/ja/about/');
+      expect(localizePath('about', 'zh')).toBe('/zh/about/');
     });
   });
 
-  describe('homeUrl (demo build — root is the storefront gateway)', () => {
-    it('returns /demo/ for the default locale (the English wiki homepage)', () => {
-      expect(homeUrl('en')).toBe('/demo/');
+  describe('homeUrl', () => {
+    it('returns / for default locale', () => {
+      expect(homeUrl('en')).toBe('/');
     });
-    it('returns /ja for non-default locale', () => {
-      expect(homeUrl('ja')).toBe('/ja/');
-    });
-  });
-
-  describe('homeUrl (fork build — landingLinkEnabled=false)', () => {
-    it('returns the plain localized root, byte-identical to pre-gateway behavior', async () => {
-      // Re-import url.ts with the flag mocked false — pins the fork contract
-      // (logo / switcher / breadcrumbs / JSON-LD must all go back to '/').
-      vi.resetModules();
-      vi.doMock('~/config/project', () => ({ landingLinkEnabled: false }));
-      const { homeUrl: forkHomeUrl } = await import('~/lib/url');
-      expect(forkHomeUrl('en')).toBe('/');
-      expect(forkHomeUrl('ja')).toBe('/ja/');
-      vi.doUnmock('~/config/project');
+    it('returns a prefixed path for the non-default locale', () => {
+      expect(homeUrl('zh')).toBe('/zh/');
     });
   });
 
   describe('listPath', () => {
     it('builds the correct list URL for each locale', () => {
       expect(listPath('bosses', 'en')).toBe('/bosses/');
-      expect(listPath('bosses', 'ja')).toBe('/ja/bosses/');
+      expect(listPath('bosses', 'zh')).toBe('/zh/bosses/');
       expect(listPath('codes', 'en')).toBe('/codes/');
     });
   });
@@ -66,15 +47,15 @@ describe('url helpers', () => {
   describe('detailPath', () => {
     it('builds the correct article URL for each locale', () => {
       expect(detailPath('bosses', 'emberfang', 'en')).toBe('/bosses/emberfang/');
-      expect(detailPath('bosses', 'emberfang', 'ja')).toBe('/ja/bosses/emberfang/');
+      expect(detailPath('bosses', 'emberfang', 'zh')).toBe('/zh/bosses/emberfang/');
     });
 
     it('handles nested slugs', () => {
       expect(detailPath('guides', 'early-game/beginner', 'en')).toBe(
         '/guides/early-game/beginner/',
       );
-      expect(detailPath('guides', 'early-game/beginner', 'ja')).toBe(
-        '/ja/guides/early-game/beginner/',
+      expect(detailPath('guides', 'early-game/beginner', 'zh')).toBe(
+        '/zh/guides/early-game/beginner/',
       );
     });
   });
@@ -122,28 +103,28 @@ describe('slugifyTag (ASCII slug / raw fallback for non-ASCII)', () => {
 describe('absoluteUrl', () => {
   it('prefixes siteUrl and applies the locale prefix rules', () => {
     expect(absoluteUrl('/bosses', 'en')).toMatch(/^https:\/\/[^/]+\/bosses\/$/);
-    expect(absoluteUrl('/bosses', 'ja')).toMatch(/^https:\/\/[^/]+\/ja\/bosses\/$/);
-    expect(absoluteUrl('/', 'ja')).toMatch(/^https:\/\/[^/]+\/ja\/$/);
+    expect(absoluteUrl('/bosses', 'zh')).toMatch(/^https:\/\/[^/]+\/zh\/bosses\/$/);
+    expect(absoluteUrl('/', 'zh')).toMatch(/^https:\/\/[^/]+\/zh\/$/);
   });
 });
 
 describe('languageAlternates', () => {
   it('builds absolute hreflang entries for exactly the given locales', () => {
-    const alts = languageAlternates((loc) => detailPath('bosses', 'x', loc), ['en', 'ja']);
+    const alts = languageAlternates((loc) => detailPath('bosses', 'x', loc), ['en', 'zh']);
     expect(alts).toHaveLength(2);
     expect(alts[0]).toEqual({ hreflang: 'en', href: expect.stringMatching(/\/bosses\/x\/$/) });
-    expect(alts[1]).toEqual({ hreflang: 'ja', href: expect.stringMatching(/\/ja\/bosses\/x\/$/) });
+    expect(alts[1]).toEqual({ hreflang: 'zh', href: expect.stringMatching(/\/zh\/bosses\/x\/$/) });
   });
 
   it('never emits x-default (BaseLayout derives it separately)', () => {
-    const alts = languageAlternates((loc) => listPath('guides', loc), ['en', 'ja']);
+    const alts = languageAlternates((loc) => listPath('guides', loc), ['en', 'zh']);
     expect(alts.some((a) => a.hreflang === 'x-default')).toBe(false);
   });
 
   it('honors a reduced locale list (single-language article)', () => {
-    const alts = languageAlternates((loc) => detailPath('bosses', 'x', loc), ['ja']);
+    const alts = languageAlternates((loc) => detailPath('bosses', 'x', loc), ['zh']);
     expect(alts).toHaveLength(1);
-    expect(alts[0].hreflang).toBe('ja');
+    expect(alts[0].hreflang).toBe('zh');
   });
 
   it('shares one domain-assembly with absoluteUrl — same path+locale, identical href', () => {
@@ -151,7 +132,7 @@ describe('languageAlternates', () => {
     // returns localizePath output) while absoluteUrl localizes internally;
     // both must join the domain through the same single helper so the
     // `${siteUrl}${path}` construction can't drift between them.
-    const alts = languageAlternates((loc) => localizePath('/faq', loc), ['en', 'ja']);
-    expect(alts.map((a) => a.href)).toEqual([absoluteUrl('/faq', 'en'), absoluteUrl('/faq', 'ja')]);
+    const alts = languageAlternates((loc) => localizePath('/faq', loc), ['en', 'zh']);
+    expect(alts.map((a) => a.href)).toEqual([absoluteUrl('/faq', 'en'), absoluteUrl('/faq', 'zh')]);
   });
 });

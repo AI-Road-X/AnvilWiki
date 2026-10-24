@@ -31,9 +31,9 @@ describe('tag/recent URL helpers', () => {
     expect(recentPath('en')).toBe('/recent/');
   });
   it('prefixes non-default locales', () => {
-    expect(tagsPath('ja')).toBe('/ja/tags/');
-    expect(tagPath('fire-boss', 'ja')).toBe('/ja/tags/fire-boss/');
-    expect(recentPath('ja')).toBe('/ja/recent/');
+    expect(tagsPath('zh')).toBe('/zh/tags/');
+    expect(tagPath('fire-boss', 'zh')).toBe('/zh/tags/fire-boss/');
+    expect(recentPath('zh')).toBe('/zh/recent/');
   });
 });
 

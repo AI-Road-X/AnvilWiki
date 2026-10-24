@@ -8,7 +8,7 @@
 import { siteUrl } from '~/config/site';
 import { site } from '~/config/site';
 import { defaultLocale, type Locale } from '~/i18n/routing';
-import { detailPath, homeUrl, listPath } from './url';
+import { detailPath, listPath } from './url';
 
 /** Organization JSON-LD — injected globally in BaseLayout. */
 export function organizationJsonLd() {
@@ -117,7 +117,7 @@ export function breadcrumbJsonLd(opts: {
         '@type': 'ListItem',
         position: 1,
         name: homeLabel,
-        item: `${siteUrl}${homeUrl(locale)}`,
+        item: `${siteUrl}${locale === defaultLocale ? '' : `/${locale}`}`,
       },
       {
         '@type': 'ListItem',
@@ -159,7 +159,7 @@ export function simpleBreadcrumbJsonLd(opts: {
         '@type': 'ListItem',
         position: 1,
         name: homeLabel,
-        item: `${siteUrl}${homeUrl(locale)}`,
+        item: `${siteUrl}${locale === defaultLocale ? '' : `/${locale}`}`,
       },
       {
         '@type': 'ListItem',
