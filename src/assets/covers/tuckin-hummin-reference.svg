@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Aniimo 022 Tuckin Mountain Form Hummin reference</title>
+  <desc id="desc">Prank Master summons one Hummin on entering battle, then another every ten seconds up to three. Counts assume units persist. The published HP-scaling percentage is missing.</desc>
+  <rect width="1200" height="675" fill="#29221e"/>
+  <path d="M780 90 1130 80 1170 380 900 520 740 320Z" fill="#52402c"/>
+  <text x="70" y="78" fill="#ffc284" font-family="sans-serif" font-size="23" letter-spacing="3">ANIIMO WIKI / NO.022</text>
+  <text x="70" y="170" fill="#fff" font-family="sans-serif" font-size="72" font-weight="700">Tuckin</text>
+  <text x="70" y="220" fill="#dcc9b7" font-family="sans-serif" font-size="27">Mountain Form / Rock + Grass / BREAK</text>
+  <path d="M260 365H940" stroke="#d3a779" stroke-width="7"/>
+  <circle cx="250" cy="365" r="67" fill="#915536"/>
+  <circle cx="600" cy="365" r="67" fill="#7c6837"/>
+  <circle cx="950" cy="365" r="67" fill="#546b43"/>
+  <g fill="#fff" font-family="sans-serif" font-size="58" font-weight="700" text-anchor="middle">
+    <text x="250" y="385">1</text><text x="600" y="385">2</text><text x="950" y="385">3</text>
+  </g>
+  <g fill="#f1e3d3" font-family="sans-serif" font-size="26" text-anchor="middle">
+    <text x="250" y="479">On battle entry</text><text x="600" y="479">+10 seconds</text><text x="950" y="479">+20 seconds / cap</text>
+  </g>
+  <text x="70" y="552" fill="#f1e3d3" font-family="sans-serif" font-size="25">Illustrative counts if units persist. HP-scaling percentage: not published.</text>
+  <text x="70" y="625" fill="#bdaa96" font-family="sans-serif" font-size="20">Original reference diagram / official Wiki data / not a tested rotation</text>
+</svg>
