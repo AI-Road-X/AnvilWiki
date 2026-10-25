@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#111a29"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="56" y="58" fill="#91a4bf" font-size="19" letter-spacing="3">ANIIMO GUIDES / NO.046</text>
+<text x="56" y="118" fill="#ffffff" font-size="44" font-weight="700">Blazen: Overcharged has a trade-off</text>
+<text x="56" y="158" fill="#bac9dc" font-size="23">Power Sustain counts skill critical hits, not skill button presses.</text>
+<rect x="56" y="200" width="340" height="144" rx="18" fill="#1c2b40"/><rect x="450" y="200" width="694" height="144" rx="18" fill="#263c46"/>
+<text x="82" y="245" fill="#a8e8bd" font-size="22" font-weight="600">TRIGGER</text><text x="82" y="290" fill="#ffffff" font-size="29">6 skill critical hits</text>
+<path d="M405 272H436 M426 262L437 272L426 282" stroke="#a8e8bd" stroke-width="3" fill="none"/>
+<text x="478" y="245" fill="#a8e8bd" font-size="22" font-weight="600">OVERCHARGED / 6 SECONDS</text><text x="478" y="290" fill="#ffffff" font-size="28">Shield: 5% HP at the trait trigger</text>
+<rect x="56" y="372" width="526" height="148" rx="16" fill="#1c2b40"/><rect x="606" y="372" width="538" height="148" rx="16" fill="#3b2e36"/>
+<text x="82" y="416" fill="#a8e8bd" font-size="22" font-weight="600">RESOURCE BENEFIT</text><text x="82" y="462" fill="#ffffff" font-size="30">Skills cost 12 less EP</text><text x="82" y="496" fill="#bac9dc" font-size="21">20 EP minus 12 = 8 EP (arithmetic)</text>
+<text x="632" y="416" fill="#ffb6ad" font-size="22" font-weight="600">RESOURCE RESTRICTION</text><text x="632" y="462" fill="#ffffff" font-size="30">UP cannot be gained</text><text x="632" y="496" fill="#bac9dc" font-size="21">Not an always-on, cost-free advantage</text>
+<text x="56" y="563" fill="#bac9dc" font-size="22">Basic / Mountain Woods: Electric     |     Prismana: Dark + Electric</text>
+<text x="56" y="614" fill="#bac9dc" font-size="19">Original reference / official form pages checked 2026-10-25</text>
+<text x="56" y="648" fill="#91a4bf" font-size="18">Lightning Flash also enters the state; identical entry effects are not established.</text>
+</g></svg>

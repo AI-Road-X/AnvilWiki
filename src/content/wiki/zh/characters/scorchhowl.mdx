@@ -1,55 +1,67 @@
 ---
-title: "Scorchhowl 图鉴：官方编号 No.003"
-description: "整理官方 Aniimo Wiki 中 Scorchhowl 的属性、栖息地、形态、特性和技能资料。"
+title: "Aniimo No.003 Scorchhowl：形态、闪避奖励与 EP 消耗"
+description: "Aniimo 003 是 Scorchhowl。对照五种形态属性、Fire Kick 闪避奖励、Burn Breaker 的 EP 消耗与官方栖息地资料边界。"
 category: "characters"
 date: 2026-09-28
+lastModified: 2026-10-25
+image: '../../../../assets/covers/scorchhowl-form-conditions.png'
 tags: ["图鉴", "角色", "Scorchhowl", "火", "DPS"]
-summary: "Scorchhowl 是官方编号 No.003 的火属性 DPS Aniimo，栖息于 Beast Fang Ridge，并拥有多种公开形态。"
+summary: "Aniimo No.003 是 Scorchhowl，DPS 定位，公开属性总值 511。Basic 为火属性，Highland 增加岩属性，Thunderstorm 增加电属性。Fire Kick 的奖励取决于成功闪避；Burn Breaker 蓄满会额外消耗 EP。选择时应先核对形态与触发条件，不能只比较属性总和。"
 ---
 
-## 基本资料
+import { Image } from 'astro:assets';
+import formDiagram from '../../../../assets/covers/scorchhowl-form-conditions.png';
 
-| 项目 | 官方资料 |
-| --- | --- |
-| 名称 | Scorchhowl |
-| 编号 | No.003 |
-| 属性 | Fire |
-| 角色定位 | DPS |
-| 属性总值 | 511 |
-| HP | 95 |
-| BREAK | 52 |
-| ATK | 119 |
-| M.DEF | 75 |
-| P.DEF | 80 |
-| REGEN | 90 |
-| 进化阶段 | Lumin、Gamma、Nova |
-| 栖息地 | Beast Fang Ridge |
+## Aniimo 003 是谁，五种形态有什么区别？
 
-官方描述称，Scorchhowl 身上的灼痕是战斗胜利的证明，它会寻找强大的对手并将其击败。官方页面列出了 Basic Form、Highland Form、Thunderstorm Form、Prismana Form 和 Mountain Woods Form。
+No.003 是 **Scorchhowl**。下表五个官方页面都列出 DPS 与相同总值，但元素并不相同。先看自己持有的形态；不能因为编号相同，就把所有形态都写成火／岩或火／电。
 
-## 移动能力与特性
+| 形态与官方来源 | 元素 | 总值 |
+| --- | --- | ---: |
+| [Basic](https://wiki.aniimo.com/item/003/basic-form) | 火 | 511 |
+| [Highland](https://wiki.aniimo.com/item/003/highland-form) | 火／岩 | 511 |
+| [Thunderstorm](https://wiki.aniimo.com/item/003/thunderstorm-form) | 火／电 | 511 |
+| [Prismana](https://wiki.aniimo.com/item/003/prismana-form) | 火 | 511 |
+| [Mountain Woods](https://wiki.aniimo.com/item/003/mountain-woods-form) | 火 | 511 |
 
-- **Hustle**：进入 Hustle 状态，并消耗体力提升移动速度。
-- **Scorching Flames**：对属性克制目标造成的伤害提高 25%。
+公开面板为 HP **95**、BREAK **52**、ATK **119**、M.DEF **75**、P.DEF **80**、REGEN **90**。这是属性资料，不是某等级实战血条或伤害测试；相同总值不代表面对所有敌人表现相同。
 
-## 技能摘要
+<Image src={formDiagram} alt="原创 Scorchhowl 对照图：Basic、Prismana、Mountain Woods 为火；Highland 增加岩，Thunderstorm 增加电；闪避与 EP 条件另行判断。" loading="lazy" />
 
-| 技能 | 类型 | 消耗 | 威力 | 官方说明摘要 |
-| --- | --- | ---: | ---: | --- |
-| Fire Kick | Physical | 0 | 72 | 短暂无敌跃起后以火焰俯冲；成功闪避后伤害提高，并获得持续增伤。 |
-| Pebble Kick | Physical | 0 | 40 | 短暂无敌跃起后以岩石俯冲；成功闪避后对目标施加 Lockdown 8 秒。 |
-| Burn Breaker | Physical | 30 | 84 | 蓄力后向前释放强力攻击；蓄满时消耗剩余 EP，每额外消耗 10 EP，伤害提高 30%。 |
-| Lightning Kick | Physical | 0 | 40 | 短暂无敌跃起后以闪电俯冲；成功闪避后对目标施加 Paralysis 5 秒。 |
-| Fire Bolt | Magic | 10 | 30 | 发射火球并施加 2 层 Fire Debuff，持续 5 秒。 |
-| Falling Star | Physical | 0 | 170 | 跃起后以被火焰包围的拳头落下，对大范围造成伤害。 |
-| ATK | Physical | 0 | 6 | 在近距离使用火焰攻击目标。 |
+此图为本站原创资料说明，不是官方立绘或实机测试。
 
-## 资料边界
+## Fire Kick 与 Scorching Flames 什么时候增伤？
 
-本文只整理官方图鉴公开资料，不推测 Scorchhowl 的最佳技能循环。想查看前置条目，可阅读 [Flameruff 官方图鉴](/zh/characters/flameruff/) 和 [Emberpup 官方图鉴](/zh/characters/emberpup/)；想了解类型术语，可查看 [官方 Aniimo 类型说明](/zh/characters/official-aniimo-types/)。
+Fire Kick 的额外效果需要**成功闪避攻击**，不是按下按钮就必得。该条件下造成 120% 伤害，并获得持续 20 秒的 20% 增伤。Scorching Flames 则对属性克制目标增伤 25%，不是对所有目标常驻生效。
 
-## 官方来源
+| 技能 | 消耗／威力 | 成功闪避后的效果 |
+| --- | --- | --- |
+| Fire Kick | 0／72 | 120% 伤害；20% 增伤持续 20 秒 |
+| Pebble Kick | 0／40 | 120% 伤害；Lockdown 持续 8 秒 |
+| Lightning Kick | 0／40 | 120% 伤害；Paralysis 持续 5 秒 |
 
-- [Scorchhowl 官方图鉴页面](https://wiki.aniimo.com/item/003/basic-form)
-- [官方 Aniimo 图鉴首页](https://wiki.aniimo.com/)
-- [Aniimo 图鉴核验方法](/zh/characters/verification-notes/)
+三种踢击都描述短暂无敌跃起，不是全程无敌。来源没有说明精确窗口或不同增益的组合公式。“造成 120% 伤害”不能写成“额外增加 120% 伤害”。元素与类型区别见[类型术语说明](/zh/characters/official-aniimo-types/)。
+
+## Burn Breaker 到底消耗多少 EP？
+
+Burn Breaker 列出消耗 30、威力 84；蓄满时消耗全部剩余 EP，每额外花 10 EP 获得 30% 额外伤害。因此连续使用时，不能只按基础消耗预留资源。
+
+例如额外花 **20 EP**，包含两组完整的 10 EP，按文字对应 **60% 额外伤害**。这只是条件算术，不是最终实测伤害；不足一组如何取整、完整公式与最优时机均未验证。
+
+| 其他动作 | 类型 | 消耗／威力 | 公开用途 |
+| --- | --- | --- | --- |
+| Fire Bolt | Magic | 10／30 | 可瞄准火球；2 层 Fire Debuff 持续 5 秒 |
+| Falling Star | Physical | 0／170 | 范围落地攻击 |
+| ATK | Physical | 0／6 | 近距离火攻击 |
+
+Fire Bolt 说明元素与攻击类型是两回事；消耗零也不代表没有冷却。另一套火 DPS 条件可看 [Infergon](/zh/characters/infergon/)，但不代表两者已做同条件输出测试。
+
+## 官方列出的栖息地在哪里，下一步看什么？
+
+Basic、Thunderstorm、Prismana 页列出 **Beast Fang Ridge**。区域名不是刷新坐标、捕捉概率或所有形态通用路线。先看[区域研究指南](/zh/maps/region-research/)，区分地区标签与实际观察。
+
+Hustle 用体力换移动速度；来源没有速率，本文不计算固定时长。相关记录有 [Emberpup](/zh/characters/emberpup/) 与 [Flameruff](/zh/characters/flameruff/)，但不补造进化道具或等级要求。
+
+## 本文核验了什么？
+
+上述五个官方形态页于 **2026 年 10 月 25 日**核对。表格整理公开描述，算术与条件比较属于解释，不是实测结果；没有声称最优循环、捕捉路线、配装或强度排名。详情见[图鉴核验说明](/zh/characters/verification-notes/)。

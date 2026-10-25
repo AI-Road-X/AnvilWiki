@@ -1,43 +1,62 @@
 ---
-title: "Blazen 图鉴：官方编号 No.046"
-description: "整理官方 Aniimo Wiki 中 Blazen 的属性、移动能力、特性和技能资料。"
+title: "Aniimo No.046 Blazen：形态与 Overcharged 机制"
+description: "Aniimo 046 是 Blazen。对照基础与 Prismana 属性、六次技能暴击触发的 Overcharged、EP 减免及无法获得 UP 的代价。"
 category: "characters"
 date: 2026-09-28
+lastModified: 2026-10-25
+image: '../../../../assets/covers/blazen-overcharged.png'
 tags: ["图鉴", "角色", "Blazen", "电", "BREAK"]
-summary: "Blazen 是官方编号 No.046 的电属性 BREAK Aniimo，拥有 Power Sustain 特性。"
+summary: "Aniimo No.046 是 Blazen，BREAK 定位，公开属性总值 530。Basic 与 Mountain Woods 为电属性，Prismana 增加暗属性。Power Sustain 在六次技能暴击后触发六秒 Overcharged，降低 EP 消耗但无法获得 UP。Lightning Flash 也能进入该状态；两条途径都不能证明可以永久维持。"
 ---
-## 基本资料
-| 项目 | 官方资料 |
-| --- | --- |
-| 名称 / 编号 | Blazen / No.046 |
-| 属性 / 定位 | Electric / BREAK |
-| 属性总值 | 530 |
-| HP / BREAK / ATK | 100 / 104 / 100 |
-| M.DEF / P.DEF / REGEN | 70 / 70 / 86 |
-| 形态 | Basic、Prismana、Mountain Woods |
-| 栖息地 | Blitzwood |
 
-Blazen 拥有 Climb Lv.3 和 High Jump。官方基础形态页面将其属性标为**电**。Dark Claw 是技能名称，不能据此把 Blazen 写成暗属性 Aniimo。
+import { Image } from 'astro:assets';
+import stateDiagram from '../../../../assets/covers/blazen-overcharged.png';
 
-想查栖息地名称，可参阅包含 Blitzwood 的[官方区域名录](/zh/maps/official-region-names/)；现有来源并未给出准确刷新点。
+## Aniimo 046 是谁，Blazen 是电还是暗属性？
 
-## Power Sustain 如何生效
+No.046 是 **Blazen**。Basic、Mountain Woods 为电，Prismana 列为暗／电。基础形态也有 Dark Claw 技能，因此不能凭技能名判断角色元素。把另一形态的结论直接套用过来前，应先核对形态标签。
 
-Blazen 的技能累计造成 6 次暴击后，**Power Sustain** 使其进入持续 6 秒的 Overcharged 状态：立即获得相当于自身 HP 5% 的护盾，所有技能的 EP 消耗降低 12；但**这段时间无法获得 UP**。触发依赖技能暴击，官方没有给出必然触发所需时间。Lightning Flash 的官方技能说明也写明可进入 Overcharged。
+| 官方形态 | 元素 | 定位／总值 |
+| --- | --- | --- |
+| [Basic](https://wiki.aniimo.com/item/046/basic-form) | 电 | BREAK／530 |
+| [Prismana](https://wiki.aniimo.com/item/046/prismana-form) | 暗／电 | BREAK／530 |
+| [Mountain Woods](https://wiki.aniimo.com/item/046/mountain-woods-form) | 电 | BREAK／530 |
 
-## 官方基础形态页面的技能
+三页均列 HP **100**、BREAK **104**、ATK **100**、M.DEF **70**、P.DEF **70**、REGEN **86**。总值相同不代表对局相同，不能据此推荐全局最佳形态。[类型说明](/zh/characters/official-aniimo-types/)区分定位、元素与攻击类型。
 
-| 技能 | 消耗 | 威力 |
-| --- | ---: | ---: |
-| Lightning Cross | 20 | 45 |
-| Electrified Impact | 20 | 33 |
-| Dark Claw | 20 | 30 |
-| Lightning Claw | 20 | 20 |
-| Lightning Flash | 0 | 135 |
+## Power Sustain 怎样触发 Overcharged？
 
-Lightning Cross 和 Lightning Claw 各有额外 50% 暴击率。Electrified Impact 冲刺期间无法被阻挡，命中暴击时回复 5 EP；Dark Claw 可令目标沉默 4 秒。这些是官网列出的技能效果，不是经过实测的伤害排名。
+Power Sustain 需要**技能命中六次暴击**，不是按六次按钮。它立即获得相当于 HP 5% 的护盾，并进入六秒 Overcharged：技能少消耗 12 EP，但无法获得 UP。官网未给出必然积累六次暴击所需时间。
 
-## 官方来源
-- [Blazen 官方图鉴](https://wiki.aniimo.com/item/046/basic-form)
-- [Bolty 条目](/zh/characters/bolty/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+<Image src={stateDiagram} alt="原创 Blazen 状态图：六次技能暴击触发六秒 Overcharged，获得 HP 5% 护盾、技能少花 12 EP，但无法获得 UP。" loading="lazy" />
+
+此图为原创资料说明，不是官方图片或实测录像。
+
+面板消耗 **20 EP** 的技能，按文字相减是 **8 EP**。这没有建立所有动作免费、负消耗或状态刷新的规则。面板 HP 属性 100 也不足以算出实战护盾只有五点。
+
+Lightning Flash 也明确写了进入 Overcharged，但未单独重述特性中的全部护盾、时长细节；没有观察证据，不应假定两种入口附带效果完全相同。资源规划时也要考虑 UP 限制。
+
+## 哪些技能与暴击条件有关？
+
+Lightning Cross、Lightning Claw 描述了多段命中与额外暴击率，因此与观察特性条件有关。但多段不等于必定暴击，也不证明一次使用就能凑满六次；需要分别观察命中、暴击与状态变化。
+
+| 技能 | 消耗／威力 | 公开行为 |
+| --- | --- | --- |
+| Lightning Cross | 20／45 | 最多三次命中，额外 50% 暴击率 |
+| Electrified Impact | 20／33 | 冲刺无法被阻挡，暴击回复 5 EP |
+| Dark Claw | 20／30 | 连续爪击，沉默 4 秒 |
+| Lightning Claw | 20／20 | 三连爪击，额外 50% 暴击率 |
+| ATK | 0／6 | 近距离闪电攻击 |
+| Lightning Flash | 0／135 | 跃起落地攻击，进入 Overcharged |
+
+来源将这些动作标为 Physical。额外暴击率不保证暴击；冲刺不可阻挡不等于免疫全部伤害。本文不补造冷却、可同时装备的最优循环或实测 DPS。
+
+## 官方列出的栖息地与下一步比较是什么？
+
+Basic、Prismana 页列出 **Blitzwood**。Mountain Woods 是独立形态页，山林描述没有提供捕捉坐标。区域名见[官方区域名录](/zh/maps/official-region-names/)，路线还需满足[区域研究清单](/zh/maps/region-research/)中的观察要求。
+
+三页列出 High Jump、Climb Lv.3。相关记录可看 [Bolty](/zh/characters/bolty/)，不从编号推导进化要求。对比另一种 BREAK 机制时，[Minespine](/zh/characters/minespine/) 的增益依赖遁地而不是暴击；应比较条件，不只比较总值。
+
+## 哪些来源支持本文？
+
+上表三个官方形态页于 **2026 年 10 月 25 日**核对。公开数据与条件算术分开，不冒充实机配装评测或强度排行。区别见[图鉴核验说明](/zh/characters/verification-notes/)。
