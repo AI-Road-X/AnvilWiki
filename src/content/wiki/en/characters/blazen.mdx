@@ -1,43 +1,62 @@
 ---
-title: "Blazen Compendium Entry: Official No.046"
-description: "A source-checked Blazen entry with official attributes, mobility, trait, and skills from the Aniimo Wiki."
+title: "Aniimo No.046 (Blazen): Forms & Overcharged Explained"
+description: "Aniimo 046 is Blazen. Compare Basic and Prismana elements, the six-critical-hit Overcharged trigger, EP savings and the UP trade-off."
 category: "characters"
 date: 2026-09-28
+lastModified: 2026-10-25
+image: '../../../../assets/covers/blazen-overcharged.png'
 tags: ["Compendium", "Characters", "Blazen", "Electric", "BREAK"]
-summary: "Blazen is official Aniimo No.046, an Electric BREAK Aniimo with Power Sustain."
+summary: "Aniimo No.046 is Blazen, a BREAK creature with 530 listed attributes. Basic and Mountain Woods forms are Electric; Prismana adds Dark. Power Sustain triggers Overcharged after six skill critical hits, reducing EP costs for six seconds but preventing UP gain. Lightning Flash also enters the state; neither route proves permanent uptime."
 ---
-## Basic information
-| Field | Official information |
-| --- | --- |
-| Name / Number | Blazen / No.046 |
-| Element / Role | Electric / BREAK |
-| Attributes | 530 |
-| HP / BREAK / ATK | 100 / 104 / 100 |
-| M.DEF / P.DEF / REGEN | 70 / 70 / 86 |
-| Forms | Basic, Prismana, Mountain Woods |
-| Habitat | Blitzwood |
 
-Blazen has Climb Lv.3 and High Jump. The official Basic Form entry lists **Electric** as its element. Dark Claw is the name of one of its skills, not evidence that Blazen is also a Dark-type Aniimo.
+import { Image } from 'astro:assets';
+import stateDiagram from '../../../../assets/covers/blazen-overcharged.png';
 
-Looking for its listed habitat? Blitzwood is also covered in the [official region-name guide](/maps/official-region-names/); the source does not establish an exact spawn point.
+## What is Aniimo 046, and is Blazen Electric or Dark?
 
-## How Power Sustain works
+No.046 is **Blazen**. Basic and Mountain Woods are Electric, while Prismana lists Dark and Electric. Dark Claw appears in Basic's skill list too, so a skill name alone cannot establish the creature's element. Check the form label before transferring assumptions from another entry.
 
-After Blazen's skills land six critical hits, **Power Sustain** activates Overcharged for 6 seconds. It grants a shield equal to 5% of HP and reduces every skill's EP cost by 12, but **Blazen cannot gain UP during this state**. The critical-hit requirement means the benefit is conditional; the official entry does not provide a guaranteed time to activate it. Lightning Flash also enters Overcharged, according to its skill description.
+| Official form | Elements | Role / total |
+| --- | --- | --- |
+| [Basic](https://wiki.aniimo.com/item/046/basic-form) | Electric | BREAK / 530 |
+| [Prismana](https://wiki.aniimo.com/item/046/prismana-form) | Dark / Electric | BREAK / 530 |
+| [Mountain Woods](https://wiki.aniimo.com/item/046/mountain-woods-form) | Electric | BREAK / 530 |
 
-## Skills in the official Basic Form entry
+All three list HP **100**, BREAK **104**, ATK **100**, M.DEF **70**, P.DEF **70** and REGEN **86**. Shared totals do not prove identical matchups or a universal best form. The [type guide](/characters/official-aniimo-types/) distinguishes role, element and attack type.
 
-| Skill | Cost | Power |
-| --- | ---: | ---: |
-| Lightning Cross | 20 | 45 |
-| Electrified Impact | 20 | 33 |
-| Dark Claw | 20 | 30 |
-| Lightning Claw | 20 | 20 |
-| Lightning Flash | 0 | 135 |
+## How does Power Sustain activate Overcharged?
 
-Lightning Cross and Lightning Claw each have an additional 50% critical rate. Electrified Impact cannot be blocked during its dash and restores 5 EP if it lands a critical hit. Dark Claw silences its target for 4 seconds. These are listed skill effects, not a tested damage ranking.
+Power Sustain requires **six critical hits from skills**, not six button presses. It grants a shield equal to 5% HP and enters Overcharged for six seconds: skills cost 12 less EP, but UP cannot be gained. No guaranteed time to accumulate those hits is published.
 
-## Official sources
-- [Blazen official entry](https://wiki.aniimo.com/item/046/basic-form)
-- [Bolty entry](/characters/bolty/)
-- [Character overview](/characters/official-aniimo-types/)
+<Image src={stateDiagram} alt="Original Blazen diagram: six skill critical hits trigger six-second Overcharged, with a 5 percent HP shield, 12 less EP per skill and no UP gain." loading="lazy" />
+
+Original source-based explanation, not official art or measured combat footage.
+
+For a listed **20 EP** skill, subtracting the stated reduction gives **8 EP** while the modifier applies. This does not establish free actions, negative costs or state refresh rules. The HP attribute of 100 is not enough to calculate a five-point combat shield.
+
+Lightning Flash also explicitly enters Overcharged. Its description does not separately repeat every shield or timer detail from the trait; do not assume identical entry effects without observing them. Plan around the UP restriction, rather than treating the state as an unconditional benefit.
+
+## Which skills explain the critical-hit condition?
+
+Lightning Cross and Lightning Claw describe extra critical rate and multiple hits, making them relevant to checking the trait. That does not prove one use always supplies six critical hits. Target contact, actual critical results and the current state must still be observed in-game.
+
+| Skill | Cost / power | Published behavior |
+| --- | --- | --- |
+| Lightning Cross | 20 / 45 | Up to three hits; additional 50% critical rate |
+| Electrified Impact | 20 / 33 | Unblockable dash; a critical hit restores 5 EP |
+| Dark Claw | 20 / 30 | Consecutive strikes; silence for 4 seconds |
+| Lightning Claw | 20 / 20 | Three-hit combo; additional 50% critical rate |
+| ATK | 0 / 6 | Close-range lightning attack |
+| Lightning Flash | 0 / 135 | Leaping slam; enters Overcharged |
+
+The cited entries classify these as Physical. Additional critical rate is not guaranteed critical hits, and an unblockable dash is not immunity to all damage. No cooldown, equipable rotation or measured DPS is supplied here.
+
+## Where is Blazen listed, and which comparison is useful?
+
+Basic and Prismana name **Blitzwood**. Mountain Woods has a separate form entry; its forest description does not supply capture coordinates. Follow the [official region-name reference](/maps/official-region-names/) for the label and the [map research checklist](/maps/region-research/) for what a route still needs.
+
+The forms list High Jump and Climb Lv.3. See [Bolty](/characters/bolty/) for a related record; this page does not infer evolution requirements from numbering. For a contrasting BREAK mechanic, [Minespine](/characters/minespine/) ties its bonus to Tunneling rather than critical hits. Compare conditions, not just totals.
+
+## Which sources support this page?
+
+The three official form links above were checked on **October 25, 2026**. Public data and arithmetic are separated; this is not a hands-on build review or tier ranking. Our [verification notes](/characters/verification-notes/) explain the difference.

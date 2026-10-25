@@ -1,55 +1,67 @@
 ---
-title: "Scorchhowl Compendium Entry: Official No.003"
-description: "A source-checked Scorchhowl entry with official attributes, habitat, forms, trait, and skills from the Aniimo Wiki."
+title: "Aniimo No.003 (Scorchhowl): Forms, Fire Kick & EP Costs"
+description: "Aniimo 003 is Scorchhowl. Compare five forms, Fire Kick dodge bonuses, Burn Breaker EP costs and the limits of its listed habitat."
 category: "characters"
 date: 2026-09-28
+lastModified: 2026-10-25
+image: '../../../../assets/covers/scorchhowl-form-conditions.png'
 tags: ["Compendium", "Characters", "Scorchhowl", "Fire", "DPS"]
-summary: "Scorchhowl is official Aniimo No.003, a Fire DPS Aniimo found in Beast Fang Ridge with several listed forms."
+summary: "Aniimo No.003 is Scorchhowl, a DPS creature with 511 listed attributes. Basic Form is Fire, Highland adds Rock, and Thunderstorm adds Electric. Fire Kick rewards a successful dodge, while Burn Breaker spends extra EP at maximum charge. Choose by form and trigger conditions, not the attribute total alone."
 ---
 
-## Basic information
+import { Image } from 'astro:assets';
+import formDiagram from '../../../../assets/covers/scorchhowl-form-conditions.png';
 
-| Field | Official information |
-| --- | --- |
-| Name | Scorchhowl |
-| Number | No.003 |
-| Element | Fire |
-| Role | DPS |
-| Attributes | 511 |
-| HP | 95 |
-| BREAK | 52 |
-| ATK | 119 |
-| M.DEF | 75 |
-| P.DEF | 80 |
-| REGEN | 90 |
-| Stages | Lumin, Gamma, Nova |
-| Habitat | Beast Fang Ridge |
+## Which creature is Aniimo 003, and how do its forms differ?
 
-The official description says that the scorch marks on Scorchhowl’s body are proof of victories in battle, and that it seeks strong opponents to dominate. The official page lists Basic Form, Highland Form, Thunderstorm Form, Prismana Form, and Mountain Woods Form.
+No.003 is **Scorchhowl**. All five official form pages below list DPS and the same attribute total, but their element labels differ. Start with the form name on your creature: a shared number does not make every form Fire/Rock or Fire/Electric.
 
-## Mobility and trait
+| Form and official source | Elements | Total |
+| --- | --- | ---: |
+| [Basic](https://wiki.aniimo.com/item/003/basic-form) | Fire | 511 |
+| [Highland](https://wiki.aniimo.com/item/003/highland-form) | Fire / Rock | 511 |
+| [Thunderstorm](https://wiki.aniimo.com/item/003/thunderstorm-form) | Fire / Electric | 511 |
+| [Prismana](https://wiki.aniimo.com/item/003/prismana-form) | Fire | 511 |
+| [Mountain Woods](https://wiki.aniimo.com/item/003/mountain-woods-form) | Fire | 511 |
 
-- **Hustle**: enters the Hustle state and consumes stamina to increase movement speed.
-- **Scorching Flames**: increases damage dealt to elementally countered targets by 25%.
+The published profile is HP **95**, BREAK **52**, ATK **119**, M.DEF **75**, P.DEF **80** and REGEN **90**. These are attributes, not a level-specific combat HP bar or measured damage. Equal totals do not establish equal performance against every enemy.
 
-## Skill summary
+<Image src={formDiagram} alt="Original Scorchhowl comparison: Basic, Prismana and Mountain Woods are Fire; Highland adds Rock and Thunderstorm adds Electric. Dodge and EP conditions are separate." loading="lazy" />
 
-| Skill | Type | Cost | Power | Official description summary |
-| --- | --- | ---: | ---: | --- |
-| Fire Kick | Physical | 0 | 72 | Briefly becomes invincible while leaping, then dives in flames; a successful dodge increases damage and grants a damage boost. |
-| Pebble Kick | Physical | 0 | 40 | Leaps with brief invincibility and dives in rocks; a successful dodge applies Lockdown for 8 seconds. |
-| Burn Breaker | Physical | 30 | 84 | Charges a powerful blast; at max charge it consumes remaining EP, gaining 30% damage for every extra 10 EP consumed. |
-| Lightning Kick | Physical | 0 | 40 | Leaps with brief invincibility and dives in lightning; a successful dodge applies Paralysis for 5 seconds. |
-| Fire Bolt | Magic | 10 | 30 | Launches a fireball and applies 2 stacks of Fire Debuff for 5 seconds. |
-| Falling Star | Physical | 0 | 170 | Jumps and slams down with a flame-encircled fist for area damage. |
-| ATK | Physical | 0 | 6 | Uses fire to attack targets at close range. |
+Original reference diagram, not official character artwork or a gameplay test.
 
-## Scope of this entry
+## When do Fire Kick and Scorching Flames give their bonuses?
 
-This page records public official compendium data and does not infer an optimal skill rotation. For nearby entries, read the [Flameruff compendium page](/characters/flameruff/) and [Emberpup compendium page](/characters/emberpup/); for terminology, see the [official Aniimo types guide](/characters/official-aniimo-types/).
+Fire Kick's extra effects require successfully dodging an attack; pressing the button is not the same condition. Its description gives a 120% damage result on that trigger and a 20% damage increase lasting 20 seconds. Scorching Flames separately adds 25% damage against elementally countered targets, not every opponent.
 
-## Official sources
+| Kick | Cost / power | Successful-dodge effect |
+| --- | --- | --- |
+| Fire Kick | 0 / 72 | 120% damage; 20% damage increase for 20 seconds |
+| Pebble Kick | 0 / 40 | 120% damage; Lockdown for 8 seconds |
+| Lightning Kick | 0 / 40 | 120% damage; Paralysis for 5 seconds |
 
-- [Scorchhowl official compendium page](https://wiki.aniimo.com/item/003/basic-form)
-- [Official Aniimo Wiki index](https://wiki.aniimo.com/)
-- [Compendium verification guide](/characters/verification-notes/)
+Each kick describes a brief invincible leap, not an invincible fight. The source does not specify its timing window or how different modifiers combine. “120% damage” must not become “120% extra damage.” Read the [type terminology guide](/characters/official-aniimo-types/) before interpreting element labels.
+
+## How much EP does Burn Breaker use?
+
+Burn Breaker lists cost 30 and power 84. At maximum charge, it consumes all remaining EP and gains 30% extra damage per additional 10 EP spent. That resource commitment differs from simply reserving the printed base cost for repeated casts.
+
+For example, **20 extra EP** contains two complete groups of 10, corresponding to **60% extra damage in the stated bonus**. This is arithmetic on the wording, not a measured final hit. Partial-group rounding, the full damage formula and optimal timing remain unverified.
+
+| Other action | Type | Cost / power | Listed use |
+| --- | --- | --- | --- |
+| Fire Bolt | Magic | 10 / 30 | Aimed fireball; two Fire Debuff stacks for 5 seconds |
+| Falling Star | Physical | 0 / 170 | Area slam |
+| ATK | Physical | 0 / 6 | Close-range fire attack |
+
+Fire Bolt's Magic label illustrates the distinction between element and attack type. Zero listed cost is not proof of zero cooldown. For a different Fire DPS condition, compare [Infergon](/characters/infergon/); this is not a claim that the two were damage-tested together.
+
+## Where is Scorchhowl listed, and what should you check next?
+
+Basic, Thunderstorm and Prismana name **Beast Fang Ridge** as a habitat. That regional label is not a spawn coordinate, capture probability or route for every form. Use the [region research guide](/maps/region-research/) to distinguish a named region from an observed location.
+
+Hustle exchanges stamina for movement speed. Without a published drain rate, no fixed duration is calculated here. Related records include [Emberpup](/characters/emberpup/) and [Flameruff](/characters/flameruff/); this article does not infer evolution items or level requirements.
+
+## What was verified?
+
+The five official form links above were checked on **October 25, 2026**. Tables summarize public descriptions; arithmetic and comparisons are interpretation, not gameplay results. No optimal rotation, capture route, equipment recommendation or tier placement is claimed. See our [verification notes](/characters/verification-notes/).

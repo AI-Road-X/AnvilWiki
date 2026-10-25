@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#111a29"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="56" y="58" fill="#91a4bf" font-size="19" letter-spacing="3">ANIIMO GUIDES / NO.003</text>
+<text x="56" y="118" fill="#ffffff" font-size="45" font-weight="700">Scorchhowl: form before bonus</text>
+<text x="56" y="158" fill="#bac9dc" font-size="23">Five official forms. One 511 attribute total. Different element labels.</text>
+<rect x="56" y="198" width="1088" height="206" rx="18" fill="#1c2b40"/>
+<text x="84" y="242" fill="#ffbf80" font-size="22" font-weight="600">FIRE</text>
+<text x="84" y="282" fill="#ffffff" font-size="24">Basic</text><text x="84" y="320" fill="#ffffff" font-size="24">Prismana</text><text x="84" y="358" fill="#ffffff" font-size="24">Mountain Woods</text>
+<path d="M410 224V378 M770 224V378" stroke="#3a506d" stroke-width="2"/>
+<text x="442" y="242" fill="#ffbf80" font-size="22" font-weight="600">FIRE + ROCK</text><text x="442" y="302" fill="#ffffff" font-size="29">Highland</text>
+<text x="802" y="242" fill="#ffbf80" font-size="22" font-weight="600">FIRE + ELECTRIC</text><text x="802" y="302" fill="#ffffff" font-size="29">Thunderstorm</text>
+<rect x="56" y="430" width="526" height="142" rx="16" fill="#283345"/><rect x="606" y="430" width="538" height="142" rx="16" fill="#283345"/>
+<text x="80" y="471" fill="#ffbf80" font-size="24" font-weight="600">FIRE KICK</text><text x="80" y="510" fill="#ffffff" font-size="22">Extra effects need a successful dodge.</text><text x="80" y="544" fill="#bac9dc" font-size="21">Brief invincibility is not permanent.</text>
+<text x="630" y="471" fill="#ffbf80" font-size="24" font-weight="600">BURN BREAKER</text><text x="630" y="510" fill="#ffffff" font-size="22">Maximum charge spends remaining EP.</text><text x="630" y="544" fill="#bac9dc" font-size="21">Base cost is not the full commitment.</text>
+<text x="56" y="618" fill="#bac9dc" font-size="19">Original reference / official form pages checked 2026-10-25</text>
+<text x="56" y="649" fill="#91a4bf" font-size="18">Not character artwork, a damage test, or a tier ranking.</text>
+</g></svg>
