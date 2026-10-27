@@ -1,17 +1,60 @@
 ---
-title: "Little Fire Spirit Compendium Entry: Official No.11001"
-description: "A source-checked Little Fire Spirit entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo Little Fire Spirit: Healing & Fire Buff Conditions"
+description: "Understand Little Fire Spirit's Treat Feed HP basis, recipient thresholds and Fire buff conditions, with official Basic Form stats and examples."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Little Fire Spirit"]
-summary: "Little Fire Spirit is official Aniimo No.11001, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/little-fire-spirit-conditions.png'
+tags: ["Compendium","Characters","Little Fire Spirit","Skills"]
+summary: "Little Fire Spirit is Fire Support No.11001. Treat Feed scales from the spirit's own HP, with larger percentages when the recipient is below stated HP thresholds. Its party, skill and nearby-ally Fire effects have different conditions. Check the heal's source and recipient separately before adding buffs together or comparing support options."
 ---
-## Basic information
 
-Little Fire Spirit is listed in the official Aniimo index as No.11001. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/little-fire-spirit-conditions.png';
 
-## Official sources
+## What does Little Fire Spirit support?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+Little Fire Spirit combines recipient-dependent healing with several differently worded Fire effects. It is not enough to label all of them “team damage”: party presence, Energy, a timed skill and nearby allies are separate conditions. Decide whether the current problem is survival or Fire support before comparing another candidate.
+
+| Basic Form field | Published value |
+| --- | --- |
+| Number / element / role | No.11001 / Fire / Support |
+| Total | 517 |
+| HP / BREAK / ATK | 107 / 50 / 113 |
+| M.DEF / P.DEF / REGEN | 88 / 60 / 99 |
+
+For an alternative healing mechanism, compare [Melloblum](/characters/melloblum/); for element-restricted healing, see [Bulbly](/characters/bulbly/). These are different mechanics, not a performance ranking.
+
+## Whose HP determines Treat Feed's healing?
+
+The amount is based on **Little Fire Spirit's own HP**, while the recipient's remaining HP selects the stated tier. Those two inputs must not be swapped. The skill lists cost 30 and power zero; zero displayed power does not mean that a Support action restores no HP.
+
+| Recipient condition | Published healing amount |
+| --- | --- |
+| Normal tier | 8% of the spirit's own HP |
+| Below 50% HP | 12% of the spirit's own HP |
+| Below 25% HP | 16% of the spirit's own HP |
+
+For arithmetic only, suppose the spirit has 10,000 actual combat HP: the three amounts would be 800, 1,200 and 1,600 before other modifiers. This is not a measured build. Do not substitute the reference HP attribute of 107, use the recipient's maximum HP as the scaling base, or count all three tiers together.
+
+<Image src={diagram} alt="Treat Feed separates two inputs: the recipient's remaining HP selects the tier, while Little Fire Spirit's own HP supplies the healing basis." loading="lazy" />
+
+*Original explanation of the two inputs, not measured healing output.*
+
+## Which Fire effects are conditional?
+
+Read each effect's target and activation condition separately. Reliable Fire Companion refers to party presence and Energy; Inspiration has a stated duration; the large-area skill affects nearby allies. Different labels and durations do not establish one additive multiplier or permanent coverage for every teammate.
+
+| Source | Stated effect and condition |
+| --- | --- |
+| Reliable Fire Companion | Party Fire Elemental Boost 15%; 20% when Energy is above 40 |
+| Inspiration | Team Fire Elemental Damage +15% for 12s |
+| Keep the Fire Bolt going together! | Nearby allies' Fire Elemental Damage +25% for 30s |
+
+“Above 40” excludes exactly 40 under the written condition. The source does not establish that the word Energy is interchangeable with every EP display. Do not add the percentages into a claimed final-damage increase without a verified stacking formula.
+
+## How should you compare it with a Fire damage option?
+
+Record who needs healing, the spirit's actual HP, the recipient's HP fraction and which buff was active. Change one support choice at a time with the [comparison worksheet](/tier-list/how-to-read-rankings/). [Infergon](/characters/infergon/) and [Magmarex](/characters/magmarex/) have their own Fire Debuff conditions; sharing Fire does not prove a best team or guarantee every buff interaction.
+
+[Official Little Fire Spirit Basic Form](https://wiki.aniimo.com/item/11001/basic-form), checked October 27, 2026. No acquisition method, all-target buff uptime or tested healing superiority is established by this page.

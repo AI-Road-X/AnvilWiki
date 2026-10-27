@@ -1,17 +1,55 @@
 ---
-title: "Veilfloat 图鉴：官方编号 No.078"
-description: "整理官方 Aniimo Wiki 中 Veilfloat 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo Veilfloat 对比 Bulbly：属性与治疗条件"
+description: "比较 Veilfloat 与 Bulbly 的基础形态属性、雷系治疗目标及撤退分身，避免把总值更高直接当成治疗更强。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Veilfloat"]
-summary: "Veilfloat 是官方编号 No.078 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/veilfloat-conditions.png'
+tags: ["图鉴","Characters","Veilfloat","技能"]
+summary: "Veilfloat 是 No.078 雷属性辅助。官方展示的治疗和撤退描述与 Bulbly 相同，基础属性则不同；持续治疗都要求范围内的雷属性队友。总值更高并不直接证明治疗率更高，换辅助前应先核对目标属性、距离、引导状态和相同战斗条件。"
 ---
-## 基本资料
 
-Veilfloat 已列入官方 Aniimo 图鉴，编号为 No.078。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/veilfloat-conditions.png';
 
-## 官方来源
+## Veilfloat 和 Bulbly 是不同类型的治疗吗？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+两者官方基础形态页面列出的 Lightning Discharge 和 Swift Retreat 描述相同。Veilfloat 有多项属性更高，但技能文字相同并不等于做过实际治疗测试。先确认目标能否吃到治疗，再判断换辅助是否能解决问题。
+
+| 公开基础形态字段 | Veilfloat No.078 | Bulbly No.077 |
+| --- | --- | --- |
+| 总值 | 473 | 404 |
+| HP | 99 | 83 |
+| BREAK | 45 | 37 |
+| ATK | 93 | 68 |
+| M.DEF / P.DEF | 74 / 72 | 63 / 63 |
+| REGEN | 90 | 90 |
+
+总值相差 69，REGEN 相同；不能把 69 解释成治疗提升，也没有据此确定资料 HP 怎样换算成战斗 HP。[Bulbly 攻略](/zh/characters/bulbly/)解释了同一目标限制。
+
+## 为什么队友可能仍然收不到治疗？
+
+Lightning Discharge 在持续引导时治疗范围内的 Lightning 队友，标注每秒 2% HP；按住技能维持。按公开文字，从 Bulbly 换成 Veilfloat 不会自动取消目标属性、范围或引导条件，应先排查这三点，再调整培养。
+
+- 核对被治疗者当前属性，不只看辅助自己的属性。
+- 保持目标处于有效范围。
+- 确认持续引导，避免轻点后已经结束。
+- 比较时固定活动与装备，再解释 HP 变化。
+
+<Image src={diagram} alt="Veilfloat 与 Bulbly 对照图：总属性不同、REGEN 和治疗描述相同，均需检查目标属性、范围和持续引导。" loading="lazy" />
+
+*本站原创公开字段对比，不是治疗实测。*
+
+来源没有把百分比的计算基准写到足以从资料属性直接算治疗量。拿 99 乘 2% 会把属性参考误当成已验证战斗公式。
+
+## 撤退分身能代替本体治疗吗？
+
+Swift Retreat 描述后退并留下使用 Lightning Discharge 攻击的分身，同时减速 15%、持续十秒。没有明确确认分身提供通用治疗。应把攻击和减速视为已写出的效果，治疗联动另在客户端验证。
+
+页面给 Swift Retreat 的消耗/威力为 20/53，Lightning Discharge 为 10/20，但这些标签不足以确定所有持续引导扣费规则。Arc Surge 也出现与 Bulbly 相同的“12%%”异常，本页不把它当作可靠配装倍率。
+
+## 去哪里找线索，怎样比较换辅助？
+
+官方列出 Tideblossom Coast 和 Glow 移动能力。这只是区域线索，不是保证刷新的坐标、路线或时段。位置证据可看[地图研究指南](/zh/maps/region-research/)；用[单项比较表](/zh/tier-list/how-to-read-rankings/)固定条件后再记录换辅助结果。
+
+[Veilfloat 官方基础形态](https://wiki.aniimo.com/item/078/basic-form)及 [Bulbly 官方基础形态](https://wiki.aniimo.com/item/077/basic-form)，核对于 2026-10-27。不根据本表推断进化路线、获取成本或最强队伍排名。

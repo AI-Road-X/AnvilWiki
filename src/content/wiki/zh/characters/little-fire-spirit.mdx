@@ -1,17 +1,60 @@
 ---
-title: "Little Fire Spirit 图鉴：官方编号 No.11001"
-description: "整理官方 Aniimo Wiki 中 Little Fire Spirit 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo Little Fire Spirit：治疗基准与火系增益条件"
+description: "说明 Little Fire Spirit 的 Treat Feed 按谁的 HP 计算、目标血量档位，以及队伍火系增益的触发条件和基础属性。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Little Fire Spirit"]
-summary: "Little Fire Spirit 是官方编号 No.11001 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/little-fire-spirit-conditions.png'
+tags: ["图鉴","Characters","Little Fire Spirit","技能"]
+summary: "Little Fire Spirit 是 No.11001 火属性辅助。Treat Feed 按小火灵自己的 HP 计算治疗量，被治疗者剩余血量决定适用档位。队伍特性、限时技能和附近队友增益的条件不同；先分清治疗来源、目标状态和增益范围，再比较其他辅助，不直接把百分比相加。"
 ---
-## 基本资料
 
-Little Fire Spirit 已列入官方 Aniimo 图鉴，编号为 No.11001。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/little-fire-spirit-conditions.png';
 
-## 官方来源
+## Little Fire Spirit 能补哪种队伍能力？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+Little Fire Spirit 同时有按目标状态变化的治疗和几种不同描述的火系增益。不能把所有效果合称为永久团队增伤：在队、Energy、限时技能与附近队友分别有条件。先明确当前缺生存还是火系辅助，再决定比较对象。
+
+| 基础形态字段 | 官方值 |
+| --- | --- |
+| 编号 / 属性 / 定位 | No.11001 / Fire / Support |
+| 总值 | 517 |
+| HP / BREAK / ATK | 107 / 50 / 113 |
+| M.DEF / P.DEF / REGEN | 88 / 60 / 99 |
+
+另一种治疗机制可比较 [Melloblum](/zh/characters/melloblum/)；有目标属性限制的治疗可看 [Bulbly](/zh/characters/bulbly/)。这是机制差异，不是实测排名。
+
+## Treat Feed 到底按谁的 HP 治疗？
+
+治疗量按 **Little Fire Spirit 自己的 HP** 计算，被治疗者剩余血量只负责选择档位。不要把两个输入调换。技能标注消耗 30、威力零；辅助技能展示威力为零，不代表治疗量也为零。
+
+| 被治疗者状态 | 公开治疗量 |
+| --- | --- |
+| 普通档位 | 小火灵自身 HP 的 8% |
+| 低于 50% HP | 小火灵自身 HP 的 12% |
+| 低于 25% HP | 小火灵自身 HP 的 16% |
+
+仅作算术示例：若小火灵实际战斗 HP 为 10,000，三档分别是 800、1,200、1,600，尚未计其他修正。这不是实测配装；不能代入资料属性 107，也不能换成目标最大 HP，更不能把三档同时相加。
+
+<Image src={diagram} alt="Treat Feed 双输入图：被治疗者剩余血量决定档位，小火灵自己的 HP 决定治疗计算基准。" loading="lazy" />
+
+*本站原创计算条件解释，不是治疗实测。*
+
+## 哪些火系效果要单独看触发条件？
+
+逐条读目标和触发条件。Reliable Fire Companion 关联在队与 Energy，Inspiration 有技能持续时间，大范围技能则写附近队友。名称和持续时间不同，没有因此证明它们能组成一个可直接相加的最终伤害倍率。
+
+| 来源 | 公开效果与条件 |
+| --- | --- |
+| Reliable Fire Companion | 在队提供 15% Fire Elemental Boost；Energy 超过 40 时改为 20% |
+| Inspiration | 团队 Fire Elemental Damage 提高 15%，12 秒 |
+| Keep the Fire Bolt going together! | 附近队友 Fire Elemental Damage 提高 25%，30 秒 |
+
+按文字，“超过 40”不含恰好 40。来源也没有证明 Energy 能与所有 EP 显示直接互换。没有叠加公式时，不把几个百分比相加成最终增伤结论。
+
+## 怎样与火系输出候选比较？
+
+记录谁需要治疗、小火灵的实际 HP、目标剩余比例和当时启用的增益。用[单项比较表](/zh/tier-list/how-to-read-rankings/)一次只换一个辅助选项。[Infergon](/zh/characters/infergon/)和 [Magmarex](/zh/characters/magmarex/)另有火减益条件；同为火系并不证明它们组成最强队，也不保证每条增益都可按想象联动。
+
+[Little Fire Spirit 官方基础形态](https://wiki.aniimo.com/item/11001/basic-form)，核对于 2026-10-27。本页没有确认获取方式、全目标增益覆盖率或实测治疗优势。

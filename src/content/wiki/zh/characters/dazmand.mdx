@@ -1,17 +1,59 @@
 ---
-title: "Dazmand 图鉴：官方编号 No.10002"
-description: "整理官方 Aniimo Wiki 中 Dazmand 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo Dazmand：免费首招、雷系增益与麻痹条件"
+description: "核对 Dazmand 入场五秒首招免 EP、命中后的团队雷系暴击增益，以及 Lightning Debuff 超过五层的麻痹条件和例子。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Dazmand"]
-summary: "Dazmand 是官方编号 No.10002 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/dazmand-conditions.png'
+tags: ["图鉴","Characters","Dazmand","技能"]
+summary: "Dazmand 是 No.10002 雷属性辅助。入场五秒内的第一招可触发免 EP 条件，但团队雷系暴击增益仍需 Thunder Sweep 命中；Electricity Shock 判断的是施加后是否超过五层雷系减益。安排起手时应把首招、命中和层数分别检查，辅助定位本身不代表能治疗。"
 ---
-## 基本资料
 
-Dazmand 已列入官方 Aniimo 图鉴，编号为 No.10002。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/dazmand-conditions.png';
 
-## 官方来源
+## Dazmand 能解决哪类队伍问题？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+Dazmand 的主要用途是节约起手 EP，以及通过命中为队伍提供进攻增益。官方标注 Lightning / Support，没有因此承诺治疗。若问题是队友收不到治疗，应先比较 [Bulbly](/zh/characters/bulbly/) 和 [Veilfloat](/zh/characters/veilfloat/) 的目标限制。
+
+| 基础形态字段 | 官方值 |
+| --- | --- |
+| 编号 / 定位 | No.10002 / Lightning Support |
+| 总值 | 522 |
+| HP / BREAK / ATK | 100 / 55 / 108 |
+| M.DEF / P.DEF / REGEN | 90 / 81 / 88 |
+
+这些是资料属性，不是实测战斗表现，也不能直接推出强度排名。此处来源没有提供可执行的捕捉路线。
+
+## 五秒首招窗口应该怎样安排？
+
+Spotlight Moment 针对入场五秒内使用的第一招，标注冷却十五秒。先决定希望把免 EP 留给哪一招，再入场操作；不能把它理解为窗口内所有技能免费，也不能推断动画和其他冷却一并消失。
+
+1. 记录入场前 EP。
+2. 在窗口内使用计划中的首招。
+3. 分别检查是否扣 EP、技能是否实际生效。
+4. 若已有其他动作抢先触发，先核对免耗机会落在哪一招。
+
+<Image src={diagram} alt="Dazmand 起手条件图：入场后五秒内使用计划首招，再分别检查命中和雷系减益层数。" loading="lazy" />
+
+*本站原创条件图，不代表经过实测的最优循环。*
+
+## 哪招加团队增益，哪招判断麻痹？
+
+Thunder Sweep 需要命中才给团队雷系暴击增益，Electricity Shock 则检查减益层数。免耗、命中、控制是三个条件：免耗首招也可能没打中，施加减益也不一定达到严格的“大于五层”。
+
+| 技能 | 标注消耗 / 威力 | 要检查的条件 |
+| --- | --- | --- |
+| Thunder Sweep | 30 / 80 | 命中；团队 Lightning 暴击率提高 20%，持续 20 秒 |
+| Electricity Shock | 20 / 40 | 施加五层后，判断总层数是否超过五层 |
+| Lightning Storm | 0 / 150 | 描述为十二次命中，每次附加一层 |
+
+仅作算术例子：原来零层，加五层仍是五层，不满足“超过五层”；原来一层且没有失效或被移除，成功加五层后才达到六层。这不是所有目标必吃麻痹的证明。来源标注麻痹五秒，没有证明每种敌人的控制抗性相同。
+
+Lightning Storm 的展示威力也没有明确写成“每段威力”；不能直接拿 150 乘十二作为输出结论。
+
+## 培养前应该记录什么？
+
+记录首招、命中情况、命中后层数与控制结果，先区分触发失败和培养不适合。用[单项培养比较表](/zh/tier-list/how-to-read-rankings/)只改变一个条件；其他队伍用途可查看[按角色功能筛选候选](/zh/tier-list/getting-started/)。
+
+[官方 Dazmand 基础形态](https://wiki.aniimo.com/item/10002/basic-form)，核对于 2026-10-27。本页是公开条件解读，不声称实测、保证获取或通用最优起手。
