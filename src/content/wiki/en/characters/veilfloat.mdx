@@ -1,17 +1,55 @@
 ---
-title: "Veilfloat Compendium Entry: Official No.078"
-description: "A source-checked Veilfloat entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo Veilfloat vs Bulbly: Stats & Healing Conditions"
+description: "Compare Veilfloat and Bulbly's official Basic Form stats, Lightning healing targets and retreat clone, without assuming a higher total means more healing."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Veilfloat"]
-summary: "Veilfloat is official Aniimo No.078, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/veilfloat-conditions.png'
+tags: ["Compendium","Characters","Veilfloat","Skills"]
+summary: "Veilfloat is Lightning Support No.078. Its published healing and retreat descriptions match Bulbly's, while its Basic Form attributes differ. Both require a Lightning teammate within range for the channeled heal. A higher attribute total alone does not prove a higher healing rate; compare eligible targets and the same combat conditions."
 ---
-## Basic information
 
-Veilfloat is listed in the official Aniimo index as No.078. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/veilfloat-conditions.png';
 
-## Official sources
+## Is Veilfloat a different kind of healer from Bulbly?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+The two official Basic Form pages publish the same Lightning Discharge and Swift Retreat descriptions. Veilfloat has higher listed attributes in several fields, but identical wording is not a test of real healing output. Start by checking whether your target is eligible before deciding that a different support will fix the problem.
+
+| Published Basic Form field | Veilfloat No.078 | Bulbly No.077 |
+| --- | --- | --- |
+| Total | 473 | 404 |
+| HP | 99 | 83 |
+| BREAK | 45 | 37 |
+| ATK | 93 | 68 |
+| M.DEF / P.DEF | 74 / 72 | 63 / 63 |
+| REGEN | 90 | 90 |
+
+The total differs by 69, while REGEN is unchanged. That does not make 69 a healing improvement or establish how reference HP becomes combat HP. The [Bulbly guide](/characters/bulbly/) explains the same targeting restriction.
+
+## Why might a teammate still receive no healing?
+
+Lightning Discharge heals Lightning-type teammates in range while the beam is channeled; the published rate is 2% HP each second. Holding the skill sustains it. Replacing Bulbly with Veilfloat does not, in the text, remove the element, range or channel condition. Check those before changing investment.
+
+- Confirm the recipient's current element, not just the support's element.
+- Keep the intended recipient within the skill's effective range.
+- Check that channeling continues rather than ending after a tap.
+- Compare the same activity and equipment before interpreting a different HP result.
+
+<Image src={diagram} alt="Veilfloat and Bulbly comparison: different attribute totals, the same listed REGEN and healing description, and the same element-range-channel checks." loading="lazy" />
+
+*Original comparison of published fields; not a measured healing test.*
+
+The source does not make the percentage's scaling basis precise enough to calculate healing from the reference HP field. Multiplying 99 by 2% would confuse an attribute reference with a verified combat formula.
+
+## Does the retreat clone replace the beam's healing?
+
+Swift Retreat describes moving backward and leaving a clone that attacks using Lightning Discharge, with a 15% slow for ten seconds. It does not explicitly confirm a universal clone heal. Treat its attack and slow as the documented behavior, then separately verify any claimed healing interaction in the client.
+
+The page lists cost/power 20/53 for Swift Retreat and 10/20 for Lightning Discharge. Those labels alone do not establish every ongoing channel-cost rule. Arc Surge also contains the same malformed “12%%” value seen on Bulbly's page; it is not used here as a reliable build multiplier.
+
+## Where is Veilfloat listed, and how should you compare it?
+
+The official page names Tideblossom Coast and the Glow mobility ability. This is a regional lead, not a guaranteed spawn, capture route or schedule. Use [map research](/maps/region-research/) for location evidence, and the [one-upgrade worksheet](/tier-list/how-to-read-rankings/) to compare the support change under constant conditions.
+
+[Veilfloat Basic Form](https://wiki.aniimo.com/item/078/basic-form) and [Bulbly Basic Form](https://wiki.aniimo.com/item/077/basic-form), checked October 27, 2026. This comparison does not infer an evolution route, acquisition cost or best-team ranking.

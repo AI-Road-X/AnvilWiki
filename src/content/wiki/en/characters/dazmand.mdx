@@ -1,17 +1,59 @@
 ---
-title: "Dazmand Compendium Entry: Official No.10002"
-description: "A source-checked Dazmand entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo Dazmand: Free Opening Skill & Lightning Debuff"
+description: "Check Dazmand's five-second opening, team Lightning critical buff and six-stack Paralysis condition, with official Basic Form stats and examples."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Dazmand"]
-summary: "Dazmand is official Aniimo No.10002, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/dazmand-conditions.png'
+tags: ["Compendium","Characters","Dazmand","Skills"]
+summary: "Dazmand is Lightning Support No.10002. Its first skill within five seconds of entry can avoid EP cost, while Thunder Sweep needs a hit to grant the team a Lightning critical buff. Electricity Shock checks whether the resulting debuff count exceeds five. Treat these as separate conditions when planning an opener."
 ---
-## Basic information
 
-Dazmand is listed in the official Aniimo index as No.10002. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/dazmand-conditions.png';
 
-## Official sources
+## What does Dazmand contribute to a Lightning team?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+Dazmand offers an EP-saving opening and a hit-dependent offensive team buff. It is listed as Lightning Support, but that label does not establish a healing ability. Choose it to investigate those specific functions; for healing eligibility, compare [Bulbly](/characters/bulbly/) and [Veilfloat](/characters/veilfloat/) instead.
+
+| Basic Form field | Published value |
+| --- | --- |
+| Official number / role | No.10002 / Lightning Support |
+| Total | 522 |
+| HP / BREAK / ATK | 100 / 55 / 108 |
+| M.DEF / P.DEF / REGEN | 90 / 81 / 88 |
+
+These are reference attributes, not measured combat output or a ranking. The official page does not provide a capture route here.
+
+## How should you use the five-second opening?
+
+Spotlight Moment applies to the first skill used within five seconds after entering battle, with a stated fifteen-second cooldown. Plan which action should receive the EP saving before entry. The wording does not promise that every skill during the window is free, nor that animations or other cooldowns disappear.
+
+1. Note your EP immediately before entry.
+2. Enter battle and use the intended first skill inside the window.
+3. Check EP expenditure and the skill's actual effect separately.
+4. If another action happened first, re-evaluate which skill consumed the opportunity.
+
+<Image src={diagram} alt="Dazmand opening checklist: enter battle, use the intended first skill within five seconds, then check its hit and debuff condition separately." loading="lazy" />
+
+*Original condition checklist; not a tested optimal rotation.*
+
+## Which skill gives the team buff, and which checks Paralysis?
+
+Thunder Sweep provides the team Lightning critical-rate effect on a hit; Electricity Shock uses a debuff threshold. Their conditions answer different questions. A cost-free opening can still miss, and an applied debuff is not automatically enough to pass a strict greater-than threshold.
+
+| Skill | Listed cost / power | Important condition |
+| --- | --- | --- |
+| Thunder Sweep | 30 / 80 | Hit; team Lightning critical rate +20% for 20s |
+| Electricity Shock | 20 / 40 | Adds five Lightning Debuff stacks; checks the resulting count for more than five |
+| Lightning Storm | 0 / 150 | Twelve listed hits, each applying one stack |
+
+For a simple arithmetic check, zero existing stacks plus five gives five, which does not satisfy “more than five.” One existing stack plus five gives six if all stacks remain and apply. This is a threshold example, not proof that a target accepts Paralysis: the page lists five seconds, but does not establish every enemy's resistance.
+
+The displayed power of Lightning Storm is not explicitly described as a per-hit value. Multiplying 150 by twelve would therefore create an unsupported damage estimate.
+
+## What should you compare before spending resources?
+
+Record the opening action, whether it connected, the debuff count after the hit and the observed control result. This separates a failed trigger from an unsuitable build. Use the [one-upgrade worksheet](/tier-list/how-to-read-rankings/) to compare a single change, then consult the [role shortlist](/tier-list/getting-started/) for another missing function.
+
+[Official Dazmand Basic Form](https://wiki.aniimo.com/item/10002/basic-form), checked October 27, 2026. This guide interprets published conditions; it does not claim hands-on testing, guaranteed acquisition or a universal best opener.

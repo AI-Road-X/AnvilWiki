@@ -1,17 +1,56 @@
 ---
-title: "Magmarex Compendium Entry: Official No.072"
-description: "A source-checked Magmarex entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo Magmarex: Fire Debuff Order & BREAK Skills"
+description: "Compare Magmarex's Fire Debuff conditions: Lava Punch consumes stacks, Magma Surge needs more than five, and Burning Sun scales with stacks."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Magmarex"]
-summary: "Magmarex is official Aniimo No.072, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/magmarex-conditions.png'
+tags: ["Compendium","Characters","Magmarex","Skills"]
+summary: "Magmarex is Fire and Rock BREAK No.072. Its Fire Debuff skills reward different decisions: Lava Punch removes stacks, Magma Surge checks for more than five, and Burning Sun gains damage per stack. Check the count and intended effect before choosing an action; the official Pyro Charge timing contains unresolved text."
 ---
-## Basic information
 
-Magmarex is listed in the official Aniimo index as No.072. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/magmarex-conditions.png';
 
-## Official sources
+## Why does Fire Debuff order matter for Magmarex?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+Magmarex's actions do not all use Fire Debuff in the same way. One consumes it, another checks a threshold and another scales with the existing count. Your next choice should follow the result you need. A blanket “press every skill” sequence can remove a condition before the next action checks it.
+
+| Basic Form field | Published value |
+| --- | --- |
+| Number / elements / role | No.072 / Fire, Rock / BREAK |
+| Total | 539 |
+| HP / BREAK / ATK | 110 / 104 / 91 |
+| M.DEF / P.DEF / REGEN | 89 / 70 / 75 |
+| Listed habitat | Zephyrus Landbridge |
+
+The mobility description uses stamina for faster movement and obstacle interactions. The regional habitat is not an exact capture point; see [map research](/maps/region-research/) before treating it as a route.
+
+## Which actions consume, check or scale with stacks?
+
+Choose the action by its condition rather than its displayed power alone. Lava Punch removes Fire Debuff; Magma Surge requires more than five stacks for its stun; Burning Sun lists per-stack scaling. These are separate effects, and neither the table nor the source establishes a tested damage-optimal order.
+
+| Action | Listed cost / power | Stack interaction |
+| --- | --- | --- |
+| Lava Punch | 20 / 64 | Removes all stacks; additional 5% Might damage per stack |
+| Magma Surge | 20 / 30 | More than five stacks enables a 0.4s stun |
+| Burning Sun | 0 / 140 | Damage increases by 2% per stack on the target |
+| Lava Breath | 0 / 35 | Applies Fire Debuff while dealing damage over time |
+
+<Image src={diagram} alt="Magmarex Fire Debuff decision diagram: preserve the count for Burning Sun, check above five for Magma Surge, or consume stacks with Lava Punch." loading="lazy" />
+
+*Original condition map; not a best-build or damage-test result.*
+
+## What happens in a six-stack example?
+
+At six stacks, the written “more than five” condition is satisfied if the stacks are still present when checked. Using the consuming action first changes that situation. This makes the count at the moment of each action more useful than the count you remember from the start of a sequence.
+
+For a threshold test, record the count before Magma Surge and whether the stun appears. For a consumption test, record the count before and after Lava Punch. For scaling, compare the same target and conditions while recording the count. Do not interpret a stun failure as proof that the threshold wording is wrong: control resistance remains another question.
+
+[Infergon](/characters/infergon/) also has a strict Fire Debuff threshold. Sharing an element does not make the two kits interchangeable. Use the [team comparison worksheet](/tier-list/how-to-read-rankings/) to change one candidate at a time.
+
+## Which official details remain uncertain?
+
+The Pyro Charge description has a missing cumulative-EP number and merged-looking timing text, including “502s.” There is no reliable basis here for silently replacing it with a guessed EP threshold or interval. The page also lists Dark Energy Surge alongside other skills; that display alone does not prove every listed variant can be equipped together in Basic Form.
+
+[Official Magmarex Basic Form](https://wiki.aniimo.com/item/072/basic-form), checked October 27, 2026. Values above describe the published reference, not current-client testing. Acquisition costs, precise spawn coordinates and a final damage formula are not established.

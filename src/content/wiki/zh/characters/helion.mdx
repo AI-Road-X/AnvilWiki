@@ -1,17 +1,56 @@
 ---
-title: "Helion 图鉴：官方编号 No.99998"
-description: "整理官方 Aniimo Wiki 中 Helion 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo Helion：Solar Halo、回 EP 与 Soleon 条件"
+description: "区分 Helion 的 Solar Halo 与 Ring of the Golden Sun，查看基础属性、Sun-Kissed 回 EP、技能强化选择和 Soleon 描述边界。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Helion"]
-summary: "Helion 是官方编号 No.99998 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/helion-conditions.png'
+tags: ["图鉴","Characters","Helion","技能"]
+summary: "Helion 是 No.99998 光属性输出。四次普攻获得 Solar Halo，用来强化下一招；Sun-Kissed 的强化效果是额外回复 EP。Ring of the Golden Sun 是另一个独立命名条件，与 Helios' Judgment 的 Soleon 描述相关。比较培养前，应把两个状态、技能选择和资源结果分别记录。"
 ---
-## 基本资料
 
-Helion 已列入官方 Aniimo 图鉴，编号为 No.99998。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/helion-conditions.png';
 
-## 官方来源
+## Helion 的核心选择是什么？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+Helion 的公开技能机制要求你决定下一招怎样消耗 Solar Halo。四次普攻获得该状态后，回 EP、建立增益和补控制对应不同的技能选择。先根据当前问题选强化用途，不能仅凭技能顺序就宣布存在通用最优循环。
+
+| 基础形态字段 | 官方值 |
+| --- | --- |
+| 编号 / 属性 / 定位 | No.99998 / Light / DPS |
+| 总值 | 514 |
+| HP / BREAK / ATK | 100 / 64 / 116 |
+| M.DEF / P.DEF / REGEN | 72 / 72 / 90 |
+
+特性还写明：攻击**没有属性优势**时，最终伤害提高 30%。不能把条件倒过来写成“属性克制增伤”。术语可参照[官方类型说明](/zh/characters/official-aniimo-types/)。
+
+## Solar Halo 应该留给哪一招？
+
+先选当前需要的强化结果，再核对状态是否真的存在。来源给不同技能配置了不同强化；回 EP 不是伤害数据，控制延长也不是所有目标必然能被控制的保证。
+
+| 动作 | 相关公开效果 |
+| --- | --- |
+| Sun-Kissed | 回复 20 EP，Solar Halo 额外回复 5 |
+| Holy Roar | 命中加每层 6% Light 伤害，最多三层、20 秒；Halo 强化后每次给三层 |
+| Holy Storm | Halo 强化使最后一击附加一秒眩晕 |
+
+若当前目标是回 EP，强化 Sun-Kissed 的描述合计为 **25 EP**，但没有因此证明超出资源上限的部分也能保留。若目标是控制，应观察 Holy Storm 最后一击，不能把整段动画都当成眩晕窗口。
+
+<Image src={diagram} alt="Helion 状态选择图：四次普攻后，下一招可选择回 EP、光伤增益或末段控制；金日之环另行核对。" loading="lazy" />
+
+*本站原创状态选择图，不是实机录像。*
+
+## Solar Halo 和 Ring of the Golden Sun 一样吗？
+
+不一样。官方使用了两个独立名字：Light Bombardment 的增伤条件引用 Ring of the Golden Sun，而 Helios' Judgment 的描述包含转为 Soleon 并获得该环。不能仅凭持有 Solar Halo 就认定已经满足金日之环条件。
+
+Helios' Judgment 还列出离开战斗前自身伤害提高 15%。不要把这一条抄进基础形态属性，也不要据此声称永久解锁了收藏形态。它是一条技能结果描述，不是完整获取或持续规则指南。
+
+## 比较培养时怎样避免混用状态？
+
+固定活动、装备与目标，记录普攻次数、被强化的下一招和环状态。先对齐状态，再比较投入。否则所谓提升可能只是换了触发条件，而不是同一动作被培养得更强。
+
+[单项培养比较表](/zh/tier-list/how-to-read-rankings/)提供记录字段。另一种条件输出可比较 [Infergon](/zh/characters/infergon/)；若队伍缺治疗或 BREAK，则先看[角色用途对照](/zh/tier-list/getting-started/)。
+
+[官方 Helion 基础形态](https://wiki.aniimo.com/item/99998/basic-form)，核对于 2026-10-27。本页没有编造实测排名、捕捉坐标或未公开的 Soleon 属性。

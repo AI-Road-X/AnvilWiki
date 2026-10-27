@@ -1,17 +1,56 @@
 ---
-title: "Helion Compendium Entry: Official No.99998"
-description: "A source-checked Helion entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo Helion: Solar Halo, EP Recovery & Soleon"
+description: "Understand Helion's Solar Halo, Sun-Kissed EP recovery and Ring of the Golden Sun condition, with Basic Form stats and Soleon limits."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Helion"]
-summary: "Helion is official Aniimo No.99998, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/helion-conditions.png'
+tags: ["Compendium","Characters","Helion","Skills"]
+summary: "Helion is Light DPS No.99998. Four basic attacks grant Solar Halo to enhance the next skill, including additional EP recovery with Sun-Kissed. Ring of the Golden Sun is a separate named condition associated with Helios' Judgment. Track these states separately instead of assuming every enhanced effect is always active."
 ---
-## Basic information
 
-Helion is listed in the official Aniimo index as No.99998. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/helion-conditions.png';
 
-## Official sources
+## What is Helion's main combat decision?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+Helion's published kit asks you to choose which skill receives Solar Halo. Four basic attacks grant that state to enhance the next skill. A short sequence can therefore serve different needs: recover EP, establish a damage buff or add control. This is a conditional choice, not evidence of one best rotation.
+
+| Basic Form field | Published value |
+| --- | --- |
+| Number / element / role | No.99998 / Light / DPS |
+| Total | 514 |
+| HP / BREAK / ATK | 100 / 64 / 116 |
+| M.DEF / P.DEF / REGEN | 72 / 72 / 90 |
+
+The trait also describes a 30% final-damage increase when the attack does **not** have an advantageous element. That wording must not be inverted into an elemental-advantage bonus. Use the [type reference](/characters/official-aniimo-types/) when labels are unclear.
+
+## Which skill should receive Solar Halo?
+
+Choose the enhanced effect that answers your immediate problem, then check whether the state was actually available. The source assigns different outcomes to different skills. A resource recovery value is not a damage measurement, and a control extension is not a guarantee that every enemy can be controlled.
+
+| Action | Relevant published effect |
+| --- | --- |
+| Sun-Kissed | Restores 20 EP; Solar Halo adds five |
+| Holy Roar | A hit grants 6% Light damage per stack, up to three, for 20s; Halo applies three stacks each time |
+| Holy Storm | Its Halo enhancement adds a one-second stun to the final hit |
+
+If the priority is EP recovery, the stated enhanced Sun-Kissed amount is **25 EP**, before any unlisted restrictions or modifiers. That arithmetic does not prove that EP above a resource cap is retained. If control is the priority, examine the last hit rather than treating the entire Holy Storm animation as a stun.
+
+<Image src={diagram} alt="Helion decision diagram: four basic attacks grant Solar Halo; choose the next skill for EP recovery, Light buff or final-hit control, and track Ring of the Golden Sun separately." loading="lazy" />
+
+*Original state-selection diagram, not gameplay footage.*
+
+## Is Solar Halo the same as Ring of the Golden Sun?
+
+No. The official text uses two different names. Light Bombardment lists a damage condition involving Ring of the Golden Sun, while Helios' Judgment describes evolving into Soleon and gaining that ring. Possessing Solar Halo alone is not stated to satisfy the ring requirement.
+
+Helios' Judgment also lists a 15% self-damage increase until leaving combat. Do not copy that description into Basic Form attributes or assume the page proves a permanent collection unlock. It describes a skill outcome; it does not supply a complete acquisition or persistence guide.
+
+## How can you compare an upgrade without mixing states?
+
+Hold the activity, equipment and target constant, then record basic-attack count, the enhanced skill and whether the ring was present. Compare like states before changing investment. Otherwise a better result may simply come from using a different trigger rather than improving the same action.
+
+The [single-upgrade worksheet](/tier-list/how-to-read-rankings/) gives fields for that record. For another conditional damage option, see [Infergon](/characters/infergon/); use the [role comparison](/tier-list/getting-started/) if the team needs healing or BREAK instead.
+
+[Official Helion Basic Form](https://wiki.aniimo.com/item/99998/basic-form), checked October 27, 2026. No hands-on damage ranking, capture coordinates or undocumented Soleon stats are claimed here.

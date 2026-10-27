@@ -1,17 +1,56 @@
 ---
-title: "Magmarex 图鉴：官方编号 No.072"
-description: "整理官方 Aniimo Wiki 中 Magmarex 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo Magmarex：火减益层数与 BREAK 技能顺序"
+description: "核对 Magmarex 的火减益条件：Lava Punch 清空层数、Magma Surge 要求超过五层、Burning Sun 按层增伤，并标明官方描述疑点。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Magmarex"]
-summary: "Magmarex 是官方编号 No.072 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/magmarex-conditions.png'
+tags: ["图鉴","Characters","Magmarex","技能"]
+summary: "Magmarex 是 No.072 火与岩属性 BREAK 角色。Lava Punch 会清空火减益，Magma Surge 的眩晕要求超过五层，Burning Sun 则按目标现有层数增伤。先决定要检查、保留还是消耗层数，再选择动作；官方 Pyro Charge 的缺失数字与混排时间不能直接当作可靠循环依据。"
 ---
-## 基本资料
 
-Magmarex 已列入官方 Aniimo 图鉴，编号为 No.072。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/magmarex-conditions.png';
 
-## 官方来源
+## 为什么 Magmarex 要关注火减益顺序？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+它的动作并非都以相同方式利用 Fire Debuff：有的消耗层数，有的检查门槛，有的依当前层数加成。先决定本次需要的结果，再选动作。“所有技能依次按完”可能在后一个技能检查前，先把条件清掉。
+
+| 基础形态字段 | 官方值 |
+| --- | --- |
+| 编号 / 属性 / 定位 | No.072 / Fire、Rock / BREAK |
+| 总值 | 539 |
+| HP / BREAK / ATK | 110 / 104 / 91 |
+| M.DEF / P.DEF / REGEN | 89 / 70 / 75 |
+| 标注栖息地 | Zephyrus Landbridge |
+
+移动描述包含消耗体力加速并撞开部分障碍。区域名不等于精确捕捉点，路线问题可先参考[地图资料核查](/zh/maps/region-research/)。
+
+## 哪些动作清空、检查或利用层数？
+
+按条件选择动作，不要只看展示威力。Lava Punch 清空火减益，Magma Surge 在超过五层时追加眩晕，Burning Sun 列出按层加成。它们是不同效果；下表和来源都没有证明一套实测最优输出顺序。
+
+| 动作 | 标注消耗 / 威力 | 与层数的关系 |
+| --- | --- | --- |
+| Lava Punch | 20 / 64 | 清除全部层数，每层追加 5% Might 伤害 |
+| Magma Surge | 20 / 30 | 超过五层时附加 0.4 秒眩晕 |
+| Burning Sun | 0 / 140 | 按目标每层提高 2% 伤害 |
+| Lava Breath | 0 / 35 | 持续伤害并施加火减益 |
+
+<Image src={diagram} alt="Magmarex 火减益决策图：为 Burning Sun 保留层数，为 Magma Surge 检查超过五层，或用 Lava Punch 消耗层数。" loading="lazy" />
+
+*本站原创条件图，不是最佳配装或伤害实测结果。*
+
+## 六层减益时应该怎样排查？
+
+六层在检查时仍存在，才满足文字里的“超过五层”。若先用清层动作，后面的条件就已经改变。因此每个动作发生时的层数，比记住起手时有几层更有意义。
+
+测门槛时记录 Magma Surge 前的层数与眩晕结果；测消耗时记录 Lava Punch 前后层数；比较按层增伤时固定目标和其他条件。控制没出现不自动证明门槛文字有错，还需考虑目标抗性。
+
+[Infergon](/zh/characters/infergon/)也有严格火减益门槛，但属性相同不代表两套机制可以互换。用[队伍比较记录表](/zh/tier-list/how-to-read-rankings/)一次只换一个候选。
+
+## 官方资料有哪些未解决疑点？
+
+Pyro Charge 描述缺少累计 EP 数字，时间文字还出现“502s”这样的混排片段。不能私自猜成某个 EP 门槛或固定间隔。页面也同时列出 Dark Energy Surge 等名称，仅凭这些技能被展示出来，不能认定基础形态能把全部变体同时装进技能栏。
+
+[官方 Magmarex 基础形态](https://wiki.aniimo.com/item/072/basic-form)，核对于 2026-10-27。本页解释公开资料，不冒充当前客户端测试；没有确认获取成本、精确刷新点或最终伤害公式。

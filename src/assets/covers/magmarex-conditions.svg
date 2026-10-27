@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#101b2b"/>
+<g font-family="Segoe UI,Arial,sans-serif">
+<text x="48" y="52" fill="#9aacbf" font-size="18" letter-spacing="3">ANIIMO GUIDES / SKILL CONDITIONS</text>
+<text x="48" y="116" fill="#ffffff" font-size="38" font-weight="700">Magmarex: decide what to do with stacks</text>
+<text x="48" y="157" fill="#bdcbdb" font-size="21">No.072 / Fire + Rock / different skills use Fire Debuff in different ways.</text>
+<rect x="48" y="208" width="336" height="258" rx="20" fill="#203a4a"/>
+<text x="72" y="252" fill="#a0e5c1" font-size="22" font-weight="600">PRESERVE</text>
+<text x="72" y="308" fill="#ffffff" font-size="24">Burning Sun</text>
+<text x="72" y="356" fill="#ffffff" font-size="24">Per-stack scaling</text>
+<rect x="432" y="208" width="336" height="258" rx="20" fill="#203a4a"/>
+<text x="456" y="252" fill="#a0e5c1" font-size="22" font-weight="600">CHECK</text>
+<text x="456" y="308" fill="#ffffff" font-size="24">Magma Surge</text>
+<text x="456" y="356" fill="#ffffff" font-size="24">More than five stacks</text>
+<rect x="816" y="208" width="336" height="258" rx="20" fill="#343b50"/>
+<text x="840" y="252" fill="#ffc38d" font-size="22" font-weight="600">CONSUME</text>
+<text x="840" y="308" fill="#ffffff" font-size="24">Lava Punch</text>
+<text x="840" y="356" fill="#ffffff" font-size="24">Removes all stacks</text>
+<text x="48" y="524" fill="#d1deed" font-size="20">Check the count at each action. A consuming action can change the next skill's condition.</text>
+<path d="M48 563H1152" stroke="#41536a"/>
+<text x="48" y="605" fill="#aebfd2" font-size="18">Original decision diagram / not a damage ranking or recommended fixed rotation</text>
+<text x="48" y="642" fill="#90a4bb" font-size="17">Interpretation of published conditions. No official artwork, gameplay footage or claimed hands-on result.</text>
+</g></svg>
