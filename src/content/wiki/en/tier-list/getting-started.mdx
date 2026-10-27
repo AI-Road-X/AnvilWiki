@@ -1,25 +1,63 @@
 ---
-title: "Aniimo Tier List: How to Compare Characters"
-description: "Use this Aniimo tier list guide to compare roles, evidence, team fit, and investment cost. No unsupported character rankings or letter grades."
+title: "Aniimo Tier List Guide: Compare 5 Role Options"
+description: "Compare five Aniimo role options by healing targets, resistance debuffs, BREAK conditions and Fire Debuff use, without unsupported S-tier rankings."
 category: "tier-list"
 date: 2026-10-01
-tags: ["Tier List", "Characters", "Guide"]
+lastModified: 2026-10-27
+image: '../../../../assets/covers/aniimo-role-comparison.png'
+tags: ["Tier List","Characters","Guide"]
+summary: "Choose an Aniimo by the function your team lacks: healing, resistance reduction, BREAK or damage. This shortlist compares five documented options and the conditions behind their skills. It is not a tested S-to-D ranking. Check form, target eligibility and resource costs before treating a bigger attribute total as an upgrade."
 ---
 
-## Is there one best Aniimo tier list?
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/aniimo-role-comparison.png';
 
-No single ranking is reliable for every player or activity. A useful Aniimo tier list must explain its game version, what it measures, and the evidence behind each placement. This guide does not assign character tiers without comparable, verified performance data; use the checks below before spending scarce resources.
+## Which Aniimo should you compare for your team's missing role?
 
-## Check what the ranking measures
+Start with the problem, then compare a small set of candidates that can address it. A missing heal, unreliable BREAK window and low damage are different problems. The table gives documented options to investigate; it does not say these are the five best creatures or that other choices are excluded.
 
-Start by identifying the activity: a character that helps with exploration may not be the best choice for a particular battle or collection goal. A list should state its use case rather than present one unexplained overall grade. Compare the relevant [character compendium](/characters/) entries and their documented abilities before treating a placement as advice.
+| Need | Candidate and form | Relevant published condition | First check |
+| --- | --- | --- | --- |
+| Healing for a Lightning teammate | [Bulbly, Basic](/characters/bulbly/) | Lightning Discharge heals eligible teammates in range while channeled | Teammate element, position and channel |
+| Earth Resistance debuff | [Cozite, Basic](/characters/cozite/) | Skills or Ultimate must hit to apply Potent Erosion | A registered hit and visible debuff |
+| BREAK while underground | [Geodeback, Basic](/characters/geodeback/) | Earth Affinity is tied to Tunneling | State, stamina and incoming Pound actions |
+| BREAK with an EP-saving window | [Blazen, Basic](/characters/blazen/) | Power Sustain needs skill critical hits; Overcharged prevents UP gain | Trigger reliability and UP cost |
+| Damage against stacked Fire Debuff | [Infergon, Basic](/characters/infergon/) | Power of Fire needs more than five stacks | Whether the target actually has six or more |
 
-## Check the evidence and date
+<Image src={diagram} alt="Original role comparison: choose between healing, resistance reduction, BREAK and damage, then check the condition rather than assuming an overall tier order." loading="lazy" />
 
-Prefer rankings that show their game version, update date, testing conditions, and reasons for each placement. Separate confirmed facts from player opinion. If the author does not explain how characters were compared, treat the list as an opinion rather than a verified result. Our [verification notes](/characters/verification-notes/) explain how this site distinguishes sourced details from unconfirmed claims.
+Original editorial comparison, not official art or a simulated damage ranking.
 
-## Match the choice to your resources
+## Which listed stats can you compare directly?
 
-Acquisition difficulty and investment cost matter as much as a letter grade. Check the available [catch tools](/items/official-catch-tools/) and [quest guides](/quests/) before committing scarce items or changing your progression plan. Revisit a ranking after a game update only when there is new evidence that affects the comparison.
+The same field can be compared across the same named forms as a reference. Different attributes should not be converted into one invented performance score. HP attributes are not final combat HP, and REGEN is not a published healing-per-second measurement.
 
-For a quick review checklist, see [how to read an Aniimo tier list](/tier-list/how-to-read-rankings/). Until comparable performance evidence is available, avoid treating any unsupported character order as an official or universal ranking.
+| Basic Form | Total | HP | BREAK | ATK | REGEN |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Bulbly | 404 | 83 | 37 | 68 | 90 |
+| Cozite | 448 | 77 | 50 | 87 | 100 |
+| Geodeback | 486 | 99 | 102 | 81 | 70 |
+| Blazen | 530 | 100 | 104 | 100 | 86 |
+| Infergon | 505 | 95 | 50 | 125 | 80 |
+
+The order follows the functions above, not strength. A total of 530 does not establish a better healer than a total of 404. No investment cost, availability or full damage formula is included in this table.
+
+## How do you turn this shortlist into one decision?
+
+1. Write one observable problem: for example, “my Lightning teammate is not receiving healing,” not “my team is bad.”
+2. Open the corresponding reference and check the named form and targeting rule.
+3. Keep your activity, team and equipment constant when comparing one change.
+4. Record the effect and resource trade-off; leave acquisition or build-cost fields unknown if you lack evidence.
+5. Use the [single-upgrade worksheet](/tier-list/how-to-read-rankings/) before committing scarce resources.
+
+For BREAK comparisons, note that Geodeback's stated 20% extra BREAK needs the underground state, while Blazen's cost reduction occurs in a six-second state with a UP restriction. Neither condition is interchangeable with an always-on benefit. For Infergon, five stacks do not meet a “more than five” requirement.
+
+## Why does this page not assign S, A or B tiers?
+
+A common ranking would need comparable tests, a defined activity and rules for equipment, forms and investment. Those measurements are not available here. Publishing letters anyway would replace missing evidence with confidence, not help the player choose.
+
+This page therefore supplies a concrete role shortlist, numerical references and decision steps. Use the [type guide](/characters/official-aniimo-types/) when a role or element label is unclear. This is narrower than a universal “best team,” but you can verify each stated condition.
+
+## Which official sources support the comparison?
+
+Checked October 27, 2026: [Bulbly](https://wiki.aniimo.com/item/077/basic-form), [Cozite](https://wiki.aniimo.com/item/075/basic-form), [Geodeback](https://wiki.aniimo.com/item/073/basic-form), [Blazen](https://wiki.aniimo.com/item/046/basic-form) and [Infergon](https://wiki.aniimo.com/item/067/basic-form). The recommendations to investigate a candidate are editorial interpretations of those descriptions, not hands-on performance results. Bulbly's malformed Arc Surge percentage is deliberately excluded.
