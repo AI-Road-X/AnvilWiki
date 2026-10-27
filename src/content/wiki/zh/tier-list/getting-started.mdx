@@ -1,19 +1,63 @@
 ---
-title: "Aniimo 强度榜说明"
-description: "了解 Aniimo 强度榜的评估方法，避免只看单一排名，并根据版本和玩法选择合适的 Aniimo。"
+title: "Aniimo 强度比较：按用途筛选五个候选"
+description: "按治疗目标、抗性减益、BREAK 状态与火焰层数比较五个 Aniimo 候选；提供公开属性与条件，不编造 S 级名次或全局最强队伍。"
 category: "tier-list"
 date: 2026-09-26
-tags: ["强度榜", "培养"]
+lastModified: 2026-10-27
+image: '../../../../assets/covers/aniimo-role-comparison.png'
+tags: ["强度榜","培养","攻略"]
+summary: "先按队伍缺少的功能选择 Aniimo：治疗、抗性削减、BREAK 或输出。本页比较五个有官方资料的候选及各自条件，不是实测 S 到 D 排名。投入资源前应核对形态、目标资格与资源代价，不能把更高属性总和直接当成升级。"
 ---
 
-## Aniimo 强度榜应该怎么看？
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/aniimo-role-comparison.png';
 
-强度榜只能作为筛选工具，不能替代你的实际体验。评价 Aniimo 时，需要同时考虑获取难度、培养成本、战斗用途、队伍搭配和当前版本变化。
+## 队伍缺什么功能，应该先比较谁？
 
-## 为什么排名会变化？
+先写清问题，再缩小候选范围。缺治疗、BREAK 时机不稳定、输出不足是三种不同情况。下表提供可核对的功能候选，并不声称它们是全游戏最强五只，也不排除其他选择。
 
-版本更新可能改变技能、属性或敌人机制，因此每次更新后都应重新核对数据。本站会给榜单标注版本和验证日期，避免把旧结论当成当前答案。
+| 需求 | 候选与形态 | 公开条件 | 先检查 |
+| --- | --- | --- | --- |
+| Lightning 队友治疗 | [Bulbly Basic](/zh/characters/bulbly/) | 光束引导时治疗范围内符合元素的队友 | 队友元素、位置、引导 |
+| Earth Resistance 减益 | [Cozite Basic](/zh/characters/cozite/) | 技能或 Ultimate 命中触发 Potent Erosion | 命中与减益是否出现 |
+| 遁地期间 BREAK | [Geodeback Basic](/zh/characters/geodeback/) | Earth Affinity 依赖 Tunneling | 状态、体力、敌方 Pound |
+| EP 减免窗口内 BREAK | [Blazen Basic](/zh/characters/blazen/) | Power Sustain 需要技能暴击；Overcharged 无法获得 UP | 触发稳定性与 UP 代价 |
+| 对火焰减益层数目标输出 | [Infergon Basic](/zh/characters/infergon/) | Power of Fire 需要超过五层 | 目标是否确有六层以上 |
 
-查看具体角色资料时，可进入 [Aniimo 图鉴目录](/zh/characters/)；如果想了解资料来源与核验边界，请先读[图鉴核验方法](/zh/characters/verification-notes/)。
+<Image src={diagram} alt="原创用途比较图：先在治疗、抗性削减、BREAK 和输出中确定缺口，再核对条件，不假设全局强度次序。" loading="lazy" />
 
-需要浏览本站已发布的强度榜文章时，可从 [Aniimo 强度榜目录](/zh/tier-list/)进入；每篇榜单仍需结合标注的版本和验证日期阅读。
+此图是原创编辑比较，不是官方图片或模拟输出榜。
+
+## 哪些公开属性可以直接对照？
+
+可以把相同形态的同名字段作为资料比较，但不能将不同属性相加后自行转换成战斗评分。HP 属性不等于最终血量，REGEN 也不是已经公布的每秒治疗量。
+
+| Basic Form | 总值 | HP | BREAK | ATK | REGEN |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Bulbly | 404 | 83 | 37 | 68 | 90 |
+| Cozite | 448 | 77 | 50 | 87 | 100 |
+| Geodeback | 486 | 99 | 102 | 81 | 70 |
+| Blazen | 530 | 100 | 104 | 100 | 86 |
+| Infergon | 505 | 95 | 50 | 125 | 80 |
+
+行序按上面的功能排列，不是强弱。530 总值不能证明治疗优于 404 总值；表中也没有获取难度、投入成本或完整伤害公式。
+
+## 怎样把候选表变成一次决定？
+
+1. 写一个可观察问题，例如“Lightning 队友没有回血”，而不是笼统说队伍不强。
+2. 打开对应条目，核对具体形态和技能目标。
+3. 比较一个变化时，固定玩法、队伍和装备。
+4. 同时记录效果与资源代价；不知道的获取、培养成本就保留未知。
+5. 用[一次培养投入比较表](/zh/tier-list/how-to-read-rankings/)记录，再决定是否花稀有资源。
+
+BREAK 比较中，Geodeback 的 20% 额外 BREAK 需要遁地；Blazen 的减耗发生在有 UP 限制的六秒状态。两者都不能当成常驻效果。Infergon 的条件是“超过五层”，五层本身不满足。
+
+## 为什么这里没有 S、A、B 字母名次？
+
+统一排行需要同条件实测、明确玩法，以及装备、形态、投入的控制规则。目前缺少这套测量。此时发布字母并不会增加证据，只会把不确定性包装成结论。
+
+本页因此提供具体功能候选、数值和决策步骤；术语不清楚时可看[类型资料](/zh/characters/official-aniimo-types/)。这比“全局最强队伍”的范围窄，但每个公开条件都可沿来源核对。
+
+## 官方来源有哪些？
+
+2026 年 10 月 27 日核对：[Bulbly](https://wiki.aniimo.com/item/077/basic-form)、[Cozite](https://wiki.aniimo.com/item/075/basic-form)、[Geodeback](https://wiki.aniimo.com/item/073/basic-form)、[Blazen](https://wiki.aniimo.com/item/046/basic-form)、[Infergon](https://wiki.aniimo.com/item/067/basic-form)。建议研究某候选属于对来源的编辑解释，不是实机性能结论；Bulbly 原文异常的 Arc Surge 百分比未用于此表。

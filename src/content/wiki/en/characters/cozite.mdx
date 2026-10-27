@@ -1,17 +1,54 @@
 ---
-title: "Cozite Compendium Entry: Official No.075"
-description: "A source-checked Cozite entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo No.075 (Cozite): Smoke Screen & Potent Erosion"
+description: "Aniimo 075 is Cozite. Read Smoke Screen's targeting limit, Potent Erosion's hit condition and stack cap, with costs and practical comparison checks."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Cozite"]
-summary: "Cozite is official Aniimo No.075, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/cozite-erosion-conditions.png'
+tags: ["Compendium","Characters","Cozite","Rock","Support"]
+summary: "Cozite is Aniimo No.075, a Rock Support with 448 listed attributes. Potent Erosion applies an Earth Resistance reduction when skills or an Ultimate hit, while Smoke Screen obstructs aiming through smoke. These are debuff and targeting effects, not evidence of healing, invulnerability or a guaranteed damage increase."
 ---
-## Basic information
 
-Cozite is listed in the official Aniimo index as No.075. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/cozite-erosion-conditions.png';
 
-## Official sources
+## Who is Aniimo 075, and what does Cozite add?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+No.075 is **Cozite**, a Rock Support whose published tools change resistance and targeting. That is a different job from restoring a teammate's HP. Decide which problem you need to solve before using a Support label as if it meant every creature supplies the same effect.
+
+| Basic Form field | Official value |
+| --- | --- |
+| Total | 448 |
+| HP / BREAK / ATK | 77 / 50 / 87 |
+| M.DEF / P.DEF / REGEN | 67 / 67 / 100 |
+| Habitat / pathfinding | Zephyrus Landbridge / Fly Lv.1 |
+
+[Official Basic Form source](https://wiki.aniimo.com/item/075/basic-form), checked October 27, 2026. A region name is not a tested capture route; use the [map research guide](/maps/region-research/) when checking location claims.
+
+## How does Potent Erosion stack?
+
+A skill or Ultimate must **hit a target** to apply the trait's **2% Earth Resistance reduction for 20 seconds**, with up to **10 stacks**. The source does not explain whether subsequent hits refresh all stacks, only one stack, or use another timing rule.
+
+<Image src={diagram} alt="Original Cozite reference: skill or Ultimate hits apply the stated resistance reduction with a ten-stack cap; Smoke Screen blocks aiming through smoke, not all damage." loading="lazy" />
+
+Ten stacks of a resistance effect should not be rewritten as a guaranteed 20% increase in final damage. That would require the resistance formula, stacking rule and target conditions. A zero-power support effect also does not prove that an attempted cast registered a qualifying hit.
+
+For an observation, record the target's displayed debuff before and after one action, then watch the timer without another cast. Only add another variable after that. These are proposed checks, not results of a test performed by this site.
+
+## Does Smoke Screen make the team invincible?
+
+Smoke Screen obscures vision and prevents aiming at targets through the smoke. Its listed type/cost/power is **Support / 10 / 0**. The wording does not say it stops every area attack, makes allies immune, heals them, or protects them after they leave its relevant area.
+
+That distinction matters when diagnosing an apparent failure: an enemy action that did not require the blocked aim is not automatically a contradiction of the source. Do not describe the smoke as a universal shield. [Geodeback's Tunnel reference](/characters/geodeback/) is another example of protection with an explicit scope, not an equivalent mechanic.
+
+## Which offensive actions are listed?
+
+Roll Out is **Magic**, cost **20**, power **31**, with an aimed or lobbed mudball and area impact. ATK is a **Magic** ranged action at **0/6**. Their numerical power is not a published formula for comparing support value.
+
+These actions give concrete candidates for observing the hit condition, but no optimal rotation, cooldown, gear set or best-team claim is established here. Check [element and role terminology](/characters/official-aniimo-types/) rather than inferring attack type from a Rock label.
+
+## When is this a useful comparison candidate?
+
+Consider investigating Cozite when the missing function is its documented resistance debuff or targeting obstruction, not because its total exceeds another support's. For a different need, [Bulbly](/characters/bulbly/) describes element- and range-limited healing.
+
+The [role shortlist](/tier-list/getting-started/) organizes those choices by problem; the [upgrade worksheet](/tier-list/how-to-read-rankings/) helps record a like-for-like comparison. This does not establish a tier placement, acquisition cost, verified route or evolution requirement. The diagram is original explanatory work, not official character art.

@@ -1,17 +1,54 @@
 ---
-title: "Cozite 图鉴：官方编号 No.075"
-description: "整理官方 Aniimo Wiki 中 Cozite 的编号、官方索引与图鉴来源，方便查阅和后续更新。"
+title: "Aniimo No.075 Cozite：烟幕与 Potent Erosion"
+description: "Aniimo 075 是 Cozite。查看烟幕的瞄准限制、Potent Erosion 命中条件和叠层上限、技能消耗及实际比较时应核对的问题。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Cozite"]
-summary: "Cozite 是官方编号 No.075 的 Aniimo，本页整理官方索引与来源信息。"
+lastModified: 2026-10-27
+image: '../../../../assets/covers/cozite-erosion-conditions.png'
+tags: ["图鉴","Characters","Cozite","岩","辅助"]
+summary: "Cozite 是 Aniimo No.075，Rock 辅助，公开属性总值 448。Potent Erosion 在技能或 Ultimate 命中时削减 Earth Resistance；Smoke Screen 阻挡穿过烟幕的瞄准。这些是减益与目标限制，不等于治疗、全伤害无敌或已验证的固定增伤。"
 ---
-## 基本资料
 
-Cozite 已列入官方 Aniimo 图鉴，编号为 No.075。本页保留已核对的官方身份和来源链接，完整属性、形态与技能请以官方资料为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/cozite-erosion-conditions.png';
 
-## 官方来源
+## Aniimo 075 是谁，Cozite 提供什么作用？
 
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
-- [Aniimo 角色分类](/zh/characters/)
+No.075 是 **Cozite**，Rock、Support 定位，公开工具改变目标抗性与瞄准条件。这和恢复队友 HP 不是同一工作。先确定要解决什么问题，再比较辅助，不能把 Support 标签当成人人都有相同能力。
+
+| 基础形态字段 | 官方值 |
+| --- | --- |
+| 总值 | 448 |
+| HP／BREAK／ATK | 77／50／87 |
+| M.DEF／P.DEF／REGEN | 67／67／100 |
+| 栖息地／探索能力 | Zephyrus Landbridge／Fly Lv.1 |
+
+[官方 Basic Form 来源](https://wiki.aniimo.com/item/075/basic-form)，核对日期 2026 年 10 月 27 日。区域名不是已测试的捕捉路线；位置核验见[区域研究指南](/zh/maps/region-research/)。
+
+## Potent Erosion 怎样叠层？
+
+需要技能或 Ultimate **命中目标**，才施加 **2% Earth Resistance 削减，持续 20 秒**，最多 **10 层**。来源未说明后续命中刷新全部层数、单层还是采用其他计时方式，不能把一个时长数字推导成永久覆盖。
+
+<Image src={diagram} alt="原创 Cozite 条件图：技能或 Ultimate 命中施加抗性削减，最多十层；烟幕限制穿过烟雾瞄准，不是免疫全部伤害。" loading="lazy" />
+
+十层抗性效果不能直接写成最终伤害必定增加 20%。这还需要抗性公式、叠加规则与目标条件。零威力辅助技能也不证明每次施放都登记了一次符合特性条件的命中。
+
+观察时可先记录一次动作前后的减益，再不追加施法观察计时；之后才增加变量。这是拟议核对步骤，不是本站已经做过的测试。
+
+## Smoke Screen 能让全队无敌吗？
+
+Smoke Screen 遮蔽视野，阻止穿过烟幕瞄准目标；面板类型／消耗／威力为 **Support／10／0**。说明没有写阻挡所有范围攻击、使队友免疫伤害、治疗队友，或让离开相关区域的人继续受保护。
+
+因此，敌人使用不需要该瞄准方式的动作，并不能自动证明技能失效。不要把烟幕写成万能护盾。[Geodeback 的遁地资料](/zh/characters/geodeback/)同样有明确防护范围，但不是相同机制。
+
+## 官方列出了哪些攻击动作？
+
+Roll Out 为 **Magic**、消耗 **20**、威力 **31**，描述可瞄准或抛射的泥球及范围撞击；ATK 为 **Magic** 远程动作，消耗／威力 **0／6**。这些威力数字不是评价辅助价值的完整公式。
+
+它们可以作为观察命中条件的具体动作，但没有建立最优循环、冷却、配装或最佳队伍。应结合[元素与定位说明](/zh/characters/official-aniimo-types/)阅读，而不是从 Rock 标签推测全部攻击类型。
+
+## 什么情况下值得比较 Cozite？
+
+如果缺的是官网列出的抗性减益或烟幕目标限制，可以把 Cozite 列为研究候选；不是因为总值更高就一定更合适。若缺治疗，[Bulbly](/zh/characters/bulbly/)描述的是受元素与范围限制的另一种功能。
+
+[按用途的候选表](/zh/tier-list/getting-started/)帮助找问题对应项，[一次投入比较表](/zh/tier-list/how-to-read-rankings/)帮助固定条件。本页不建立强度名次、获取成本、准确路线或进化条件。配图是原创解释，不是官方角色图片。

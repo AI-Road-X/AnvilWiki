@@ -1,17 +1,54 @@
 ---
-title: "Bulbly Compendium Entry: Official No.077"
-description: "A source-checked Bulbly entry with official identity, index reference, and update-ready documentation from the Aniimo Wiki."
+title: "Aniimo No.077 (Bulbly): Lightning Healing & Retreat"
+description: "Aniimo 077 is Bulbly. Check Lightning Discharge's healing targets, Swift Retreat, Arc Surge's source typo and what to verify before changing support."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Bulbly"]
-summary: "Bulbly is official Aniimo No.077, documented with its official index reference."
+lastModified: 2026-10-27
+image: '../../../../assets/covers/bulbly-support-conditions.png'
+tags: ["Compendium","Characters","Bulbly","Electric","Support"]
+summary: "Bulbly is Aniimo No.077, a Lightning Support whose Lightning Discharge heals Lightning-type teammates within range while channeled. Its retreat leaves an attacking clone, not a documented universal team heal. Check target element and positioning before replacing another support; the official Arc Surge percentage contains a formatting error."
 ---
-## Basic information
 
-Bulbly is listed in the official Aniimo index as No.077. This page preserves the verified identity and a direct official reference for its complete attributes, forms, and skills.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/bulbly-support-conditions.png';
 
-## Official sources
+## Who is Aniimo 077, and what can Bulbly support?
 
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
-- [Aniimo characters](/characters/)
+No.077 is **Bulbly**, listed as Lightning and Support. Its key healing condition is the recipient's element and position, not simply membership in the same team. If you need help for a teammate of another element, check the wording before spending resources on a replacement.
+
+| Basic Form field | Official value |
+| --- | --- |
+| Total | 404 |
+| HP / BREAK / ATK | 83 / 37 / 68 |
+| M.DEF / P.DEF / REGEN | 63 / 63 / 90 |
+| Habitat / mobility | Tideblossom Coast / Glow |
+
+[Official Basic Form source](https://wiki.aniimo.com/item/077/basic-form), checked October 27, 2026. Attribute totals are not a measured healing score; the HP attribute is not enough to calculate a combat heal.
+
+## Who does Lightning Discharge heal?
+
+Lightning Discharge is a channeled beam. The source specifies **Lightning-type teammates within range**, healed for **2% HP each second**. Its listed cost/power is **10/20**; the description does not establish whether that cost is a one-time or repeated channel expense.
+
+<Image src={diagram} alt="Original Bulbly checklist: healing requires a Lightning-type teammate in range and a maintained channel; the retreat clone is not verified as a universal healer." loading="lazy" />
+
+Use three checks when diagnosing a missing heal: does the recipient meet the element condition, are they still in range, and is the channel actually continuing? This is a troubleshooting sequence, not a claim that any one check guarantees a successful cast. No numeric range is published here.
+
+For a related support reference, compare [Luminelle](/characters/luminelle/), especially its separately described healing targets. Do not transfer a broader target rule from one named skill to another. The [type reference](/characters/official-aniimo-types/) separates element labels from combat roles.
+
+## Does Swift Retreat make the clone a team healer?
+
+The official text describes a backward retreat and a clone that attacks using Lightning Discharge, slowing targets by **15% for 10 seconds**; cost/power is **20/53**. It does not explicitly state that the clone inherits every support effect or heals every element.
+
+Record the player-controlled cast and clone behavior separately if testing them. A shared skill name is a reason to investigate, not proof that both implementations share targeting, equipment, healing or duration rules. There is no tested clone build on this page.
+
+## Why is no Arc Surge percentage recommended here?
+
+The source's Arc Surge line prints **12%%**, with a duplicated percent sign. It ties a Lightning-damage benefit to teammates receiving a skill buff and gives a 20-second duration. We preserve that uncertainty instead of silently converting the malformed field into a verified build multiplier.
+
+The issue affects confidence in the number, not the creature's identity. Check the current in-game wording before relying on that percentage. Our [verification notes](/characters/verification-notes/) explain how published text differs from independently checked behavior.
+
+## What should you compare before investing?
+
+Start with the [role comparison](/tier-list/getting-started/) to identify the missing function. Then use the [single-upgrade worksheet](/tier-list/how-to-read-rankings/) to compare one support under the same conditions. For a contrasting support purpose, [Cozite](/characters/cozite/) offers a resistance debuff and targeting obstruction rather than a documented heal.
+
+Tideblossom Coast is a regional label, not a spawn coordinate or catch probability. Glow illuminates the surroundings; neither description supplies a capture route. Use [map research notes](/maps/region-research/) for location evidence. This original diagram is a source-based explanation, not official artwork or gameplay footage.
