@@ -1,17 +1,33 @@
 ---
-title: "Piopiota 图鉴：官方编号 No.051"
-description: "整理官方 Aniimo Wiki 中 Piopiota 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Piopiota Surge 治疗与水洼准备"
+description: "Surge 给全队治疗，基础量按 Piopiota 最大生命值的 4% 计算。十米内有水环境时可吸收水洼，单次最多四个。可以先用 Surf 造水洼，再记录实际吸收数和治疗量。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Piopiota"]
-summary: "Piopiota 是官方编号 No.051 的暗水属性 Support Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-support-decision.png'
+tags: ["图鉴","Characters","Piopiota"]
+summary: "Surge 给全队治疗，基础量按 Piopiota 最大生命值的 4% 计算。十米内有水环境时可吸收水洼，单次最多四个。可以先用 Surf 造水洼，再记录实际吸收数和治疗量。"
 ---
-## 基本资料
 
-Piopiota 是官方编号 No.051 的 Aniimo。官方索引将其标记为暗水属性 Support，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-support-decision.png';
 
-## 官方来源
+## 怎样核对 Surge 的治疗量？
 
-- [Piopiota 官方图鉴](https://wiki.aniimo.com/item/051/nighttime-form)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+Surge 给全队治疗，基础量按 Piopiota 最大生命值的 4% 计算。十米内有水环境时可吸收水洼，单次最多四个。可以先用 Surf 造水洼，再记录实际吸收数和治疗量。
+
+先远离水环境施放一次。以最大生命值 2,500 为例，基础治疗量是 100，其他效果另算。再用 Surf（消耗 20、威力 50）造四个水洼，保持受治疗者缺失生命值相近，分别比较吸收不同数量水洼的结果。
+
+Surge 标注消耗 20、威力 72。官方用「每个吸收的水洼使治疗翻倍」描述强化。安排培养前，先用单水洼和多水洼结果确认叠加方式。Dark Tide 也会检查水环境，但增加的是 BREAK 伤害减免层数，建议与治疗分开记录。
+
+<Image src={diagram} alt="Piopiota 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 051 | Water Support | 522 | 102 | 50 | 108 | 75 | 99 | 88 |
+
+相关攻略: [Panpanta](/zh/characters/panpanta/), [Little Fire Spirit](/zh/characters/little-fire-spirit/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/051/basic-form).

@@ -1,17 +1,33 @@
 ---
-title: "Piopiota Compendium Entry: Official No.051"
-description: "A source-checked Piopiota entry with official identity, role, attributes, and reference links from the Aniimo Wiki."
+title: "Aniimo Piopiota Surge Healing & Puddle Setup"
+description: "Surge heals the entire team from a baseline of 4% of Piopiota's maximum HP."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Piopiota"]
-summary: "Piopiota is official Aniimo No.051, documented with its official element, role, and source reference."
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-support-decision.png'
+tags: ["Compendium","Characters","Piopiota"]
+summary: "Surge heals the entire team from a baseline of 4% of Piopiota's maximum HP. Water within ten meters enables puddle absorption, with up to four puddles for one cast. Set up puddles with Surf and record the number absorbed when comparing heal amounts."
 ---
-## Basic information
 
-Piopiota is official Aniimo No.051. The official index identifies this entry as a 暗水属性 Support Aniimo. This page records the verified identity and links readers to the official source for complete form and skill data.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-support-decision.png';
 
-## Official sources
+## How do you check Surge's healing?
 
-- [Official Piopiota entry](https://wiki.aniimo.com/item/051/nighttime-form)
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
+Surge heals the entire team from a baseline of 4% of Piopiota's maximum HP. Water within ten meters enables puddle absorption, with up to four puddles for one cast. Set up puddles with Surf and record the number absorbed when comparing heal amounts.
+
+Start with a cast away from water. For example, 2,500 maximum HP gives a baseline of 100 healing before other effects. Then create puddles with Surf (cost 20, power 50, four puddles) and compare casts with the same missing HP and different numbers of puddles absorbed.
+
+Surge costs 20 and lists power 72. The source describes doubling per absorbed puddle. Measure the one-puddle and multi-puddle outcomes before using a stacking formula for planning. Dark Tide has its own water check and adds stacks of BREAK damage reduction. Record the healing and mitigation casts separately.
+
+<Image src={diagram} alt="Comparison of trigger conditions for Piopiota's skill group" loading="lazy" />
+
+Basic Form attributes
+
+| No. | Role | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 051 | Water Support | 522 | 102 | 50 | 108 | 75 | 99 | 88 |
+
+Related guides: [Panpanta](/characters/panpanta/), [Little Fire Spirit](/characters/little-fire-spirit/), [role comparison](/tier-list/getting-started/).
+
+Source checked 2026-11-10. [Official Basic Form](https://wiki.aniimo.com/item/051/basic-form).

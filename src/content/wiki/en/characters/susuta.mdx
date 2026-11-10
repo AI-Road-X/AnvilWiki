@@ -1,17 +1,33 @@
 ---
-title: "Susuta Compendium Entry: Official No.049"
-description: "A source-checked Susuta entry with official identity, role, attributes, and reference links from the Aniimo Wiki."
+title: "Aniimo Susuta Appeal Trigger & Water Cannon"
+description: "Appeal checks your party when Susuta enters battle."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Susuta"]
-summary: "Susuta is official Aniimo No.049, documented with its official element, role, and source reference."
+lastModified: 2026-11-10
+image: '../../../../assets/covers/appeal-decision.png'
+tags: ["Compendium","Characters","Susuta"]
+summary: "Appeal checks your party when Susuta enters battle. An opposite-sex member of the Susuta family activates a 30% increase to Susuta's BREAK efficiency for 15 seconds, subject to a 20-second cooldown. Check the entry event and the party member before comparing results."
 ---
-## Basic information
 
-Susuta is official Aniimo No.049. The official index identifies this entry as a 水属性 BREAK Aniimo. This page records the verified identity and links readers to the official source for complete form and skill data.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/appeal-decision.png';
 
-## Official sources
+## Why didn't Appeal activate?
 
-- [Official Susuta entry](https://wiki.aniimo.com/item/10003112)
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
+Appeal checks your party when Susuta enters battle. An opposite-sex member of the Susuta family activates a 30% increase to Susuta's BREAK efficiency for 15 seconds, subject to a 20-second cooldown. Check the entry event and the party member before comparing results.
+
+Check the family and sex of the other party member first. Then check when Susuta entered and whether the 20-second cooldown had elapsed. In a clean comparison, record the buff and the effect on the same enemy's break gauge under each party setup.
+
+Water Cannon (cost 20, power 65) creates a puddle and deals area damage. Water Dash (20, 74) knocks the target back. Use the cannon when you want to leave a puddle at the target, or the dash when moving the target helps. The official habitat is Echoback Landing and the listed pathfinding ability is Swim Lv.1.
+
+<Image src={diagram} alt="Comparison of trigger conditions for Susuta's skill group" loading="lazy" />
+
+Basic Form attributes
+
+| No. | Role | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 049 | Water BREAK | 411 | 81 | 72 | 61 | 80 | 53 | 64 |
+
+Related guides: [Popota](/characters/popota/), [Panpanta](/characters/panpanta/), [role comparison](/tier-list/getting-started/).
+
+Source checked 2026-11-10. [Official Basic Form](https://wiki.aniimo.com/item/049/basic-form).

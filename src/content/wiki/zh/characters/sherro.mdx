@@ -1,17 +1,33 @@
 ---
-title: "Sherro 图鉴：官方编号 No.055"
-description: "整理官方 Aniimo Wiki 中 Sherro 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Sherro 流水三斩与 Tidal Heart"
+description: "Flowing Water Slash 的三段全中才会触发追加斩击。附近有水时还有独立的水刃强化。Sherro 基础形态在水地形或吸水后，Tidal Heart 提供 25% Water Elemental Boost，持续 20 秒。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Sherro"]
-summary: "Sherro 是官方编号 No.055 的圣水属性 DPS Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-dps-decision.png'
+tags: ["图鉴","Characters","Sherro"]
+summary: "Flowing Water Slash 的三段全中才会触发追加斩击。附近有水时还有独立的水刃强化。Sherro 基础形态在水地形或吸水后，Tidal Heart 提供 25% Water Elemental Boost，持续 20 秒。"
 ---
-## 基本资料
 
-Sherro 是官方编号 No.055 的 Aniimo。官方索引将其标记为圣水属性 DPS，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-dps-decision.png';
 
-## 官方来源
+## 怎样区分斩击的两种触发？
 
-- [Sherro 官方图鉴](https://wiki.aniimo.com/item/10002883)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+Flowing Water Slash 的三段全中才会触发追加斩击。附近有水时还有独立的水刃强化。Sherro 基础形态在水地形或吸水后，Tidal Heart 提供 25% Water Elemental Boost，持续 20 秒。
+
+先在远离水环境的位置对固定目标确认三段全中，再保持装备一致，在近水时重复。Flowing Water Slash（消耗 20、威力 70）全中触发追加斩击，水刃强化另外列出 30% Might 的额外伤害。
+
+Sherro 的 Tidal Heart 持续 20 秒，Shelly 的是十秒，且 Sherro 的来源用 Water Elemental Boost 标记。基础页也展示了其他形态的砸击技能，有些数值栏仍是占位符。比较这些变体的伤害前，先确认形态和游戏内说明。
+
+<Image src={diagram} alt="Sherro 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 055 | Water DPS | 509 | 100 | 50 | 121 | 75 | 75 | 88 |
+
+相关攻略: [Shelly](/zh/characters/shelly/), [Piopiota](/zh/characters/piopiota/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/055/basic-form).

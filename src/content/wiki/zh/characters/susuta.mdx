@@ -1,17 +1,33 @@
 ---
-title: "Susuta 图鉴：官方编号 No.049"
-description: "整理官方 Aniimo Wiki 中 Susuta 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Susuta Appeal 触发与水炮"
+description: "Susuta 入场时，队伍中有异性的 Susuta 家族成员，才会触发 Appeal。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Susuta"]
-summary: "Susuta 是官方编号 No.049 的水属性 BREAK Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/appeal-decision.png'
+tags: ["图鉴","Characters","Susuta"]
+summary: "Susuta 入场时，队伍中有异性的 Susuta 家族成员，才会触发 Appeal。效果为自身 BREAK 效率提高 30%，持续 15 秒，冷却 20 秒。排查时分别记录入场时点和队伍成员。"
 ---
-## 基本资料
 
-Susuta 是官方编号 No.049 的 Aniimo。官方索引将其标记为水属性 BREAK，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/appeal-decision.png';
 
-## 官方来源
+## 为什么 Appeal 没触发？
 
-- [Susuta 官方图鉴](https://wiki.aniimo.com/item/10003112)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+Susuta 入场时，队伍中有异性的 Susuta 家族成员，才会触发 Appeal。效果为自身 BREAK 效率提高 30%，持续 15 秒，冷却 20 秒。排查时分别记录入场时点和队伍成员。
+
+先核对另一位队友的家族和性别，再看 Susuta 何时入场、20 秒冷却是否结束。想比较触发前后的差异，可以固定敌人和攻击动作，分别记录增益图标和破防条变化。
+
+Water Cannon（消耗 20、威力 65）造成范围伤害并留下水洼。Water Dash（20、74）会击退。需要在目标处留下水洼时选前者，需要改变目标位置时选后者。官方栖息地为 Echoback Landing，寻路能力为 Swim Lv.1。
+
+<Image src={diagram} alt="Susuta 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 049 | Water BREAK | 411 | 81 | 72 | 61 | 80 | 53 | 64 |
+
+相关攻略: [Popota](/zh/characters/popota/), [Panpanta](/zh/characters/panpanta/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/049/basic-form).

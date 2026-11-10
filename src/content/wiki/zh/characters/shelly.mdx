@@ -1,17 +1,33 @@
 ---
-title: "Shelly 图鉴：官方编号 No.053"
-description: "整理官方 Aniimo Wiki 中 Shelly 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Shelly Tidal Heart 与水洼命中"
+description: "处在水地形或吸水后，Shelly 的 Tidal Heart 生效十秒。Hydro Roll 在结束时留下水洼，体力回复最多每三秒一次。想让 Torrent Slam 触发水洼效果，要让命中范围覆盖水洼。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Shelly"]
-summary: "Shelly 是官方编号 No.053 的水属性 DPS Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-dps-decision.png'
+tags: ["图鉴","Characters","Shelly"]
+summary: "处在水地形或吸水后，Shelly 的 Tidal Heart 生效十秒。Hydro Roll 在结束时留下水洼，体力回复最多每三秒一次。想让 Torrent Slam 触发水洼效果，要让命中范围覆盖水洼。"
 ---
-## 基本资料
 
-Shelly 是官方编号 No.053 的 Aniimo。官方索引将其标记为水属性 DPS，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-dps-decision.png';
 
-## 官方来源
+## Hydro Roll 应该在哪里结束？
 
-- [Shelly 官方图鉴](https://wiki.aniimo.com/item/053/basic-form)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+处在水地形或吸水后，Shelly 的 Tidal Heart 生效十秒。Hydro Roll 在结束时留下水洼，体力回复最多每三秒一次。想让 Torrent Slam 触发水洼效果，要让命中范围覆盖水洼。
+
+在准备交战的位置附近结束滚动，这样 Torrent Slam（消耗 20、威力 47）的命中范围更容易覆盖水洼。官方记载水洼伤害为原始 Might 的 30%，并列出 15% 的 Damage Amp，持续 20 秒。没看到追加效果时，先检查水洼位置。
+
+Tidal Heart 满足水环境条件后，水伤提高 20%，持续十秒。它与 Torrent Slam 的 Damage Amp 分开记录。Hydro Roll（20、83）滚动期间仍耗体力，可利用回复间隔规划短距离滚动，给重新走位留余量。
+
+<Image src={diagram} alt="Shelly 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 053 | Water DPS | 382 | 75 | 39 | 90 | 56 | 56 | 66 |
+
+相关攻略: [Sherro](/zh/characters/sherro/), [Piopiota](/zh/characters/piopiota/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/053/basic-form).

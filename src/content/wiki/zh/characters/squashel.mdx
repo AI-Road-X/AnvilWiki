@@ -1,17 +1,33 @@
 ---
-title: "Squashel 图鉴：官方编号 No.048"
-description: "整理官方 Aniimo Wiki 中 Squashel 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Squashel 连拳与松果标记"
+description: "松果炸弹挂标后，让 Blazing Fist Barrage 命中并消耗标记，下一次普攻就会变为 Punch Rush。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Squashel"]
-summary: "Squashel 是官方编号 No.048 的火属性 BREAK Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/pinecone-decision.png'
+tags: ["图鉴","Characters","Squashel"]
+summary: "松果炸弹挂标后，让 Blazing Fist Barrage 命中并消耗标记，下一次普攻就会变为 Punch Rush。重尾击也会消耗标记，想连续触发两种效果时，要为第二种效果重新挂标。"
 ---
-## 基本资料
 
-Squashel 是官方编号 No.048 的 Aniimo。官方索引将其标记为火属性 BREAK，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/pinecone-decision.png';
 
-## 官方来源
+## 怎样打出 Punch Rush？
 
-- [Squashel 官方图鉴](https://wiki.aniimo.com/item/048/basic-form)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+松果炸弹挂标后，让 Blazing Fist Barrage 命中并消耗标记，下一次普攻就会变为 Punch Rush。重尾击也会消耗标记，想连续触发两种效果时，要为第二种效果重新挂标。
+
+Blazing Fist Barrage 标注消耗 30、威力 85。命中带标记的目标后，下一次普攻变成 Punch Rush，官方说明连拳造成 60 Might 的伤害。技能威力和后续普攻的 Might 对应两次不同动作。
+
+要连拳就把标记留给 Barrage。需要击飞和眩晕时，选重尾击。两招都会消耗标记。Squarrel 的基础 HP 和 BREAK 是 53、94，Squashel 是 110、108，攀爬等级也从 Lv.1 变为 Lv.2。
+
+<Image src={diagram} alt="Squashel 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 048 | Fire BREAK | 548 | 110 | 108 | 82 | 80 | 80 | 88 |
+
+相关攻略: [Squarrel](/zh/characters/squarrel/), [Magmarex](/zh/characters/magmarex/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/048/basic-form).
