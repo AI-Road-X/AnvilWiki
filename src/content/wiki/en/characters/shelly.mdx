@@ -1,17 +1,33 @@
 ---
-title: "Shelly Compendium Entry: Official No.053"
-description: "A source-checked Shelly entry with official identity, role, attributes, and reference links from the Aniimo Wiki."
+title: "Aniimo Shelly Tidal Heart & Puddle Hits"
+description: "Water terrain or absorbing water activates Shelly's Tidal Heart for ten seconds."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Shelly"]
-summary: "Shelly is official Aniimo No.053, documented with its official element, role, and source reference."
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-dps-decision.png'
+tags: ["Compendium","Characters","Shelly"]
+summary: "Water terrain or absorbing water activates Shelly's Tidal Heart for ten seconds. Hydro Roll leaves a puddle at the end and can restore stamina at most once every three seconds. For Torrent Slam, place the target where the attack area overlaps a puddle."
 ---
-## Basic information
 
-Shelly is official Aniimo No.053. The official index identifies this entry as a 水属性 DPS Aniimo. This page records the verified identity and links readers to the official source for complete form and skill data.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-dps-decision.png';
 
-## Official sources
+## Where should you end Hydro Roll?
 
-- [Official Shelly entry](https://wiki.aniimo.com/item/053/basic-form)
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
+Water terrain or absorbing water activates Shelly's Tidal Heart for ten seconds. Hydro Roll leaves a puddle at the end and can restore stamina at most once every three seconds. For Torrent Slam, place the target where the attack area overlaps a puddle.
+
+End near the intended fight area so you can aim Torrent Slam (cost 20, power 47) to overlap the puddle with the hit area. The source gives 30% of original Might for the puddle damage and lists 15% Damage Amp for 20 seconds. Check the puddle position if the extra effect is missing.
+
+Tidal Heart gives 20% Water damage for ten seconds under its water condition. Record that buff separately from Torrent Slam's Damage Amp. Hydro Roll (20, 83) still drains stamina while rolling. Its listed recovery interval helps you plan a short roll and leave a reserve for repositioning.
+
+<Image src={diagram} alt="Comparison of trigger conditions for Shelly's skill group" loading="lazy" />
+
+Basic Form attributes
+
+| No. | Role | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 053 | Water DPS | 382 | 75 | 39 | 90 | 56 | 56 | 66 |
+
+Related guides: [Sherro](/characters/sherro/), [Piopiota](/characters/piopiota/), [role comparison](/tier-list/getting-started/).
+
+Source checked 2026-11-10. [Official Basic Form](https://wiki.aniimo.com/item/053/basic-form).

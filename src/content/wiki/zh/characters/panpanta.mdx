@@ -1,17 +1,33 @@
 ---
-title: "Panpanta 图鉴：官方编号 No.052"
-description: "整理官方 Aniimo Wiki 中 Panpanta 的编号、属性、定位与官方来源资料，方便查阅和后续更新。"
+title: "Aniimo Panpanta Hydro Roll 与 Splash Shield"
+description: "Hydro Roll 在水环境附近施放时可获得 30% BREAK 效率，持续 15 秒。"
 category: "characters"
 date: 2026-09-28
-tags: ["图鉴", "Characters", "Panpanta"]
-summary: "Panpanta 是官方编号 No.052 的暗水属性 Support Aniimo，本页整理官方身份与来源信息。"
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-support-decision.png'
+tags: ["图鉴","Characters","Panpanta"]
+summary: "Hydro Roll 在水环境附近施放时可获得 30% BREAK 效率，持续 15 秒。Splash Shield 提供相当于最大生命值 11% 的护盾，持续 15 秒，技能命中的追加伤害触发间隔为 0.5 秒。"
 ---
-## 基本资料
 
-Panpanta 是官方编号 No.052 的 Aniimo。官方索引将其标记为暗水属性 Support，本页记录已核对的编号、属性、定位和官方来源，完整形态与技能请以官方页面为准。
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-support-decision.png';
 
-## 官方来源
+## 怎样安排滚动和护盾的时机？
 
-- [Panpanta 官方图鉴](https://wiki.aniimo.com/item/052/basic-form)
-- [官方 Aniimo 图鉴总览](https://wiki.aniimo.com/)
-- [角色图鉴总览](/zh/characters/official-aniimo-types/)
+Hydro Roll 在水环境附近施放时可获得 30% BREAK 效率，持续 15 秒。Splash Shield 提供相当于最大生命值 11% 的护盾，持续 15 秒，技能命中的追加伤害触发间隔为 0.5 秒。
+
+Hydro Roll（消耗 30、威力 18）滚动时耗体力。先确认起手处有没有水环境，以及接下来要留多少体力。Splash Shield（20、30）有独立的护盾窗口。以最大生命值 3,000 为例，11% 对应 330 点护盾量，其他效果另算。
+
+命中间隔短于 0.5 秒时，观察实际出现了几次追加伤害。Appeal 还有独立的队伍和入场条件。可以先固定队伍，对比干地和近水施放 Hydro Roll，再加入护盾测试命中间隔。
+
+<Image src={diagram} alt="Panpanta 所属机制组的条件对照图" loading="lazy" />
+
+基础形态属性
+
+| No. | 定位 | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 052 | Water BREAK | 545 | 104 | 100 | 85 | 106 | 70 | 80 |
+
+相关攻略: [Piopiota](/zh/characters/piopiota/), [Susuta](/zh/characters/susuta/), [角色用途比较](/zh/tier-list/getting-started/).
+
+资料核对 2026-11-10. [官方基础形态](https://wiki.aniimo.com/item/052/basic-form).

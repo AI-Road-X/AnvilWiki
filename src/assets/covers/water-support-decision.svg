@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+<rect width="1200" height="675" fill="#101b2a"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="52" y="61" fill="#89d9ca" font-size="21" letter-spacing="3">PIOPIOTA / PANPANTA</text>
+<text x="52" y="140" fill="#fff" font-size="51" font-weight="700">Puddle and shield checks</text>
+<rect x="52" y="213" width="352" height="247" rx="18" fill="#20384a"/>
+<text x="72" y="263" fill="#89d9ca" font-size="22" font-weight="700">01</text>
+<text x="72" y="327" fill="#fff" font-size="25" font-weight="700">Piopiota: Surf</text>
+<text x="72" y="374" fill="#dde7f4" font-size="21">Create four puddles</text>
+<rect x="424" y="213" width="352" height="247" rx="18" fill="#20384a"/>
+<text x="444" y="263" fill="#89d9ca" font-size="22" font-weight="700">02</text>
+<text x="444" y="327" fill="#fff" font-size="25" font-weight="700">Piopiota: Surge</text>
+<text x="444" y="374" fill="#dde7f4" font-size="21">Check water within 10 m</text>
+<rect x="796" y="213" width="352" height="247" rx="18" fill="#20384a"/>
+<text x="816" y="263" fill="#89d9ca" font-size="22" font-weight="700">03</text>
+<text x="816" y="327" fill="#fff" font-size="25" font-weight="700">Panpanta: Splash Shield</text>
+<text x="816" y="374" fill="#dde7f4" font-size="21">11% max HP / 15 seconds</text>
+<path d="M52 543H1148" stroke="#405871"/>
+<text x="52" y="595" fill="#b9c8d9" font-size="20">ANIIMO GUIDES / BASIC FORM REFERENCE / CHECKED 2026-11-10</text>
+</g>
+</svg>

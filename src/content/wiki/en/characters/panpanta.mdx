@@ -1,17 +1,33 @@
 ---
-title: "Panpanta Compendium Entry: Official No.052"
-description: "A source-checked Panpanta entry with official identity, role, attributes, and reference links from the Aniimo Wiki."
+title: "Aniimo Panpanta Hydro Roll & Splash Shield"
+description: "Cast Hydro Roll near water to trigger its 30% BREAK efficiency bonus for 15 seconds."
 category: "characters"
 date: 2026-09-28
-tags: ["Compendium", "Characters", "Panpanta"]
-summary: "Panpanta is official Aniimo No.052, documented with its official element, role, and source reference."
+lastModified: 2026-11-10
+image: '../../../../assets/covers/water-support-decision.png'
+tags: ["Compendium","Characters","Panpanta"]
+summary: "Cast Hydro Roll near water to trigger its 30% BREAK efficiency bonus for 15 seconds. Splash Shield gives an 11% max-HP shield for 15 seconds and lets skill hits trigger extra skill damage at 0.5-second intervals. Track the two windows separately during a fight."
 ---
-## Basic information
 
-Panpanta is official Aniimo No.052. The official index identifies this entry as a 暗水属性 Support Aniimo. This page records the verified identity and links readers to the official source for complete form and skill data.
+import { Image } from 'astro:assets';
+import diagram from '../../../../assets/covers/water-support-decision.png';
 
-## Official sources
+## How do you time the roll and shield?
 
-- [Official Panpanta entry](https://wiki.aniimo.com/item/052/basic-form)
-- [Official Aniimo index](https://wiki.aniimo.com/)
-- [Character compendium overview](/characters/official-aniimo-types/)
+Cast Hydro Roll near water to trigger its 30% BREAK efficiency bonus for 15 seconds. Splash Shield gives an 11% max-HP shield for 15 seconds and lets skill hits trigger extra skill damage at 0.5-second intervals. Track the two windows separately during a fight.
+
+Hydro Roll (cost 30, power 18) spends stamina during movement. Check for the water bonus near the start of the roll, then plan how much stamina to reserve. Splash Shield (20, 30) starts a separate shield window. With 3,000 maximum HP, its listed 11% is 330 shield HP before other effects.
+
+If hits land closer together than 0.5 seconds, count the extra damage events instead of assuming an extra event on every hit. Appeal has a separate party and entry condition. Start by testing Hydro Roll away from and near water with the same party, then add Splash Shield to check its hit interval.
+
+<Image src={diagram} alt="Comparison of trigger conditions for Panpanta's skill group" loading="lazy" />
+
+Basic Form attributes
+
+| No. | Role | Total | HP | BREAK | ATK | M.DEF | P.DEF | REGEN |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 052 | Water BREAK | 545 | 104 | 100 | 85 | 106 | 70 | 80 |
+
+Related guides: [Piopiota](/characters/piopiota/), [Susuta](/characters/susuta/), [role comparison](/tier-list/getting-started/).
+
+Source checked 2026-11-10. [Official Basic Form](https://wiki.aniimo.com/item/052/basic-form).
