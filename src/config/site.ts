@@ -64,7 +64,7 @@ export interface SiteConfig {
 export const site: SiteConfig = {
   name: 'Aniimo Wiki',
   shortName: 'Aniimo Wiki',
-  description: 'Aniimo 中文 Wiki，整理附来源的 Aniimo 图鉴、新手指南、任务、地图与道具资料。',
+  description: 'Independent Aniimo guides in English and Chinese, with source-linked creature references, human character context, quests, maps, items and code status.',
   domain: 'aniimo-guides.com',
   tagline: 'Aniimo 中文攻略站：有来源的图鉴与指南',
   legalNotice: 'Aniimo Wiki 是玩家制作的非官方社区网站，与 Pawprint Studio 及 Aniimo 官方无隶属关系。',
@@ -79,7 +79,7 @@ export const site: SiteConfig = {
     platform: 'PC / Mobile / PS5 / Xbox',
     developer: 'Pawprint Studio',
     genre: '开放世界抓宠 RPG',
-    releaseDate: '2026-09-15',
+    releaseDate: '2026-09-16',
   },
   // og:image dims of the SHIPPED hero.webp — if you replace public/images/hero.webp,
   // update these in src/config/site.ts to match (wrong dims mis-crop share cards).
