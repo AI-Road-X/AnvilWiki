@@ -51,7 +51,12 @@ export const GET: APIRoute = async () => {
     '',
     `> ${site.description}`,
     '',
-    `Wiki for ${site.game.name} (${site.game.platform}, by ${site.game.developer}). Articles cover boss guides, tier lists, codes, items, and beginner tips.`,
+    `Wiki for ${site.game.name} (${site.game.platform}, by ${site.game.developer}). Each linked article provides its own sources and review context.`,
+    '',
+    '## Public reading formats',
+    '',
+    `- [Markdown catalogue](${siteUrl}/agent-content/index.md)`,
+    `- [JSON catalogue](${siteUrl}/api/agent/index.json)`,
     '',
     '## Articles',
     '',
@@ -62,7 +67,8 @@ export const GET: APIRoute = async () => {
     const slug = parsed?.slug ?? '';
     const url = `${siteUrl}${detailPath(e.data.category, slug, defaultLocale)}`;
     const summary = e.data.summary ?? e.data.description;
-    lines.push(`- [${escapeLinkText(e.data.title)}](${url}): ${oneLine(summary)}`);
+    const reviewed = (e.data.lastModified ?? e.data.date).toISOString().slice(0, 10);
+    lines.push(`- [${escapeLinkText(e.data.title)}](${url}): ${oneLine(summary)} Reviewed ${reviewed}.`);
   }
 
   // Handbook (project docs center, /landing/docs) — this is AnvilWiki-project

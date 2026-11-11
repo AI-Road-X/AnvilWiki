@@ -131,8 +131,8 @@
       "overviewDescription": "Start with practical Aniimo guides on launch rewards, platforms, exploration, and early progression. Check dates and official sources before acting on time-limited information."
     },
     "characters": {
-      "overviewTitle": "Aniimo Creature Compendium",
-      "overviewDescription": "Browse Aniimo creature entries by name or official compendium number, with documented traits and source links. This is not a complete list of human NPCs or a tested tier ranking.",
+      "overviewTitle": "Aniimo Characters and Human NPC Guide",
+      "overviewDescription": "Browse Aniimo creatures by official number, or read the human character guide for Dora, Dr. Lewis and quest context, with dated sources.",
       "numberIndexTitle": "Find an Aniimo by official number",
       "numberIndexDescription": "Open this list to jump to a published creature entry, such as No.079. These are Aniimo creatures, not human NPCs; missing numbers are not filled with guesses."
     },
@@ -263,9 +263,9 @@
       "intro": "This unofficial Aniimo Wiki helps you compare creature forms, understand published skills, and find quest and map references. Start with the character compendium for stats and roles, the guides for specific questions, or the code section for reported redemption status. Form comparisons explain concrete differences, such as Melloblum's Grass Basic Form and holy/Grass Prismana Form, without presenting untested rankings as fact. Official announcements and the current game client take precedence when details change.",
       "topics": [
         {
-          "title": "Find an Aniimo and compare its forms",
-          "body": "The character compendium is the best starting point when you know a creature's name, number, type, role, or form. Individual entries collect the details that are actually available in cited sources, such as listed attributes, habitats, mobility, traits, and skills. A creature may have more than one form, so check the form named on the page before comparing an ability or habitat. A reference entry is not automatically a competitive ranking: where the evidence does not support a conclusion about the strongest team, spawn rate, exact location, or best build, we leave that claim open instead of presenting a guess as fact.",
-          "linkLabel": "Browse the character compendium",
+          "title": "Find a creature or a human story character",
+          "body": "The character compendium is the best starting point when you know a creature's name, number, type, role, or form. Individual entries collect the details that are actually available in cited sources, such as listed attributes, habitats, mobility, traits, and skills. A creature may have more than one form, so check the form named on the page before comparing an ability or habitat. A reference entry is not automatically a competitive ranking: where the evidence does not support a conclusion about the strongest team, spawn rate, exact location, or best build, we leave that claim open instead of presenting a guess as fact. For human story names, the same library now includes a source-linked guide to Dora and Dr. Lewis. Use its quest context to match a speaker with the title and objective shown by your current client.",
+          "linkLabel": "Find human characters and numbered creatures",
           "href": "/characters"
         },
         {
