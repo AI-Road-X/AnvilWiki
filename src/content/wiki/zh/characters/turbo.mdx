@@ -1,14 +1,15 @@
 ---
-title: "Turbo 图鉴：官方编号 No.018"
-description: "整理官方 Aniimo Wiki 中 Turbo 的属性、栖息地、移动能力、特性和技能资料。"
+title: "Aniimo No.018 Turbo 迷雾层数、Cloud Shield 与形态指南"
+description: "核对 Turbo 的 Shrouded in Mist 蓄层、强化技能选择、Cloud Shield 自身护盾条件，以及基础与 Cloudmist 页面当前列出的 Fly Lv.1。"
 category: "characters"
 date: 2026-09-28
+image: "../../../../assets/covers/turbo-mist-choice.png"
 tags: ["图鉴", "角色", "Turbo", "风", "Support"]
-summary: "Turbo 是官方编号 No.018 的 Aniimo；基础形态为风属性 Support，拥有 Fly Lv.2 和 Shrouded in Mist 特性。"
-lastModified: 2026-10-04
+summary: "Turbo 是 No.018 风属性辅助。Shrouded in Mist 达到四层后强化下一次技能，普通攻击和公告文字中的离场条件可提供层数。消耗状态前先明确准备强化的技能；当前基础与 Cloudmist 页面均列出 Fly Lv.1。"
+lastModified: 2026-11-12
 ---
 
-## 基本资料
+## 本篇核对哪种 Turbo 形态？
 
 | 项目 | 官方资料 |
 | --- | --- |
@@ -21,24 +22,47 @@ lastModified: 2026-10-04
 | M.DEF / P.DEF / REGEN | 96 / 80 / 87 |
 | 栖息地 | Nimbus Fields |
 
-官方图鉴列出了 Basic、Rainstorm、Cloudmist、Prismana 和 Plateau Form。不同形态的属性组合可能不同，上表的属性仅对应基础形态。本页数值与技能概述依据[官方基础形态页面](https://wiki.aniimo.com/item/018/basic-form)。
+当前官方目录列出 Basic、Rainfall、Cloudmist、Prismana 和 Plateau 形态。上表采用[基础形态页面](https://wiki.aniimo.com/item/018/basic-form)；本次查看的 [Cloudmist 页面](https://wiki.aniimo.com/item/018/cloudmist-form)也列出 Wind、Support 与相同属性。比较技能前，先匹配自己生物的形态。
 
-## 移动能力、特性与技能
+## Shrouded in Mist 怎样积累层数？
 
-- **Fly Lv.2**：支持更高等级的飞行移动。
-- **Cloudwalk**：可以自由漂浮在云层之间。
-- **Shrouded in Mist**：使用 4 次普通攻击后进入该状态；施放技能会消耗状态并强化技能效果。
+- **Fly Lv.1** 是本次查看的两个页面当前列出的移动等级。
+- **Cloud Float** 是当前移动能力标签。
+- **Shrouded in Mist** 可由普通攻击或公开文字中的离场五秒条件获得一层，四层后进入状态，施放技能会消耗状态以强化效果。
+
+决定下一项技能前，先观察层数与状态指示。普通攻击是一种蓄层途径，离场文字则提供轮换队友时需要核对的另一项条件。准备消耗状态时，先明确接下来动作所需的效果。
 
 | 技能 | 类型 | 消耗 | 威力 |
 | --- | --- | ---: | ---: |
 | Nimbi Burst | Magic | 10 | 30 |
+| Nebula Burst | Magic | 10 | 30 |
 | Cloud Orb | Magic | 10 | 30 |
 | Thunder Bolt | Magic | 10 | 30 |
 | Cloud Shield | Support | 20 | 0 |
 | Collectible Drop | Support | 0 | 0 |
 | ATK | Magic | 0 | 6 |
 
-普通攻击四次后，下一次施放技能会消耗 **Shrouded in Mist**。因此要先决定强化哪种效果：Nimbi Burst 增强队友的伤害与 BREAK 效率；Cloud Orb、Thunder Bolt 的爆炸效果增强；Cloud Shield 的护盾与耐力消耗减免更强、持续更久。Collectible Drop 掉落七个可拾取物，每个恢复 6% HP。这里只转述官方技能文字，不代表经过实测的配队排名。跨形态对比请先看[资料核验说明](/zh/characters/verification-notes/)，也可浏览[全部角色页面](/zh/characters/)。
+## 怎样选择要强化的技能？
+
+围绕下一项任务选择。Nimbi Burst 用于队伍输出窗口，Nebula Burst 明确提到暗属性伤害，Cloud Shield 则保护 Turbo 自身。每种选择都会消耗已具备的状态，因此先将效果与准备执行的动作对应起来。
+
+| 技能选择 | 公布效果中的比较点 |
+| --- | --- |
+| Nimbi Burst | 队伍伤害与 BREAK 效率提高 15%，持续 20 秒；强化状态下增益提高到 30%，并扩展至附近友方。 |
+| Nebula Burst | 队伍暗伤提高 15%，持续 20 秒；强化时提高至 30%，并扩展至附近友方。 |
+| Cloud Orb | 强化命中在说明中为 180% Might。 |
+| Thunder Bolt | 强化命中在说明中为 120% Might，并施加五秒 Paralysis。 |
+| Cloud Shield | 比较下方的自身护盾与耐力条件。 |
+
+选择前读取当前已配置技能及效果接受者。[Luminelle 辅助指南](/zh/characters/luminelle/)也按目标优先的顺序核对另一种辅助技能组合。
+
+## 强化 Cloud Shield 有什么变化？
+
+公开说明中的护盾作用于 Turbo 自身。普通状态吸收上限为最大 HP 的 15%，耐力消耗减少 15%，持续 20 秒；Shrouded in Mist 下这两个数值均变为 18%，持续时间变为 30 秒。比较两种结果时，应记录施放前的状态指示。
+
+可重复核对的方法是先记下状态是否激活，再施放护盾，观察显示时长及下一动作的耐力消耗，每次只改变一项条件。若实际缺口是队伍生存，结合 [Panpanta 护盾参考](/zh/characters/panpanta/)核对接受者和生效条件后再分配职责。
+
+Collectible Drop 列出七个拾取物，每个被拾取时恢复 6% HP。检查恢复时把拾取步骤也记下。规划移动时，将 Fly Lv.1 与[区域参考](/zh/maps/official-region-names/)及当前目标显示的要求一起核对。
 
 ## 官方来源
 
@@ -46,3 +70,5 @@ lastModified: 2026-10-04
 - [Turbo Cloudmist 形态：官方图鉴](https://wiki.aniimo.com/item/018/cloudmist-form)
 - [官方 Aniimo 图鉴首页](https://wiki.aniimo.com/)
 - [官方 Aniimo 类型说明](/zh/characters/official-aniimo-types/)
+
+来源复查日期为 2026 年 11 月 12 日。本次修正此前的 Fly Lv.2、Cloudwalk 标签，并补全先前不完整的蓄层条件。检查顺序依据公开技能条件整理，封面为原创决策示意图。
